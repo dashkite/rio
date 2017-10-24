@@ -12,7 +12,7 @@ define "x-greeting",
 
   data: greeting: "Hello"
 
-  template: "<h1>#{greeting}, World!"
+  template: "<h1>#{greeting}, World!</h1>"
 
   events:
     h1: click: -> @data.greeting = "Goodbye"
