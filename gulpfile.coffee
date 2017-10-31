@@ -13,6 +13,7 @@ gulp.task "server", ->
   .pipe webserver
       livereload: true
       port: 8000
+      extensions: [ "html" ]
 
 gulp.task "clean", ->
   del "build"
@@ -46,10 +47,16 @@ gulp.task "js", ->
   .pipe coffee coffee: coffeescript
   .pipe gulp.dest "build"
 
+gulp.task "images", ->
+  gulp
+  .src [ "www/images/**/*" ]
+  .pipe gulp.dest "build/images"
+
+
 # watch doesn't take a task name for some reason
 # so we need to first define this as a function
 build = gulp.series "clean",
-  gulp.parallel "html", "css", "js", "components"
+  gulp.parallel "html", "css", "js", "images", "components"
 
 gulp.task "build", build
 

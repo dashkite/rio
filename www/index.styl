@@ -1,0 +1,83 @@
+//- fonts
+
+google-font(name)
+  "//fonts.googleapis.com/css?family="+replace(" ", "+", name)
+
+$heading = "Cabin"
+$copy = "Lora"
+$aux = "Titillium Web"
+
+@import url(google-font($copy))
+@import url(google-font($aux))
+@import url(google-font($heading))
+
+rhythm(rem, ratio)
+  line-height unit(rem, 'rem')
+  font-size unit(rem * ratio, 'rem')
+
+debug()
+  border 1px solid orange
+
+body
+  padding 1rem
+  padding-top 4rem
+  font-size 6.5px
+  font-family $copy
+  color #444
+  display flex
+  flex-flow row wrap
+  justify-content space-evenly
+
+h1, h2, h2, h3, h4, h5, label, figcaption
+  font-family $heading
+  letter-spacing 1.2
+
+h1
+  rhythm(rem: 5, ratio: 9/10)
+
+h2
+  rhythm(rem: 4, ratio: 9/10)
+
+header
+  margin-left 1rem
+  margin-right 2rem
+
+  img
+    height 8rem
+
+main
+  display flex
+  flex-flow column nowrap
+  flex grow 1 1 0
+  align-items center
+
+aside
+  font-family $aux
+
+footer
+  flex 1 1 100vw
+  border-top 1px solid silver
+  font-family $aux
+
+  p
+    rhythm(rem: 1, ratio: 9/10)
+
+section
+  padding 1rem
+  rhythm(rem: 2, ratio: 7/10)
+  max-width 60ch
+  min-width 20ch
+  width 100%
+
+  h1:first-child
+    margin-top 0
+
+  li
+    padding-bottom 1rem
+
+pre
+  margin 1rem
+  rhythm(rem: 1, ratio: 9/10)
+
+a
+  color: inherit

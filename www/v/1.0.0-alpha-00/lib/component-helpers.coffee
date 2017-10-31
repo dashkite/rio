@@ -4,6 +4,7 @@ import $ from "./dom-helpers.js"
 define = (name, description) ->
 
   class Component extends HTMLElement
+
     constructor: ->
       super()
 

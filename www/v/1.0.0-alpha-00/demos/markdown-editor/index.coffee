@@ -1,4 +1,4 @@
-import $ from "../lib/dom-helpers.js"
+import $ from "/v/1.0.0-alpha-00/lib/dom-helpers.js"
 
 $.ready ->
   $.on ($ "x-editor"),
