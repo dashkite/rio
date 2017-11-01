@@ -7,9 +7,33 @@ define = (name, description) ->
 
     constructor: ->
       super()
+      @attachShadow mode: "open"
+      @wrapData()
 
     connectedCallback: ->
-      @attachShadow mode: "open"
+      @bindEvents()
+      @render()
+      @importStyles()
+      # initial render
+      @ready?()
+
+    wrapData: ->
+      @data ?= {}
+      # quick pass in case there are any getters or setters
+      # TODO make this recursive/deep
+      # TODO make sure get/set are functions
+      # TODO use JSON schema to allow validation?
+      # TODO allow observe: false?
+      for key, value of @data
+        if value.get? || value.set?
+          Object.defineProperty @data, key, value
+      validator = set: (object, key, value) =>
+        object[key] = value
+        @render()
+        true
+      @data = new Proxy @data, validator
+
+    bindEvents: ->
       do (name=null) =>
         if @events?
           for selector, events of @events
@@ -22,24 +46,7 @@ define = (name, description) ->
                 @shadowRoot
                 .addEventListener name, g, true
 
-      if @data?
-        # quick pass in case there are any getters or setters
-        # TODO make this recursive
-        # TODO make sure get/set are functions
-        # TODO use JSON schema to allow validation?
-        # TODO allow observe: false?
-        for key, value of @data
-          if value.get? || value.set?
-            Object.defineProperty @data, key, value
-        validator = set: (object, key, value) =>
-          object[key] = value
-          @render()
-          true
-        @data = new Proxy @data, validator
-
-      # initial render
-      @render()
-
+    importStyles: ->
       # copy stylesheet from parent
       if (link = $ "link[rel='stylesheet']", @)
         @shadowRoot.appendChild link
@@ -47,11 +54,11 @@ define = (name, description) ->
         @shadowRoot.appendChild style
 
       # attach imports to document
+      # TODO: this should come after the render
       for sheet in @shadowRoot.styleSheets when sheet.rules?
         for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
+          # TODO: don't depend on a stylesheet already existing
           document.styleSheets[0].insertRule rule.cssText, 0
-
-      @ready?()
 
     render: ->
       if @template?

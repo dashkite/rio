@@ -1,4 +1,4 @@
-import {define} from "/v/1.0.0-alpha-00/lib/component-helpers.js"
+import {define} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
 do ->
