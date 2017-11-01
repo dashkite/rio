@@ -44,7 +44,12 @@ gulp.task "css", ->
 gulp.task "js", ->
   gulp
   .src "www/**/*.coffee", sourcemaps: true
-  .pipe coffee coffee: coffeescript
+  .pipe coffee
+    coffee: coffeescript
+    # TODO: can we replace WC polyfill with this?
+    # TODO: import w/o relying on bundle?
+    # transpile:
+    #   presets: [[ "env", targets: browsers: [ "last 2 versions" ]]]
   .pipe gulp.dest "build"
 
 gulp.task "images", ->
