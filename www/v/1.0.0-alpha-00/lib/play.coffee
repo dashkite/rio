@@ -47,7 +47,7 @@ define = (name, description) ->
                 .addEventListener name, g, true
 
     importStyles: ->
-      # copy stylesheet from parent
+      # copy styles into shadow DOM
       if (link = $ "link[rel='stylesheet']", @)
         @shadowRoot.appendChild link
       if (style = $ "style", @)
@@ -55,10 +55,12 @@ define = (name, description) ->
 
       # attach imports to document
       # TODO: this should come after the render
-      for sheet in @shadowRoot.styleSheets when sheet.rules?
-        for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
-          # TODO: don't depend on a stylesheet already existing
-          document.styleSheets[0].insertRule rule.cssText, 0
+      # TODO: what if this array is empty?
+      if @shadowRoot.styleSheets?
+        for sheet in @shadowRoot.styleSheets when sheet.rules?
+          for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
+            # TODO: don't depend on a stylesheet already existing
+            document.styleSheets[0].insertRule rule.cssText, 0
 
     render: ->
       if @template?
