@@ -46,10 +46,22 @@ gulp.task "js", ->
   .src "www/**/*.coffee", sourcemaps: true
   .pipe coffee
     coffee: coffeescript
-    # TODO: can we replace WC polyfill with this?
-    # TODO: import w/o relying on bundle?
-    # transpile:
-    #   presets: [[ "env", targets: browsers: [ "last 2 versions" ]]]
+    transpile:
+      # TODO: loosen browser target criteria as import gains support
+      presets: [
+        [
+          "env",
+            targets:
+              browsers: [
+                "last 2 Chrome versions"
+                "last 1 ChromeAndroid versions"
+                "last 1 Safari versions"
+                "last 1 iOS versions"
+                "last 1 Edge versions"
+              ]
+            modules: false
+          ]
+        ]
   .pipe gulp.dest "build"
 
 gulp.task "images", ->
