@@ -12,9 +12,14 @@ define = (name, description) ->
 
     connectedCallback: ->
       @bindEvents()
-      @render()
+
+      @main = document.createElement("main")
+      @shadowRoot.appendChild @main
       @importStyles()
+
       # initial render
+      @render()
+
       @ready?()
 
     wrapData: ->
@@ -47,24 +52,29 @@ define = (name, description) ->
                 .addEventListener name, g, true
 
     importStyles: ->
+
+      @hoistDocumentCSS()
+
       # copy styles into shadow DOM
       if (link = $ "link[rel='stylesheet']", @)
         @shadowRoot.appendChild link
       if (style = $ "style", @)
         @shadowRoot.appendChild style
 
-      # attach imports to document
-      # TODO: this should come after the render
-      # TODO: what if this array is empty?
-      if @shadowRoot.styleSheets?
-        for sheet in @shadowRoot.styleSheets when sheet.rules?
-          for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
-            # TODO: don't depend on a stylesheet already existing
-            document.styleSheets[0].insertRule rule.cssText, 0
+    # TODO: this should be more selective instead of all import rules
+    hoistDocumentCSS: ->
+      imports = []
+      styles = @.querySelectorAll "style"
+      for {sheet} in styles
+        for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
+          imports.push rule.cssText
+      if imports.length > 0
+        ($ "head").insertAdjacentHTML 'beforeend',
+          "<style type='text/css'>#{imports.join "\n"}</style>"
 
     render: ->
       if @template?
-        innerHTML @shadowRoot, @template @data
+        innerHTML @main, @template @data
 
     emit: (name) ->
       @dispatchEvent new Event name,
@@ -79,5 +89,6 @@ define = (name, description) ->
 
   customElements.define name, Component
 
+  Component
 
 export { define }
