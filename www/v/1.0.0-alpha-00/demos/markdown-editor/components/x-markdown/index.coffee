@@ -4,8 +4,7 @@ import {template} from "./template.js"
 do ->
 
   [createParser] = await require [
-    "https://cdnjs.cloudflare.com" +
-      "/ajax/libs/markdown-it/8.4.0/markdown-it.min.js"
+    "//cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.0/markdown-it.min.js"
   ]
 
   parser = createParser linkify: true
