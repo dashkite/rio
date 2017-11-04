@@ -1,4 +1,5 @@
 import $ from "./dom-helpers.js"
+
 benchmark = (description, f) ->
   start = performance.now()
   do f
@@ -22,20 +23,18 @@ define = (name, description) ->
       super()
       @attachShadow mode: "open"
       @wrapData()
+      @isReady = new Promise (@ready) =>
 
     connectedCallback: ->
       await loading
-
       @bindEvents()
-
-      @main = document.createElement("main")
-      @shadowRoot.appendChild @main
+      # I'm not sure why, but we need to add <main>
+      # before calling importStyles, otherwise
+      # the styles may be ignored
+      @addMain()
       @importStyles()
-
-      # initial render
+      @ready true
       @render()
-
-      @ready?()
 
     wrapData: ->
       @data ?= {}
@@ -49,6 +48,7 @@ define = (name, description) ->
           Object.defineProperty @data, key, value
       validator = set: (object, key, value) =>
         object[key] = value
+        @emit "change"
         @render()
         true
       @data = new Proxy @data, validator
@@ -76,20 +76,26 @@ define = (name, description) ->
               imports.push rule.cssText.replace re, ""
         if imports.length > 0
           el = document.createElement "style"
-          el.textContent = imports.join "\n"
+          el.textContent =  imports.join "\n"
           @shadowRoot.appendChild el
 
+    addMain: ->
+      @main = document.createElement("main")
+      @shadowRoot.appendChild @main
+
     render: ->
-      benchmark "Render #{name}", =>
-        if @template?
-          innerHTML @main, @template @data
+      if await @isReady
+        benchmark "Render #{name}", =>
+          if @template?
+            innerHTML @main, @template @data
 
     emit: (name) ->
-      @dispatchEvent new Event name,
-        bubbles: true
-        cancelable: false
-        # allow to bubble up from shadow DOM
-        composed: true
+      if await @isReady
+        @dispatchEvent new Event name,
+          bubbles: true
+          cancelable: false
+          # allow to bubble up from shadow DOM
+          composed: true
 
   for key, value of description
     Component.prototype[key] = value

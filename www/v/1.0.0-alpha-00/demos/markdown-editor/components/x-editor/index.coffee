@@ -12,4 +12,3 @@ define "x-editor",
     textarea:
       keyup: ({target}) ->
         @data.content = target.value
-        @emit "change"
