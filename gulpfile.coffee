@@ -47,17 +47,15 @@ gulp.task "js", ->
   .pipe coffee
     coffee: coffeescript
     transpile:
-      # TODO: loosen browser target criteria as import gains support
       presets: [
         [
           "env",
             targets:
               browsers: [
-                "last 2 Chrome versions"
-                "last 1 ChromeAndroid versions"
-                "last 1 Safari versions"
-                "last 1 iOS versions"
-                "last 1 Edge versions"
+                "Chrome >= 62"
+                "ChromeAndroid >= 61"
+                "Safari >= 10"
+                "iOS >= 10"
               ]
             modules: false
           ]
