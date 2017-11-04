@@ -24,6 +24,13 @@ html
     script(src="./components/x-markdown/index.js" type="module")
     
     script(src="./index.js" type="module")
+
+    style
+      include:stylus ./x-editor.styl
+    
+    style
+      include:stylus ./x-markdown.styl
+
         
 body
   h1 Blurb9
@@ -34,11 +41,7 @@ body
     div
       label Markdown
       x-editor
-        style
-          include:stylus ./x-editor.styl
 
     div
       label Preview
       x-markdown
-        style
-          include:stylus ./x-markdown.styl

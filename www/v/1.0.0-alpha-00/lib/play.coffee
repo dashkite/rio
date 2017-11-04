@@ -1,5 +1,10 @@
 import { innerHTML } from "https://diffhtml.org/es"
 import $ from "./dom-helpers.js"
+benchmark = (description, f) ->
+  start = performance.now()
+  do f
+  end = performance.now()
+  console.log "#{description}: #{end - start}ms"
 
 define = (name, description) ->
 
@@ -52,29 +57,22 @@ define = (name, description) ->
                 .addEventListener name, g, true
 
     importStyles: ->
-
-      @hoistDocumentCSS()
-
-      # copy styles into shadow DOM
-      if (link = $ "link[rel='stylesheet']", @)
-        @shadowRoot.appendChild link
-      if (style = $ "style", @)
-        @shadowRoot.appendChild style
-
-    # TODO: this should be more selective instead of all import rules
-    hoistDocumentCSS: ->
-      imports = []
-      styles = @.querySelectorAll "style"
-      for {sheet} in styles
-        for rule in sheet.rules when rule.type == CSSRule.IMPORT_RULE
-          imports.push rule.cssText
-      if imports.length > 0
-        ($ "head").insertAdjacentHTML 'beforeend',
-          "<style type='text/css'>#{imports.join "\n"}</style>"
+      benchmark "Import styles for #{name}", =>
+        re = ///#{name}\s+:host\s+///g
+        imports = []
+        for sheet in document.styleSheets when sheet.rules?
+          for rule in sheet.rules
+            if rule.cssText.match re
+              imports.push rule.cssText.replace re, ""
+        if imports.length > 0
+          el = document.createElement "style"
+          el.textContent = imports.join "\n"
+          @shadowRoot.appendChild el
 
     render: ->
-      if @template?
-        innerHTML @main, @template @data
+      benchmark "Render #{name}", =>
+        if @template?
+          innerHTML @main, @template @data
 
     emit: (name) ->
       @dispatchEvent new Event name,
@@ -82,7 +80,6 @@ define = (name, description) ->
         cancelable: false
         # allow to bubble up from shadow DOM
         composed: true
-
 
   for key, value of description
     Component.prototype[key] = value
