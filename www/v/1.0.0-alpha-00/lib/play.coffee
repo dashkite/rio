@@ -1,10 +1,18 @@
-import { innerHTML } from "https://diffhtml.org/es"
 import $ from "./dom-helpers.js"
 benchmark = (description, f) ->
   start = performance.now()
   do f
   end = performance.now()
   console.log "#{description}: #{end - start}ms"
+
+# provisionally define until module loads
+innerHTML = (el, html) -> el.innerHTML = html
+
+loading = do ->
+
+  [{innerHTML}] = await require [
+    "//diffhtml.org/master/diffhtml/dist/diffhtml.min.js"
+  ]
 
 define = (name, description) ->
 
@@ -16,6 +24,8 @@ define = (name, description) ->
       @wrapData()
 
     connectedCallback: ->
+      await loading
+
       @bindEvents()
 
       @main = document.createElement("main")
