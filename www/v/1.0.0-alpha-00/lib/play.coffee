@@ -38,11 +38,6 @@ define = (name, description) ->
 
     wrapData: ->
       @data ?= {}
-      # quick pass in case there are any getters or setters
-      # TODO make this recursive/deep
-      # TODO make sure get/set are functions
-      # TODO use JSON schema to allow validation?
-      # TODO allow observe: false?
       for key, value of @data
         if value.get? || value.set?
           Object.defineProperty @data, key, value
