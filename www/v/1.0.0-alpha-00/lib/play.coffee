@@ -15,6 +15,10 @@ loading = do ->
     "//diffhtml.org/master/diffhtml/dist/diffhtml.min.js"
   ]
 
+# TODO: Get these from fairmont
+wrap = (x) -> -> x
+once = (f) -> -> k = f() ; f = wrap k ; k
+
 define = (name, description) ->
 
   class Component extends HTMLElement
@@ -23,21 +27,28 @@ define = (name, description) ->
       super()
       @attachShadow mode: "open"
       @wrapData()
-      @isReady = new Promise (@ready) =>
+      @isReady = new Promise (@_ready) =>
+      @_alreadyInitialized = false
 
     connectedCallback: ->
+      console.log "[#{name}] comnnectedCallback"
       await loading
-      @bindEvents()
-      # I'm not sure why, but we need to add <main>
-      # before calling importStyles, otherwise
-      # the styles may be ignored
-      @addMain()
-      @importStyles()
-      @ready true
-      @render()
+      unless @_alreadyInitialized
+        console.log "[#{name}] comnnectedCallback: first run"
+        @_alreadyInitialized = true
+        @bindEvents()
+        # I'm not sure why, but we need to add <main>
+        # before calling importStyles, otherwise
+        # the styles may be ignored
+        @addMain()
+        @importStyles()
+        @_ready true
+        @ready?()
+        @render()
 
     wrapData: ->
       @data ?= {}
+      @data.$ = @
       for key, value of @data
         if value.get? || value.set?
           Object.defineProperty @data, key, value

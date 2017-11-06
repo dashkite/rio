@@ -21,15 +21,20 @@ html
     )
     
     script(src="./components/x-editor/index.js" type="module")
+    style
+      include:stylus ./x-editor.styl
+
     script(src="./components/x-markdown/index.js" type="module")
+    style
+      include:stylus ./x-markdown.styl
+
+    script(src="./components/x-tabs/index.js" type="module")
+    //- style
+    //-  include:stylus ./x-tabs.styl
     
     script(src="./index.js" type="module")
 
-    style
-      include:stylus ./x-editor.styl
     
-    style
-      include:stylus ./x-markdown.styl
 
         
 body
@@ -38,9 +43,10 @@ body
   p Tested in latest versions of Chrome and Safari. Does not work in Firefox.
   
   main
-    div
-      label Markdown
-      x-editor
-    div
-      label Preview
-      x-markdown
+    x-tabs
+      div(slot="editor")
+        label Markdown
+        x-editor
+      div(slot="preview")
+        label Preview
+        x-markdown
