@@ -7,3 +7,18 @@ main
   display flex
   flex-flow column
   flex 1 1 0
+
+ul
+  display flex
+  flex-flow row no-wrap
+  margin 0
+  padding 0
+
+  li
+    margin 0
+    padding 0
+    list-style none
+    flex 1 1 0
+
+    &:not(.selected) > :not(label)
+      display none

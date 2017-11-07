@@ -5,9 +5,11 @@ import {template} from "./template.js"
 define "x-tabs",
 
   data:
-    names:
+    tabs:
       get: ->
-        (child.getAttribute "slot") for child in @$.children
+        for child in @$.children
+          name: (child.getAttribute "slot")
+          label: (child.querySelector "label").textContent
 
 
   template: template
@@ -15,3 +17,6 @@ define "x-tabs",
   events:
     label:
       click: ({target}) ->
+
+  ready: ->
+    @data.selected = @data.tabs[0].name

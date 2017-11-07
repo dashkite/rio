@@ -23,7 +23,8 @@ body
 
     flex 1 1 0
 
-    & > div
+    & > x-tabs
+
       flex 1 1 0
       font-size 12pt
       margin-right 2rem
@@ -33,19 +34,25 @@ body
       display flex
       flex-flow column nowrap
 
-      & > label
-        display block
-        padding 0.5 0
-        font-family sans-serif
-        font-size 7pt
-        letter-spacing 1.2
-        color silver
-        text-transform uppercase
+      & > div[slot]
 
-      & > x-editor
+        display flex
+        flex-flow column nowrap
         flex 1 1 0
-        padding-top 2rem
 
-      & > x-markdown
-        flex 1 1 0
-        line-height 1.4
+        & > label
+          display block
+          padding 0.5 0
+          font-family sans-serif
+          font-size 7pt
+          letter-spacing 1.2
+          color silver
+          text-transform uppercase
+
+        & > x-editor
+          flex 1 1 0
+          padding-top 2rem
+
+        & > x-markdown
+          flex 1 1 0
+          line-height 1.4
