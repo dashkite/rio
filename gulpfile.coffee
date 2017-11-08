@@ -20,19 +20,8 @@ gulp.task "clean", ->
 
 gulp.task "html", ->
   gulp
-  .src [ "www/**/*.pug", "!www/**/components/**" ]
+  .src [ "www/**/*.pug" ]
   .pipe pug {}
-  .pipe gulp.dest "build"
-
-gulp.task "components", ->
-  gulp
-  .src [ "www/**/components/**/*.pug" ]
-  .pipe pug
-    client: true
-    filters:
-      coffee: (text, options) ->
-        coffeescript.compile text, bare: true
-  .pipe footer "export { template };"
   .pipe gulp.dest "build"
 
 gulp.task "css", ->
@@ -71,7 +60,7 @@ gulp.task "images", ->
 # watch doesn't take a task name for some reason
 # so we need to first define this as a function
 build = gulp.series "clean",
-  gulp.parallel "html", "css", "js", "images", "components"
+  gulp.parallel "html", "css", "js", "images"
 
 gulp.task "build", build
 

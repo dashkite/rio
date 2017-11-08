@@ -2,7 +2,7 @@ import $ from "./dom-helpers.js"
 
 benchmark = (description, f) ->
   start = performance.now()
-  do f
+  f()
   end = performance.now()
   console.log "#{description}: #{end - start}ms"
 
@@ -91,9 +91,11 @@ define = (name, description) ->
 
     render: ->
       if await @isReady
-        benchmark "Render #{name}", =>
-          if @template?
-            innerHTML @main, @template @data
+        # benchmark "Render #{name}", =>
+        if @template?
+          vtree = null
+          benchmark "Render vtree for #{name}", => vtree = @template @data
+          benchmark "Update DOM", => innerHTML @main, vtree
 
     emit: (name) ->
       if await @isReady
