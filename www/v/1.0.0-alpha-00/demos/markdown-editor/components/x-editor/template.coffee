@@ -1,6 +1,7 @@
 import HTML from "/v/1.0.0-alpha-00/lib/vhtml.js"
-{normalize, stylesheet, textarea} = HTML
+{stylesheet, textarea} = HTML
 
+import {normalize} from "../helpers.js"
 
 template = ({content}) ->
   [ normalize()

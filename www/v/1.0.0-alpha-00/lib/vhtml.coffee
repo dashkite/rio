@@ -21,10 +21,4 @@ HTML[tag] = el tag for tag in tags
 HTML.stylesheet = (url) ->
   HTML.link rel: "stylesheet", href: url
 
-
-HTML.normalize = ->
-  HTML.stylesheet "//cdnjs.cloudflare.com\
-                    /ajax/libs/normalize/7.0.0/normalize.min.css"
-
-
 export default HTML
