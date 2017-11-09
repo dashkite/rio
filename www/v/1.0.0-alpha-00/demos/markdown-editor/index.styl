@@ -31,28 +31,22 @@ body
       padding 1rem
       border 1px solid silver
 
-      display flex
-      flex-flow column nowrap
+      & > label
+        display block
+        padding 0.5 0
+        font-family sans-serif
+        font-size 7pt
+        letter-spacing 1.2
+        color silver
+        text-transform uppercase
 
-      & > div[slot]
+        &.selected
+          color gray
 
-        display flex
-        flex-flow column nowrap
+      & > x-editor
         flex 1 1 0
+        padding-top 2rem
 
-        & > label
-          display block
-          padding 0.5 0
-          font-family sans-serif
-          font-size 7pt
-          letter-spacing 1.2
-          color silver
-          text-transform uppercase
-
-        & > x-editor
-          flex 1 1 0
-          padding-top 2rem
-
-        & > x-markdown
-          flex 1 1 0
-          line-height 1.4
+      & > x-markdown
+        flex 1 1 0
+        line-height 1.4

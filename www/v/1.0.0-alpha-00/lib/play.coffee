@@ -43,8 +43,8 @@ define = (name, description) ->
         @addMain()
         @importStyles()
         @_ready true
+        await @render()
         @ready?()
-        @render()
 
     wrapData: ->
       @data ?= {}

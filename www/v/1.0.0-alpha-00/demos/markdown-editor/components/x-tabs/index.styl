@@ -2,6 +2,7 @@
   contain content
   display flex
   flex-flow column
+  flex 1 1 0
 
 main
   display flex
@@ -18,7 +19,14 @@ ul
     margin 0
     padding 0
     list-style none
-    flex 1 1 0
+    padding-right 1rem
 
-    &:not(.selected) > :not(label)
-      display none
+    *:last-of-type
+      padding-right none
+
+.tab
+  display none
+  flex 1 1 0
+
+  &.selected
+    display flex

@@ -44,9 +44,9 @@ body
   
   main
     x-tabs
-      div(slot="editor")
-        label Markdown
-        x-editor
-      div(slot="preview")
-        label Preview
-        x-markdown
+
+      label(slot="editor-label") Markdown
+      x-editor(slot="editor-content")          
+
+      label(slot="markdown-label") Preview
+      x-markdown(slot="markdown-content")
