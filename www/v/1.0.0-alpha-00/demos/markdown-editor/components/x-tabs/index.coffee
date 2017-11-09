@@ -1,63 +1,61 @@
 import {define} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
-nameFromLabel = (label) ->
-  (label.getAttribute "slot")?.replace "-label", ""
+Tabs =
+  create: (label) ->
+    # base tab object with helper methods
+    tab =
+      select: ->
+        for node in [ @dom.tab, @dom.label, @dom.content ]
+          node.classList.add "selected"
+      deselect: ->
+        for node in [ @dom.tab, @dom.label, @dom.content ]
+          node.classList.remove "selected"
+      dom:
+        query: (s) -> @component.querySelector s
+        label: label
+        slots:
+          query: (name) ->
+            tab.dom.main.querySelector "slot[name='#{name}']"
 
-contentSlotFromName = (root, name) ->
-  root.querySelector "slot[name='#{name}-content']"
+    # add getters using closure
+    Object.defineProperties tab,
+      name: get: -> (label.getAttribute "slot").replace "-label", ""
+      label: get: -> label.textContent
 
-contentFromName = (root, name) ->
-  root.querySelector "[slot='#{name}-content']"
+    # here we can use label directly as object property
+    Object.defineProperties tab.dom,
+      component: get: -> @label.parentNode
+      main: get: -> @component.main
+      content: get: -> @query "[slot='#{tab.name}-content']"
+      tab: get: -> @slots.content.parentNode
 
-contentSlotFromLabel = (root, label) ->
-  contentSlotFromName root, nameFromLabel label
+    Object.defineProperties tab.dom.slots,
+      label: get: -> @query "#{tab.name}-label"
+      content: get: -> @query "#{tab.name}-content"
 
-contentFromLabel = (root, label) ->
-  contentFromName root, nameFromLabel label
+    tab
 
-tabFromContentSlot = (node) -> node?.parentNode
+  getAll: (component) ->
+    for label in (component.querySelectorAll "label[slot]")
+      Tabs.create label
 
-tabFromLabel = (root, label) ->
-  tabFromContentSlot contentSlotFromLabel root, label
+  deselectAll: (component) ->
+    tab.deselect() for tab in Tabs.getAll component
 
-select = (node) -> node?.classList?.add? "selected"
-
-deselect = (node) -> node?.classList?.remove? "selected"
-
-getAllLabels = (root) -> root.querySelectorAll "label[slot]"
-
-getFirstLabel = (root) -> root.querySelector "label[slot]"
-
-createTabDescriptorFromLabel = (label) ->
-  name: nameFromLabel label
-  label: label.textContent
-
-getAllContentSlots = (root) ->
-  root.querySelectorAll "slot[name$='-content']"
+  select: (label) ->
+    (Tabs.create label).select()
 
 define "x-tabs",
 
-  data:
-    tabs:
-      get: ->
-        for label in (getAllLabels @$)
-          createTabDescriptorFromLabel label
+  data: tabs: get: -> Tabs.getAll @$
 
   template: template
 
   events:
     label:
       click: ({target}) ->
-        for label in (getAllLabels @)
-          deselect label
-          deselect tabFromLabel @main, label
-          deselect contentFromLabel @, label
-        select target
-        select tabFromLabel @main, target
-        select contentFromLabel @, target
+        Tabs.deselectAll @
+        Tabs.select target
 
-  ready: ->
-    select (label = getFirstLabel @)
-    select tabFromLabel @main, label
-    select contentFromLabel @, label
+  ready: -> (Tabs.getAll @)[0].select()
