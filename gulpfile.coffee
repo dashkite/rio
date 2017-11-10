@@ -43,8 +43,8 @@ gulp.task "js", ->
               browsers: [
                 "Chrome >= 62"
                 "ChromeAndroid >= 61"
-                "Safari >= 10"
-                "iOS >= 10"
+                "Safari >= 11"
+                "iOS >= 11"
               ]
             modules: false
           ]
