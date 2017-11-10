@@ -2,11 +2,13 @@ import $ from "/v/1.0.0-alpha-00/lib/dom-helpers.js"
 
 $.ready ->
 
+  console.log "document is ready"
+
   editor = ($ "x-editor")
   markdown = ($ "x-markdown")
 
   # TODO: how do we get rid of this?
-  await Promise.all [ editor.isReady, markdown.isReady ]
+  # await Promise.all [ editor.isReady, markdown.isReady ]
 
   $.on editor,
     change: ->

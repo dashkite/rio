@@ -10,5 +10,4 @@ define "x-editor",
 
   events:
     textarea:
-      keyup: ({target}) ->
-        @data.content = target.value
+      keyup: ({target}) -> @data.content = target.value
