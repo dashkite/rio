@@ -1,4 +1,4 @@
-import {define} from "/v/1.0.0-alpha-00/lib/play.js"
+import {Play} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
 parser = null
@@ -10,11 +10,15 @@ loading = do ->
 
   parser = createParser linkify: true
 
-define "x-markdown",
+class Markdown extends Play
 
-  data:
-    markdown: ""
+  schema:
+    markdown:
+      type: string
+      value: ""
+      proxy: true
     html:
+      type: string
       get: -> parser.render @markdown
 
   events:
@@ -23,4 +27,8 @@ define "x-markdown",
 
   template: template
 
-  beforeRender: -> await loading
+  render: ->
+    await loading
+    super.render()
+
+Markdown.register "x-markdown"

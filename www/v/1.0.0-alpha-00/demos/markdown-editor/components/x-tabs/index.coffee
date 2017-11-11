@@ -1,6 +1,7 @@
-import {define} from "/v/1.0.0-alpha-00/lib/play.js"
+import {Play} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
+# TODO: make these instance methods?
 Tabs =
   create: (label) ->
     # base tab object with helper methods
@@ -46,9 +47,12 @@ Tabs =
   select: (label) ->
     (Tabs.create label).select()
 
-define "x-tabs",
+class Gadget extends Play
 
-  data: tabs: get: -> Tabs.getAll @$
+  schema:
+    tabs:
+      type: array
+      get: -> Tabs.getAll @
 
   template: template
 
@@ -59,3 +63,5 @@ define "x-tabs",
         Tabs.select target
 
   ready: -> (Tabs.getAll @)[0].select()
+
+Gadget.register "x-tabs"

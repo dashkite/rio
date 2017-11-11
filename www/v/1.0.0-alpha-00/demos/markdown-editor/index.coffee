@@ -1,20 +1,15 @@
-import $ from "/v/1.0.0-alpha-00/lib/dom-helpers.js"
+import Play from "/v/1.0.0-alpha-00/lib/play.js"
 
-$.ready ->
+document.addEventListener "DOMContentLoaded", ->
 
   console.log "document is ready"
 
-  editor = ($ "x-editor")
-  markdown = ($ "x-markdown")
+  editor = (Play.select "x-editor")
+  markdown = (Play.select "x-markdown")
 
-  # TODO: how do we get rid of this?
-  # await Promise.all [ editor.isReady, markdown.isReady ]
+  editor.on change: -> markdown.value = @value
 
-  $.on editor,
-    change: ->
-      markdown.data.markdown = editor.data.content
-
-  editor.data.content = """
+  editor.value = """
     # Chapter 1
 
     It was a dark and stormy night.
