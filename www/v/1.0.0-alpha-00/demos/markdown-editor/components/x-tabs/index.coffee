@@ -1,67 +1,68 @@
-import {Play} from "/v/1.0.0-alpha-00/lib/play.js"
+import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
-# TODO: make these instance methods?
-Tabs =
-  create: (label) ->
-    # base tab object with helper methods
-    tab =
-      select: ->
-        for node in [ @dom.tab, @dom.label, @dom.content ]
-          node.classList.add "selected"
-      deselect: ->
-        for node in [ @dom.tab, @dom.label, @dom.content ]
-          node.classList.remove "selected"
-      dom:
-        query: (s) -> @component.querySelector s
-        label: label
-        slots:
-          query: (name) ->
-            tab.dom.main.querySelector "slot[name='#{name}']"
+properties = (object, descriptors) ->
+  for name, descriptor of descriptors
+    descriptor.enumerable ?= true
+    Object.defineProperty object::, name, descriptor
 
-    # add getters using closure
-    Object.defineProperties tab,
-      name: get: -> (label.getAttribute "slot").replace "-label", ""
-      label: get: -> label.textContent
+class Tab
 
-    # here we can use label directly as object property
-    Object.defineProperties tab.dom,
-      component: get: -> @label.parentNode
-      main: get: -> @component.main
-      content: get: -> @query "[slot='#{tab.name}-content']"
+  constructor: (label) ->
+    @name = (label.getAttribute "slot").replace "-label", ""
+    @label = label.textContent
+    @dom = new Tab.DOM @name, label
+
+  select: ->
+    for node in [ @dom.tab, @dom.label, @dom.content ]
+      node.classList.add "selected"
+
+  deselect: ->
+    for node in [ @dom.tab, @dom.label, @dom.content ]
+      node.classList.remove "selected"
+
+  class @DOM
+
+    properties @,
+      tabs: get: -> @label.parentNode
+      shadow: get: -> @tabs.shadowRoot
+      content: get: -> @query "[slot='#{@name}-content']"
       tab: get: -> @slots.content.parentNode
 
-    Object.defineProperties tab.dom.slots,
-      label: get: -> @query "#{tab.name}-label"
-      content: get: -> @query "#{tab.name}-content"
+    constructor: (@name, @label) ->
+      @slots = new Tab.DOM.Slots @name, @
 
-    tab
+    query: (s) -> @tabs.querySelector s
 
-  getAll: (component) ->
-    for label in (component.querySelectorAll "label[slot]")
-      Tabs.create label
 
-  deselectAll: (component) ->
-    tab.deselect() for tab in Tabs.getAll component
+    class @Slots
 
-  select: (label) ->
-    (Tabs.create label).select()
+      properties @,
+        label: get: -> @query "#{@name}-label"
+        content: get: -> @query "#{@name}-content"
 
-class Gadget extends Play
+      constructor: (@name, @dom) ->
 
-  schema:
-    tabs:
-      type: array
-      get: -> Tabs.getAll @
+      query: (name) -> @dom.shadow.querySelector "slot[name='#{name}']"
+
+
+class Tabs extends Gadget
+
+  @properties
+    tabs: get: ->
+      (new Tab label) for label in (@dom.querySelectorAll "label[slot]")
+
+  @events
+    label:
+      click: ({target}) ->
+        for tab in @tabs
+          if tab.dom.label == target
+            tab.select()
+          else
+            tab.deselect()
+
+  @register "x-tabs"
 
   template: template
 
-  events:
-    label:
-      click: ({target}) ->
-        Tabs.deselectAll @
-        Tabs.select target
-
-  ready: -> (Tabs.getAll @)[0].select()
-
-Gadget.register "x-tabs"
+  ready: -> @tabs[0].select()

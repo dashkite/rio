@@ -1,18 +1,20 @@
-import {Play} from "/v/1.0.0-alpha-00/lib/play.js"
+import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
-class Editor extends Play
+class Editor extends Gadget
 
-  schema:
-    content:
-      type: string
-      value: ""
-      proxy: true
+  @properties
+    value:
+      get: -> @content
+      set: (value) ->
+        @content = value
+        @dispatch "change"
+        value
 
-  template: template
-
-  events:
+  @events
     textarea:
       keyup: ({target}) -> @value = target.value
 
-Editor.register "x-editor"
+  @register "x-editor"
+
+  template: template

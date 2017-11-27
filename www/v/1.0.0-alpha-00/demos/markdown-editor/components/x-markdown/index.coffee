@@ -1,4 +1,4 @@
-import {Play} from "/v/1.0.0-alpha-00/lib/play.js"
+import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
 parser = null
@@ -10,25 +10,24 @@ loading = do ->
 
   parser = createParser linkify: true
 
-class Markdown extends Play
+class Markdown extends Gadget
 
-  schema:
-    markdown:
-      type: string
-      value: ""
-      proxy: true
-    html:
-      type: string
+  @properties
+    value:
       get: -> parser.render @markdown
+      set: (value) ->
+        @markdown = value
+        @dispatch "change"
+        value
 
-  events:
+  @events
     host:
       change: -> @render()
 
-  template: template
+  @register "x-markdown"
 
   render: ->
     await loading
     super.render()
 
-Markdown.register "x-markdown"
+  template: template

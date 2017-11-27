@@ -1,13 +1,15 @@
-import Play from "/v/1.0.0-alpha-00/lib/play.js"
+import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 
 document.addEventListener "DOMContentLoaded", ->
 
   console.log "document is ready"
 
-  editor = (Play.select "x-editor")
-  markdown = (Play.select "x-markdown")
+  # Problem: Gadgets may not be ready
+  editor = (Gadget.select "x-editor")
+  markdown = (Gadget.select "x-markdown")
 
-  editor.on change: -> markdown.value = @value
+  editor.on change: ->
+    markdown.value = editor.value
 
   editor.value = """
     # Chapter 1

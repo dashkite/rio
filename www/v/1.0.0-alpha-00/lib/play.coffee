@@ -1,55 +1,50 @@
-import {style, parse, }
+import HTML from "./vhtml.js"
+{style, parse} = HTML
+
+# TODO: import from Fairmont Helpers
+isType = (t, x) -> x? && (Object.getPrototypeOf x) == t::
+isString = (x) -> isType String, x
+isFunction = (x) -> isType Function, x
 
 innerHTML = null
 loading = do ->
   [{innerHTML}] = await require [
     "//diffhtml.org/master/diffhtml/dist/diffhtml.min.js"
   ]
+  true
 
-isString = (value) -> (Object.getPrototypeOf value) == String::
+class Gadget
 
-class Play
+  constructor: (@name, @dom) ->
 
-  constructor: (name, @dom) ->
-    Object.defineProperties @,
-      name:
-        enumerable: true
-        value: name
-      shadow:
-        enumerable: true
-        get: => @dom.shadowRoot
-      innerHTML:
-        enumerable: true
-        get: => @shadow.innerHTML
-        set: (value) => innerHTML @shadow, value
+  connect: -> @initialize()
 
-  connect: ->
-    @benchmark "initialization", =>
-      @initialize()
-
-  initalize: ->
+  initialize: ->
     @initialize = ->
     @benchmark "initialization", =>
-      @__buildData()
-      @__bindEvents()
+      console.log @
+      @__addEventListeners?()
       @__importStyles()
-      await Play.loading
+      await Gadget.loading
       await @render()
       @ready?()
 
   render: ->
     if @template?
       @benchmark "render", =>
-        html = @template @data
+        html = @template @
         # convert to vdom if necessary...
         html = parse rendered if isString html
         # ...so we can add imported styles
         html.push style @sheet.join "\n"
         # remember, this diffs and patches
-        @innerHTML = html
+        @html = html
+
+  on: (handlers) ->
+    for event, handler of handlers
+      @shadow.addEventListener event, handler
 
   dispatch: (name) ->
-    await Play.loading
     @log "dispatch '#{name}'"
     @shadow.dispatchEvent new Event name,
       bubbles: true
@@ -65,86 +60,79 @@ class Play
     end = performance.now()
     @log "#{description}: #{end - start}ms"
 
-  __buildData: ->
-    @data ?= {}
-    _proxy = false
-    for name, description of @schema
-      {type, get, set, proxy, observe} = description
-      if set? || get?
-        set?.bind @
-        get?.bind @
-        Object.defineProperty @data, name,
-          enumerable: true
-          get: get if get?
-          set: (value) =>
-            # TODO: check thet type
-            @data[name] = value
-            # TODO: need to use Proxy for deep changes
-            @dispatch "change" unless observe == false
-            value
-      if value?
-        @data[name] = value
-      if proxy == true && !_proxy
-        _proxy = true
-        do (name) =>
-          Object.defineProperty @, name,
-            get: => @data[name]
-            set: (value) => @data[name] = value
+  @register: (name) ->
+      self = @
+      self.Component = class extends HTMLElement
+        constructor: ->
+          super()
+          @attachShadow mode: "open"
+          @gadget = new self name, @
+        connectedCallback: -> @gadget.connect()
 
-  __bindEvents: ->
-    if @events?
-      for selector, events of @events
+      customElements.define name, self.Component
+
+  @Collection: class
+    constructor: (@elements) -> return new Proxy @,
+      get: (target, property) ->
+        {elements: [first]} = target
+        if isFunction first?[property]
+          ->
+            for element in elements
+              do (element) ->
+                customElements.whenDefined element.tagName.toLowerCase()
+                .then ->
+                  element.gadget?[property] arguments...
+        else
+          first?.gadget?[property]
+
+      set: (target, property, value) ->
+        {elements} = target
+        for element in elements
+          do (element) ->
+            customElements.whenDefined element.tagName.toLowerCase()
+            .then ->
+              element.gadget?[property] = value
+        true
+
+  @select: (selector) ->
+    new @Collection document.querySelectorAll selector
+
+
+  @properties: (descriptors) ->
+    for name, descriptor of descriptors
+      descriptor.enumerable ?= true
+      Object.defineProperty @::, name, descriptor
+
+  @properties
+    shadow:
+      get: -> @dom.shadowRoot
+    html:
+      get: -> @shadow.innerHTML
+      set: (value) -> innerHTML @shadow, value
+
+  @events: (descriptors) ->
+    @::__addEventListeners = ->
+      console.log "Adding event listeners"
+      for selector, events of descriptors
+        _filter = (handler) ->
+          if selector == "host"
+            (event) -> handler event
+          else
+            (event) ->
+              {target} = event
+              (handler event) if target.matches selector
         for name, handler of events
-          do =>
-            h = handler.bind @
-            g = if selector == "host"
-              (event) -> h event
-            else
-              (event) ->
-                {target} = event
-                (h event) if target.matches selector
-            @shadow.addEventListener name, g, true
+          _handler = _filter handler.bind @
+          @shadow.addEventListener name, _handler, true
 
   __importStyles: ->
     @benchmark "import styles", =>
       re = ///#{@name}\s+:host\s+///g
-      imports = []
-      for sheet in document.styleSheets when sheet.rules?
-        for rule in sheet.rules
-          if rule.cssText.match re
-            imports.push rule.cssText.replace re, ""
-      @sheet = {imports}
+      @sheet =
+        for sheet in document.styleSheets when sheet.rules?
+          (for rule in sheet.rules when (rule.cssText.match re)
+            rule.cssText.replace re, "").join "\n"
 
+  @loading: loading
 
-class Gadgets
-  constructor: (@gadgets) ->
-  on: (handlers) ->
-    for gadget in @gadgets
-      for event, handler in handlers
-        gadget.dom.addEventListener name, handler
-
-Play.select = (selector) ->
-  new Gadgets
-    for element in (document.querySelectorAll selector) when element.gadget?
-      element.gadget
-
-
-Play.register = (name) ->
-
-  Gadget = @
-
-  class Component extends HTMLElement
-
-    constructor: ->
-      super()
-      benchmark "construction", =>
-        @attachShadow mode: "open"
-        @gadget = new Gadget name, @
-
-    connectedCallback: ->
-      benchmark "connecting", =>
-        @gadget.connect()
-
-Play.loading = loading
-
-export {Play}
+export {Gadget}

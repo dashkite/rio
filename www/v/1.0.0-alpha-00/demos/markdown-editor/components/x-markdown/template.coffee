@@ -3,10 +3,10 @@ import HTML from "/v/1.0.0-alpha-00/lib/vhtml.js"
 
 import {normalize} from "../helpers.js"
 
-template = ({html}) ->
+template = ({value}) ->
   [ normalize()
     stylesheet "/v/1.0.0-alpha-00/demos/markdown-editor\
                   /components/x-markdown/index.css"
-    div parse html ]
+    div parse value ]
 
 export {template}
