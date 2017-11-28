@@ -15,14 +15,14 @@ loading = do ->
 
 class Gadget
 
-  constructor: (@name, @dom) ->
+  constructor: (@dom) ->
 
   connect: -> @initialize()
 
   initialize: ->
     @initialize = ->
     @benchmark "initialization", =>
-      @__addEventListeners?()
+      @__addEventListeners()
       @__importStyles()
       await Gadget.loading
       await @render()
@@ -41,7 +41,7 @@ class Gadget
 
   on: (handlers) ->
     for event, handler of handlers
-      @shadow.addEventListener event, handler
+      @shadow.addEventListener event, (handler.bind @)
 
   dispatch: (name) ->
     @log "dispatch '#{name}'"
@@ -51,24 +51,26 @@ class Gadget
       # allow to bubble up from shadow DOM
       composed: true
 
-  log: (description) -> console.log "[ #{@name} ] #{description}"
+  log: -> @constructor.log arguments...
+  @log: (description) -> console.log "[ #{@tag} ] #{description}"
 
-  benchmark: (description, f) ->
+  benchmark: -> @constructor.benchmark arguments...
+  @benchmark: (description, f) ->
     start = performance.now()
     f()
     end = performance.now()
     @log "#{description}: #{end - start}ms"
 
-  @register: (name) ->
-      self = @
-      self.Component = class extends HTMLElement
-        constructor: ->
-          super()
-          @attachShadow mode: "open"
-          @gadget = new self name, @
-        connectedCallback: -> @gadget.connect()
-      requestAnimationFrame ->
-        customElements.define name, self.Component
+  @register: (@tag) ->
+    self = @
+    self.Component = class extends HTMLElement
+      constructor: ->
+        super()
+        @attachShadow mode: "open"
+        @gadget = new self @
+      connectedCallback: -> @gadget.connect()
+    requestAnimationFrame ->
+      customElements.define self.tag, self.Component
 
   @Collection: class
     constructor: (@gadgets) -> return new Proxy @,
@@ -100,29 +102,57 @@ class Gadget
       Object.defineProperty @::, name, descriptor
 
   @properties
+    tag:
+      get: -> @constructor.tag
     shadow:
       get: -> @dom.shadowRoot
     html:
       get: -> @shadow.innerHTML
       set: (value) -> innerHTML @shadow, value
+    value:
+      do (_value=undefined) ->
+        get: -> _value
+        set: (value) ->
+          _value = value
+          @dispatch "change"
+          value
 
-  @events: (descriptors) ->
-    @::__addEventListeners = ->
-      for selector, events of descriptors
-        _filter = (handler) ->
+  @events: (@__events) ->
+
+  __addEventListeners: ->
+
+    events = @constructor.__events
+
+    # add default component change handler
+    # (we can't add this as property because
+    # all Gadgets would then share it)
+    events ?= {}
+    events.host ?= {}
+    events.host.change ?= (event) ->
+      @render()
+      event.stopPropagation()
+
+    # iterate through the events, adding handlers,
+    # wrapping handlers to filter on selector and
+    # binding them to instance
+    for selector, handlers of events
+      _handlers = {}
+      for name, handler of handlers
+        _handler = handler.bind @
+        _handlers[name] = do (selector, _handler) ->
           if selector == "host"
-            (event) -> handler event
+            (event) ->
+              {target} = event
+              (_handler event) if target == @shadow
           else
             (event) ->
               {target} = event
-              (handler event) if target.matches selector
-        for name, handler of events
-          _handler = _filter handler.bind @
-          @shadow.addEventListener name, _handler, true
+              (_handler event) if target.matches selector
+      @on _handlers
 
   __importStyles: ->
     @benchmark "import styles", =>
-      re = ///#{@name}\s+:host\s+///g
+      re = ///#{@tag}\s+:host\s+///g
       @sheet =
         for sheet in document.styleSheets when sheet.rules?
           (for rule in sheet.rules when (rule.cssText.match re)

@@ -3,10 +3,10 @@ import HTML from "/v/1.0.0-alpha-00/lib/vhtml.js"
 
 import {normalize} from "../helpers.js"
 
-template = ({content}) ->
+template = ({value}) ->
   [ normalize()
     stylesheet "/v/1.0.0-alpha-00/demos/markdown-editor\
                   /components/x-editor/index.css"
-    textarea content ]
+    textarea value ]
 
 export {template}

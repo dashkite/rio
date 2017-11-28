@@ -5,14 +5,6 @@ class Editor extends Gadget
 
   @register "x-editor"
 
-  @properties
-    value:
-      get: -> @content
-      set: (value) ->
-        @content = value
-        @dispatch "change"
-        value
-
   @events
     textarea:
       keyup: ({target}) -> @value = target.value

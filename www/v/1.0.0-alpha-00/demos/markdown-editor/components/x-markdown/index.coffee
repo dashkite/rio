@@ -10,25 +10,12 @@ loading = do ->
 
   parser = createParser linkify: true
 
-class Markdown extends Gadget
+  class Markdown extends Gadget
 
-  @register "x-markdown"
+    @register "x-markdown"
 
-  @properties
-    value:
-      get: -> parser.render @markdown
-      set: (value) ->
-        @markdown = value
-        @dispatch "change"
-        value
+    @properties
+      content:
+        get: -> parser.render @value if @value?
 
-  @events
-    host:
-      change: -> @render()
-
-
-  render: ->
-    await loading
-    super.render()
-
-  template: template
+    template: template
