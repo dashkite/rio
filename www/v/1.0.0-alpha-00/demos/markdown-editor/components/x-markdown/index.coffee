@@ -12,6 +12,8 @@ loading = do ->
 
 class Markdown extends Gadget
 
+  @register "x-markdown"
+
   @properties
     value:
       get: -> parser.render @markdown
@@ -24,7 +26,6 @@ class Markdown extends Gadget
     host:
       change: -> @render()
 
-  @register "x-markdown"
 
   render: ->
     await loading

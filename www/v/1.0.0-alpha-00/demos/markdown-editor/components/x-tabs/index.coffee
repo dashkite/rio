@@ -48,6 +48,8 @@ class Tab
 
 class Tabs extends Gadget
 
+  @register "x-tabs"
+
   @properties
     tabs: get: ->
       (new Tab label) for label in (@dom.querySelectorAll "label[slot]")
@@ -60,8 +62,6 @@ class Tabs extends Gadget
             tab.select()
           else
             tab.deselect()
-
-  @register "x-tabs"
 
   template: template
 

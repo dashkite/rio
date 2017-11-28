@@ -3,6 +3,8 @@ import {template} from "./template.js"
 
 class Editor extends Gadget
 
+  @register "x-editor"
+
   @properties
     value:
       get: -> @content
@@ -14,7 +16,5 @@ class Editor extends Gadget
   @events
     textarea:
       keyup: ({target}) -> @value = target.value
-
-  @register "x-editor"
 
   template: template

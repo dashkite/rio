@@ -22,7 +22,6 @@ class Gadget
   initialize: ->
     @initialize = ->
     @benchmark "initialization", =>
-      console.log @
       @__addEventListeners?()
       @__importStyles()
       await Gadget.loading
@@ -34,7 +33,7 @@ class Gadget
       @benchmark "render", =>
         html = @template @
         # convert to vdom if necessary...
-        html = parse rendered if isString html
+        html = parse html if isString html
         # ...so we can add imported styles
         html.push style @sheet.join "\n"
         # remember, this diffs and patches
@@ -68,35 +67,32 @@ class Gadget
           @attachShadow mode: "open"
           @gadget = new self name, @
         connectedCallback: -> @gadget.connect()
-
-      customElements.define name, self.Component
+      requestAnimationFrame ->
+        customElements.define name, self.Component
 
   @Collection: class
-    constructor: (@elements) -> return new Proxy @,
+    constructor: (@gadgets) -> return new Proxy @,
       get: (target, property) ->
-        {elements: [first]} = target
-        if isFunction first?[property]
-          ->
-            for element in elements
-              do (element) ->
-                customElements.whenDefined element.tagName.toLowerCase()
-                .then ->
-                  element.gadget?[property] arguments...
+        {gadgets} = target
+        if isFunction Gadget::[property]
+          -> (gadget[property] arguments...) for gadget in gadgets
         else
-          first?.gadget?[property]
+          [first] = gadgets
+          first?[property]
 
       set: (target, property, value) ->
-        {elements} = target
-        for element in elements
-          do (element) ->
-            customElements.whenDefined element.tagName.toLowerCase()
-            .then ->
-              element.gadget?[property] = value
+        {gadgets} = target
+        (gadget[property] = value) for gadget in gadgets
         true
 
   @select: (selector) ->
-    new @Collection document.querySelectorAll selector
-
+    results = []
+    for element in (document.querySelectorAll selector)
+      try
+        tag = element.tagName.toLowerCase()
+        await customElements.whenDefined tag
+        results.push element.gadget if element.gadget?
+    new @Collection results
 
   @properties: (descriptors) ->
     for name, descriptor of descriptors
@@ -112,7 +108,6 @@ class Gadget
 
   @events: (descriptors) ->
     @::__addEventListeners = ->
-      console.log "Adding event listeners"
       for selector, events of descriptors
         _filter = (handler) ->
           if selector == "host"
