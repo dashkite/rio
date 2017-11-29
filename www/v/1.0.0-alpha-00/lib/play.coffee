@@ -42,13 +42,6 @@ class Gadget
           for rule in sheet.rules when (rule.cssText.match re)
             styles += (rule.cssText.replace re, "") + "\n"
         styles
-    value:
-      do (_value=undefined) ->
-        get: -> _value
-        set: (value) ->
-          _value = value
-          @dispatch "change"
-          value
 
   connect: -> @initialize()
 
@@ -106,6 +99,17 @@ class Gadget
       # outside of method definitions
       (base @)::events.call @
       @on descriptors
+
+  @observe: (descriptors) ->
+    for key, value of descriptors
+      properties @::,
+        "#{key}":
+          do (value) ->
+            get: -> value
+            set: (_value) ->
+              value = _value
+              @dispatch "change"
+              value
 
   @register: (@tag) ->
     self = @

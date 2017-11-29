@@ -19,6 +19,8 @@ loading = do ->
 
     @register "x-markdown"
 
+    @observe value: ""
+
     properties @::,
       content:
         get: -> parser.render @value if @value?

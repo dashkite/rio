@@ -2,26 +2,28 @@
 
 Play is a lightweight library for building Web Components.
 
-To create a component, just call `define`:
+To create a component, just extend `Gadget`:
 
 ```coffee
-import {define} from "//play.pandastrike.com/v/1.0.0-alpha-00/component-helpers.js"
+import {Gadget} from "//play.pandastrike.com/v/1.0.0-alpha-00/play.js"
 
-define "x-greeting",
+class Greeting extends Gadget
 
-  data:
-    greeting: "Hello"
+  @register "x-editor"
 
-  template: ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+  @observe value: "Hello"
 
-  events:
+  template: ({value}) -> "<h1>#{value}, World!</h1>"
+
+  @events
     h1:
-      click: -> @data.greeting = "Goodbye"
+      click: ({target}) -> @value = "Goodbye"
+
 ```
 
 ## How It Works
 
-Play uses [diffHTML](https://diffhtml.org/) to diff the DOM and make lightning fast updates. Events are bubbled up to the Shadow DOM root and matched using `DOM.match`. A JavaScript Proxy watches for changes to the component's data.
+Play uses [diffHTML](https://diffhtml.org/) to diff the DOM and make lightning fast updates. Events are bubbled up to the Shadow DOM root and matched using `DOM.match`.
 
 ## Demo
 
