@@ -67,8 +67,11 @@ class Gadget
       event.stopPropagation()
 
   @events: (descriptors) ->
+    # can't use super here b/c coffeescript can't
+    # tell that we're in a legit method
+    _super = (Object.getPrototypeOf(@)::)
     @::events = ->
-      (Gadget::events.bind @)()
+      (_super.events.bind @)()
       @on descriptors
 
   log: -> @constructor.log arguments...
