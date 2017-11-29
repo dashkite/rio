@@ -5,6 +5,7 @@ import HTML from "./vhtml.js"
 isType = (t, x) -> x? && (Object.getPrototypeOf x) == t::
 isString = (x) -> isType String, x
 isFunction = (x) -> isType Function, x
+isObject = (x) -> isType Object, x
 
 innerHTML = null
 loading = do ->
@@ -22,7 +23,7 @@ class Gadget
   initialize: ->
     @initialize = ->
     @benchmark "initialization", =>
-      @__addEventListeners()
+      @events()
       @__importStyles()
       await Gadget.loading
       await @render()
@@ -39,9 +40,18 @@ class Gadget
         # remember, this diffs and patches
         @html = html
 
-  on: (handlers) ->
-    for event, handler of handlers
-      @shadow.addEventListener event, (handler.bind @)
+  # TODO: use multimethod here?
+  on: (descriptors) ->
+    for key, value of descriptors
+      if isFunction value
+        @shadow.addEventListener key, value
+      else if isObject value
+        for name, handler of value
+          @shadow.addEventListener name, do (handler) =>
+            if key == "host"
+              (event) => (handler event) if event.target == @shadow
+            else
+              (event) => (handler event) if event.target.matches key
 
   dispatch: (name) ->
     @log "dispatch '#{name}'"
@@ -50,6 +60,11 @@ class Gadget
       cancelable: false
       # allow to bubble up from shadow DOM
       composed: true
+
+  events: ->
+    @on host: change: (event) =>
+      @render()
+      event.stopPropagation()
 
   log: -> @constructor.log arguments...
   @log: (description) -> console.log "[ #{@tag} ] #{description}"
@@ -116,39 +131,6 @@ class Gadget
           _value = value
           @dispatch "change"
           value
-
-  @events: (@__events) ->
-
-  __addEventListeners: ->
-
-    events = @constructor.__events
-
-    # add default component change handler
-    # (we can't add this as property because
-    # all Gadgets would then share it)
-    events ?= {}
-    events.host ?= {}
-    events.host.change ?= (event) ->
-      @render()
-      event.stopPropagation()
-
-    # iterate through the events, adding handlers,
-    # wrapping handlers to filter on selector and
-    # binding them to instance
-    for selector, handlers of events
-      _handlers = {}
-      for name, handler of handlers
-        _handler = handler.bind @
-        _handlers[name] = do (selector, _handler) ->
-          if selector == "host"
-            (event) ->
-              {target} = event
-              (_handler event) if target == @shadow
-          else
-            (event) ->
-              {target} = event
-              (_handler event) if target.matches selector
-      @on _handlers
 
   __importStyles: ->
     @benchmark "import styles", =>

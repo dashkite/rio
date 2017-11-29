@@ -5,8 +5,10 @@ class Editor extends Gadget
 
   @register "x-editor"
 
-  @events
-    textarea:
-      keyup: ({target}) -> @value = target.value
+  events: ->
+    super.events()
+    @on
+      textarea:
+        keyup: ({target}) => @value = target.value
 
   template: template
