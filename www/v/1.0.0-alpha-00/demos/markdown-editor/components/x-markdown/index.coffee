@@ -1,6 +1,11 @@
 import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
+properties = (self, descriptors) ->
+  for name, descriptor of descriptors
+    descriptor.enumerable ?= true
+    Object.defineProperty self, name, descriptor
+
 parser = null
 loading = do ->
 
@@ -14,7 +19,7 @@ loading = do ->
 
     @register "x-markdown"
 
-    @properties
+    properties @::,
       content:
         get: -> parser.render @value if @value?
 

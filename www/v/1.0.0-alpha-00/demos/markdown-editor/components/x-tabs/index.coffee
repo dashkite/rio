@@ -1,10 +1,10 @@
 import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
 import {template} from "./template.js"
 
-properties = (object, descriptors) ->
+properties = (self, descriptors) ->
   for name, descriptor of descriptors
     descriptor.enumerable ?= true
-    Object.defineProperty object::, name, descriptor
+    Object.defineProperty self, name, descriptor
 
 class Tab
 
@@ -23,7 +23,7 @@ class Tab
 
   class @DOM
 
-    properties @,
+    properties @::,
       tabs: get: -> @label.parentNode
       shadow: get: -> @tabs.shadowRoot
       content: get: -> @query "[slot='#{@name}-content']"
@@ -37,7 +37,7 @@ class Tab
 
     class @Slots
 
-      properties @,
+      properties @::,
         label: get: -> @query "#{@name}-label"
         content: get: -> @query "#{@name}-content"
 
@@ -50,7 +50,7 @@ class Tabs extends Gadget
 
   @register "x-tabs"
 
-  @properties
+  properties @::,
     tabs: get: ->
       (new Tab label) for label in (@dom.querySelectorAll "label[slot]")
 

@@ -5,8 +5,7 @@ document.addEventListener "DOMContentLoaded", ->
   editor = await Gadget.select "x-editor"
   markdown = await Gadget.select "x-markdown"
 
-  editor.on change: ->
-    markdown.value = editor.value
+  editor.bind markdown
 
   editor.value = """
     # Chapter 1

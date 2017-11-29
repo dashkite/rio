@@ -8,6 +8,10 @@ isString = (x) -> isType String, x
 isFunction = (x) -> isType Function, x
 isObject = (x) -> isType Object, x
 base = (x) -> prototype x.constructor
+properties = (self, descriptors) ->
+  for name, descriptor of descriptors
+    descriptor.enumerable ?= true
+    Object.defineProperty self, name, descriptor
 
 innerHTML = null
 loading = do ->
@@ -18,29 +22,55 @@ loading = do ->
 
 class Gadget
 
+  @loading: loading
+
   constructor: (@dom) ->
+
+  properties @::,
+    tag:
+      get: -> @constructor.tag
+    shadow:
+      get: -> @dom.shadowRoot
+    html:
+      get: -> @shadow.innerHTML
+      set: (value) -> innerHTML @shadow, value
+    styles:
+      get: ->
+        styles = ""
+        re = ///#{@tag}\s+:host\s+///g
+        for sheet in document.styleSheets when sheet.rules?
+          for rule in sheet.rules when (rule.cssText.match re)
+            styles += (rule.cssText.replace re, "") + "\n"
+        styles
+    value:
+      do (_value=undefined) ->
+        get: -> _value
+        set: (value) ->
+          _value = value
+          @dispatch "change"
+          value
 
   connect: -> @initialize()
 
   initialize: ->
     @initialize = ->
-    @benchmark "initialization", =>
-      await Gadget.loading
-      @events()
-      @ready()
+    await Gadget.loading
+    @events()
+    @ready()
 
   ready: -> @render()
 
   render: ->
     if @template?
-      @benchmark "render", =>
-        html = @template @
-        # convert to vdom if necessary...
-        html = parse html if isString html
-        # ...so we can add imported styles
-        html.push style @styles
-        # remember, this diffs and patches
-        @html = html
+      html = @template @
+      # convert to vdom if necessary...
+      html = parse html if isString html
+      # ...so we can add imported styles
+      html.push style @styles
+      # remember, this diffs and patches
+      @html = html
+    else
+      @html = ""
 
   # TODO: use multimethod here?
   on: (descriptors) ->
@@ -56,12 +86,14 @@ class Gadget
               (event) => (handler event) if event.target.matches key
 
   dispatch: (name) ->
-    @log "dispatch '#{name}'"
     @shadow.dispatchEvent new Event name,
       bubbles: true
       cancelable: false
       # allow to bubble up from shadow DOM
       composed: true
+
+  bind: (gadget) ->
+    @on change: -> gadget.value = @value
 
   events: ->
     @on host: change: (event) =>
@@ -74,17 +106,6 @@ class Gadget
       # outside of method definitions
       (base @)::events.call @
       @on descriptors
-
-  log: -> @constructor.log arguments...
-  @log: (description) -> console.log "[ #{@tag} ] #{description}"
-
-  benchmark: -> @constructor.benchmark arguments...
-  @benchmark: (description, f) ->
-    start = performance.now()
-    rval = f()
-    end = performance.now()
-    @log "#{description}: #{end - start}ms"
-    rval
 
   @register: (@tag) ->
     self = @
@@ -120,38 +141,5 @@ class Gadget
         await customElements.whenDefined tag
         results.push element.gadget if element.gadget?
     new @Collection results
-
-  @properties: (descriptors) ->
-    for name, descriptor of descriptors
-      descriptor.enumerable ?= true
-      Object.defineProperty @::, name, descriptor
-
-  @properties
-    tag:
-      get: -> @constructor.tag
-    shadow:
-      get: -> @dom.shadowRoot
-    html:
-      get: -> @shadow.innerHTML
-      set: (value) -> innerHTML @shadow, value
-    styles:
-      get: ->
-        @benchmark "import styles", =>
-          styles = ""
-          re = ///#{@tag}\s+:host\s+///g
-          for sheet in document.styleSheets when sheet.rules?
-            for rule in sheet.rules when (rule.cssText.match re)
-              styles += (rule.cssText.replace re, "") + "\n"
-          styles
-
-    value:
-      do (_value=undefined) ->
-        get: -> _value
-        set: (value) ->
-          _value = value
-          @dispatch "change"
-          value
-
-  @loading: loading
 
 export {Gadget}
