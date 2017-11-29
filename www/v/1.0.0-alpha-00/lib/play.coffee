@@ -44,10 +44,10 @@ class Gadget
   on: (descriptors) ->
     for key, value of descriptors
       if isFunction value
-        @shadow.addEventListener key, value
+        @shadow.addEventListener key, (value.bind @)
       else if isObject value
         for name, handler of value
-          @shadow.addEventListener name, do (handler) =>
+          @shadow.addEventListener name, do (handler=(handler.bind @)) =>
             if key == "host"
               (event) => (handler event) if event.target == @shadow
             else
@@ -65,6 +65,11 @@ class Gadget
     @on host: change: (event) =>
       @render()
       event.stopPropagation()
+
+  @events: (descriptors) ->
+    @::events = ->
+      (Gadget::events.bind @)()
+      @on descriptors
 
   log: -> @constructor.log arguments...
   @log: (description) -> console.log "[ #{@tag} ] #{description}"

@@ -54,15 +54,14 @@ class Tabs extends Gadget
     tabs: get: ->
       (new Tab label) for label in (@dom.querySelectorAll "label[slot]")
 
-  events: ->
-    @on
-      label:
-        click: ({target}) =>
-          for tab in @tabs
-            if tab.dom.label == target
-              tab.select()
-            else
-              tab.deselect()
+  @events
+    label:
+      click: ({target}) ->
+        for tab in @tabs
+          if tab.dom.label == target
+            tab.select()
+          else
+            tab.deselect()
 
   template: template
 
