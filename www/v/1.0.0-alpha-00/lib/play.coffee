@@ -2,10 +2,12 @@ import HTML from "./vhtml.js"
 {style, parse} = HTML
 
 # TODO: import from Fairmont Helpers
-isType = (t, x) -> x? && (Object.getPrototypeOf x) == t::
+prototype = (x) -> Object.getPrototypeOf x
+isType = (t, x) -> x? && (prototype x) == t::
 isString = (x) -> isType String, x
 isFunction = (x) -> isType Function, x
 isObject = (x) -> isType Object, x
+base = (x) -> prototype x.constructor
 
 innerHTML = null
 loading = do ->
@@ -23,11 +25,11 @@ class Gadget
   initialize: ->
     @initialize = ->
     @benchmark "initialization", =>
-      @events()
-      @__importStyles()
       await Gadget.loading
-      await @render()
-      @ready?()
+      @events()
+      @ready()
+
+  ready: -> @render()
 
   render: ->
     if @template?
@@ -36,7 +38,7 @@ class Gadget
         # convert to vdom if necessary...
         html = parse html if isString html
         # ...so we can add imported styles
-        html.push style @sheet.join "\n"
+        html.push style @styles
         # remember, this diffs and patches
         @html = html
 
@@ -67,11 +69,10 @@ class Gadget
       event.stopPropagation()
 
   @events: (descriptors) ->
-    # can't use super here b/c coffeescript can't
-    # tell that we're in a legit method
-    _super = (Object.getPrototypeOf(@)::)
     @::events = ->
-      (_super.events.bind @)()
+      # can't use super here b/c JS doesn't allow it
+      # outside of method definitions
+      (base @)::events.call @
       @on descriptors
 
   log: -> @constructor.log arguments...
@@ -80,9 +81,10 @@ class Gadget
   benchmark: -> @constructor.benchmark arguments...
   @benchmark: (description, f) ->
     start = performance.now()
-    f()
+    rval = f()
     end = performance.now()
     @log "#{description}: #{end - start}ms"
+    rval
 
   @register: (@tag) ->
     self = @
@@ -132,6 +134,16 @@ class Gadget
     html:
       get: -> @shadow.innerHTML
       set: (value) -> innerHTML @shadow, value
+    styles:
+      get: ->
+        @benchmark "import styles", =>
+          styles = ""
+          re = ///#{@tag}\s+:host\s+///g
+          for sheet in document.styleSheets when sheet.rules?
+            for rule in sheet.rules when (rule.cssText.match re)
+              styles += (rule.cssText.replace re, "") + "\n"
+          styles
+
     value:
       do (_value=undefined) ->
         get: -> _value
@@ -139,14 +151,6 @@ class Gadget
           _value = value
           @dispatch "change"
           value
-
-  __importStyles: ->
-    @benchmark "import styles", =>
-      re = ///#{@tag}\s+:host\s+///g
-      @sheet =
-        for sheet in document.styleSheets when sheet.rules?
-          (for rule in sheet.rules when (rule.cssText.match re)
-            rule.cssText.replace re, "").join "\n"
 
   @loading: loading
 

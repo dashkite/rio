@@ -65,4 +65,6 @@ class Tabs extends Gadget
 
   template: template
 
-  ready: -> @tabs[0].select()
+  ready: ->
+    super.ready()
+    @tabs[0].select()
