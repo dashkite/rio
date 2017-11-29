@@ -23,7 +23,7 @@ class Greeting extends Gadget
 
 ## How It Works
 
-Play uses [diffHTML](https://diffhtml.org/) to diff the DOM and make lightning fast updates. Events are bubbled up to the Shadow DOM root and matched using `DOM.match`.
+Play uses [diffHTML](https://diffhtml.org/) to diff the DOM and make lightning fast updates. Events are bubbled up to the Shadow DOM root and matched using `DOM.match`. Change events are fired when observed values are changed. By default, change events trigger a render.
 
 ## Demo
 

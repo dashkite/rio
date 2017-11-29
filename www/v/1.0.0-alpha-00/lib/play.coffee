@@ -43,13 +43,14 @@ class Gadget
             styles += (rule.cssText.replace re, "") + "\n"
         styles
 
-  connect: -> @initialize()
+  connect: ->
+    await @initialize()
+    @ready()
 
   initialize: ->
     @initialize = ->
     await Gadget.loading
     @events()
-    @ready()
 
   ready: -> @render()
 
