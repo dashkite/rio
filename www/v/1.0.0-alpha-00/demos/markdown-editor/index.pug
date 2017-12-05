@@ -1,4 +1,4 @@
-include _helpers
+include _mixins
 
 html
   
@@ -11,7 +11,11 @@ html
     //- +requirejs
       
     link(rel='shortcut icon' href='/images/favicon.ico')
-    link(rel="stylesheet" href="./index.css")
+    
+    style: include:stylus index.styl
+    style: include:stylus x-editor.styl
+    style: include:stylus x-markdown.styl
+    
     script(src="./index.js")
       
 body
