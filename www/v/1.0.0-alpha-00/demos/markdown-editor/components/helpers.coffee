@@ -1,4 +1,4 @@
-import HTML from "/v/1.0.0-alpha-00/lib/vhtml.js"
+import HTML from "vhtml"
 
 
 normalize = ->

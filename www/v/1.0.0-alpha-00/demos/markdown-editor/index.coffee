@@ -1,4 +1,8 @@
-import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
+import "./components/x-tabs/index.coffee"
+import "./components/x-editor/index.coffee"
+import "./components/x-markdown/index.coffee"
+
+import {Gadget} from "play"
 
 document.addEventListener "DOMContentLoaded", ->
 

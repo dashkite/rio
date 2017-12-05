@@ -1,28 +1,22 @@
-import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
-import {template} from "./template.js"
+import {Gadget} from "play"
+import {template} from "./template.coffee"
+import createParser from "markdown-it"
 
 properties = (self, descriptors) ->
   for name, descriptor of descriptors
     descriptor.enumerable ?= true
     Object.defineProperty self, name, descriptor
 
-parser = null
-loading = do ->
+class Markdown extends Gadget
 
-  [createParser] = await require [
-    "//cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.0/markdown-it.min.js"
-  ]
+  @register "x-markdown"
 
-  parser = createParser linkify: true
+  @observe value: ""
 
-  class Markdown extends Gadget
+  properties @::,
+    content:
+      get: do ->
+        parser = createParser linkify: true
+        -> parser.render @value if @value?
 
-    @register "x-markdown"
-
-    @observe value: ""
-
-    properties @::,
-      content:
-        get: -> parser.render @value if @value?
-
-    template: template
+  template: template

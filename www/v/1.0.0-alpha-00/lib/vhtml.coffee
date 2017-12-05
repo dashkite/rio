@@ -1,9 +1,4 @@
-createTree = html = null
-
-do ->
-  [{createTree, html}] = await require [
-    "//diffhtml.org/master/diffhtml/dist/diffhtml.min.js"
-  ]
+import {createTree, html} from "diffhtml"
 
 # make it easy to process HTML string directly
 HTML = parse: (s) -> [ html? s ]

@@ -1,4 +1,5 @@
 @require "./_helpers"
+
 @import url(google-font("Righteous"))
 @import url(google-font("Lato"))
 
@@ -18,6 +19,7 @@ body
     font-family "Lato"
 
   main
+
     display flex
     flex-flow row nowrap
 
@@ -52,3 +54,8 @@ body
       & > x-markdown
         flex 1 1 0
         line-height 1.4
+
+// TODO: :host selectors halts interpreter
+// which is why these are last
+@require "./x-editor"
+@require "./x-markdown"

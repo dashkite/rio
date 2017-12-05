@@ -1,7 +1,7 @@
-import HTML from "/v/1.0.0-alpha-00/lib/vhtml.js"
-{stylesheet, textarea} = HTML
+import HTML from "vhtml"
+import {normalize} from "../helpers.coffee"
 
-import {normalize} from "../helpers.js"
+{stylesheet, textarea} = HTML
 
 template = ({value}) ->
   [ normalize()

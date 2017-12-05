@@ -1,5 +1,5 @@
-import {Gadget} from "/v/1.0.0-alpha-00/lib/play.js"
-import {template} from "./template.js"
+import {Gadget} from "play"
+import {template} from "./template.coffee"
 
 properties = (self, descriptors) ->
   for name, descriptor of descriptors

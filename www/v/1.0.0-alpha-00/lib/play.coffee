@@ -1,5 +1,12 @@
-import HTML from "./vhtml.js"
+import HTML from "vhtml"
 {style, parse} = HTML
+
+import {innerHTML} from "diffhtml"
+
+# import {curry} from "https://www.pandastrike.com\
+#   /open-source/fairmont/modules/core/v2.0.0/lib/index.js"
+#
+# console.log {curry}
 
 # TODO: import from Fairmont Helpers
 prototype = (x) -> Object.getPrototypeOf x
@@ -13,16 +20,10 @@ properties = (self, descriptors) ->
     descriptor.enumerable ?= true
     Object.defineProperty self, name, descriptor
 
-innerHTML = null
-loading = do ->
-  [{innerHTML}] = await require [
-    "//diffhtml.org/master/diffhtml/dist/diffhtml.min.js"
-  ]
-  true
+
+
 
 class Gadget
-
-  @loading: loading
 
   constructor: (@dom) ->
 
@@ -49,7 +50,6 @@ class Gadget
 
   initialize: ->
     @initialize = ->
-    await Gadget.loading
     @events()
 
   ready: -> @render()
