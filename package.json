@@ -18,5 +18,9 @@
     "jstransformer-markdown-it": "^2.0.0",
     "jstransformer-stylus": "^1.4.0",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "diffhtml": "^1.0.0-beta.9",
+    "fairmont-helpers": "^3.0.0"
   }
 }

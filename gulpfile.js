@@ -1,2 +1,2 @@
-require('coffee-script/register')
+require('coffeescript/register')
 tasks = require('./gulpfile.coffee')

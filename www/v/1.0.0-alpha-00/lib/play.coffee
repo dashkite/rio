@@ -3,25 +3,11 @@ import HTML from "vhtml"
 
 import {innerHTML} from "diffhtml"
 
-# import {curry} from "https://www.pandastrike.com\
-#   /open-source/fairmont/modules/core/v2.0.0/lib/index.js"
-#
-# console.log {curry}
-
 # TODO: import from Fairmont Helpers
-prototype = (x) -> Object.getPrototypeOf x
-isType = (t, x) -> x? && (prototype x) == t::
-isString = (x) -> isType String, x
-isFunction = (x) -> isType Function, x
-isObject = (x) -> isType Object, x
+import {isString, isFunction, isObject,
+  prototype, properties} from "fairmont-helpers"
+
 base = (x) -> prototype x.constructor
-properties = (self, descriptors) ->
-  for name, descriptor of descriptors
-    descriptor.enumerable ?= true
-    Object.defineProperty self, name, descriptor
-
-
-
 
 class Gadget
 
