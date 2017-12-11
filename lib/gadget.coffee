@@ -1,4 +1,4 @@
-import HTML from "vhtml"
+import {HTML} from "./vhtml"
 {style, parse} = HTML
 
 import {innerHTML} from "diffhtml"

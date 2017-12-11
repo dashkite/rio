@@ -1,0 +1,86 @@
+<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.ico"/><style>@import "//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css";
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2rem;
+}
+body h1 {
+  font-family: "Righteous", sans-serif;
+  color: #38a;
+  letter-spacing: 1.5;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+body p {
+  font-family: "Lato";
+}
+body main {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 0;
+}
+body main > x-tabs {
+  flex: 1 1 0;
+  font-size: 12pt;
+  margin-right: 2rem;
+  padding: 1rem;
+  border: 1px solid #c0c0c0;
+}
+body main > x-tabs > label {
+  display: block;
+  padding: 0.5 0;
+  font-family: sans-serif;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  letter-spacing: 1.2;
+  color: #c0c0c0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+body main > x-tabs > label.selected {
+  color: #808080;
+}
+body main > x-tabs > x-editor {
+  flex: 1 1 0;
+  padding-top: 2rem;
+}
+body main > x-tabs > x-markdown {
+  flex: 1 1 0;
+  line-height: 1.4;
+}
+</style><style>@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro");
+x-editor :host textarea {
+  font-family: "Source Code Pro", monospace;
+}
+</style><style>@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville");
+x-markdown :host div {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+x-markdown :host h1,
+x-markdown :host h2,
+x-markdown :host h3,
+x-markdown :host h4,
+x-markdown :host h5 {
+  font-family: "Josefin Sans", sans-serif;
+}
+x-markdown :host h1 {
+  line-height: 7rem;
+  font-size: 6.3rem;
+  border-bottom: 1px solid #c0c0c0;
+}
+x-markdown :host h2 {
+  line-height: 6rem;
+  font-size: 5.4rem;
+}
+x-markdown :host p,
+x-markdown :host li {
+  font-family: "Libre Baskerville", sans-serif;
+}
+x-markdown :host img {
+  max-width: 90%;
+}
+</style><script src="./index.js"></script></head></html><body><h1>Blurb9</h1><p>Tested in latest versions of Chrome and Safari. Does not work in Firefox.</p><main><x-tabs><label slot="editor-label">Markdown</label><x-editor slot="editor-content">         </x-editor><label slot="markdown-label">Preview</label><x-markdown slot="markdown-content"></x-markdown></x-tabs></main></body>

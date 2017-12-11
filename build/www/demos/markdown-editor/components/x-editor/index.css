@@ -1,0 +1,20 @@
+@import "//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css";
+:host {
+  contain: content;
+  display: flex;
+  flex-flow: column;
+  flex: 1 1 0;
+}
+main {
+  display: flex;
+  flex-flow: column;
+  flex: 1 1 0;
+}
+textarea {
+  flex: 1 1 0;
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
+  max-width: 60ch;
+}

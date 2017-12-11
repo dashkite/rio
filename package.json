@@ -1,12 +1,12 @@
 {
   "name": "panda-play",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "author": "",
+  "author": "Dan Yoder",
   "files": [
-    "build/npm/lib"
+    "build/lib"
   ],
-  "main": "build/npm/lib/index.js",
+  "main": "build/lib/index.js",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -14,20 +14,7 @@
     "coffeescript": "^2.0.1",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-coffee": "^2.3.4",
-    "gulp-pug": "^3.3.0",
-    "gulp-stylus": "^2.6.0",
-    "gulp-webserver": "^0.9.1",
-    "jstransformer-markdown-it": "^2.0.0",
-    "jstransformer-stylus": "^1.4.0",
-    "raw-loader": "^0.5.1",
-    "stylus-loader": "^3.0.1",
-    "webpack": "^3.10.0"
+    "gulp-coffee": "^2.3.4"
   },
-  "dependencies": {
-    "diffhtml": "^1.0.0-beta.9",
-    "fairmont-helpers": "^3.0.0",
-    "fairmont-multimethods": "^2.0.1",
-    "markdown-it": "^8.4.0"
-  }
+  "dependencies": {}
 }

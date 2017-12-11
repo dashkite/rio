@@ -1,0 +1,52 @@
+@import "//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css";
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2rem;
+}
+body h1 {
+  font-family: "Righteous", sans-serif;
+  color: #38a;
+  letter-spacing: 1.5;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+body p {
+  font-family: "Lato";
+}
+body main {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1 1 0;
+}
+body main > x-tabs {
+  flex: 1 1 0;
+  font-size: 12pt;
+  margin-right: 2rem;
+  padding: 1rem;
+  border: 1px solid #c0c0c0;
+}
+body main > x-tabs > label {
+  display: block;
+  padding: 0.5 0;
+  font-family: sans-serif;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  letter-spacing: 1.2;
+  color: #c0c0c0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+body main > x-tabs > label.selected {
+  color: #808080;
+}
+body main > x-tabs > x-editor {
+  flex: 1 1 0;
+  padding-top: 2rem;
+}
+body main > x-tabs > x-markdown {
+  flex: 1 1 0;
+  line-height: 1.4;
+}
