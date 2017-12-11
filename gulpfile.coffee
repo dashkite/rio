@@ -1,12 +1,33 @@
-gulp = require "gulp"
+fs = require "fs"
+{task,src,dest,series,parallel} = require "gulp"
 del = require "del"
 coffeescript = require "coffeescript"
 coffee = require "gulp-coffee"
 
-gulp.task "clean", -> del "build"
-gulp.task "npm", ->
-  gulp
-  .src "lib/**/*.coffee", sourcemaps: true
+# package.json object
+$package = do ->
+  fs = require "fs"
+  JSON.parse fs.readFileSync "package.json"
+
+# Helper to run external programs
+run = do ->
+  {exec} = require('child_process')
+  (command) ->
+    new Promise (yay, nay) ->
+      exec command, (error, stdout, stderr) ->
+        if !error?
+          yay [stdout, stderr]
+        else
+          nay error
+
+# print output
+print = ([stdout, stderr]) ->
+  process.stdout.write stdout if stdout.length > 0
+  process.stderr.write stderr if stderr.length > 0
+
+task "clean", -> del "build"
+task "npm", ->
+  src "lib/**/*.coffee", sourcemaps: true
   .pipe coffee
     coffee: coffeescript
     transpile:
@@ -23,4 +44,10 @@ gulp.task "npm", ->
             modules: false
           ]
         ]
-  .pipe gulp.dest "build/lib"
+  .pipe dest "build/lib"
+
+# Tag a release
+task "git:tag", ->
+  {version} = $package
+  await run "git tag -am #{version} #{version}"
+  await run "git push --tags"
