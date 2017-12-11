@@ -5,7 +5,7 @@ Play is a lightweight library for building Web Components.
 To create a component, just extend `Gadget`:
 
 ```coffee
-import {Gadget} from "play"
+import {Gadget} from "panda-play"
 
 class Greeting extends Gadget
 
