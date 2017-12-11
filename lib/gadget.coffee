@@ -70,12 +70,13 @@ class Gadget
       @render()
       event.stopPropagation()
 
-  @events: (descriptors) ->
+  @events: (description) ->
     @::events = ->
       # can't use super here b/c JS doesn't allow it
       # outside of method definitions
       (base @)::events.call @
-      @on descriptors
+      @on description
+    @
 
   @observe: (descriptors) ->
     for key, value of descriptors
@@ -87,6 +88,7 @@ class Gadget
               value = _value
               @dispatch "change"
               value
+    @
 
   @register: (@tag) ->
     self = @
@@ -98,6 +100,7 @@ class Gadget
       connectedCallback: -> @gadget.connect()
     requestAnimationFrame ->
       customElements.define self.tag, self.Component
+    @
 
   @Collection: class
     constructor: (@gadgets) -> return new Proxy @,
@@ -131,7 +134,9 @@ class Gadget
       source.on change: -> target.value = source.value
       target
 
-  @ready: (f) -> document.addEventListener "DOMContentLoaded", f
+  @ready: (f) ->
+    document.addEventListener "DOMContentLoaded", f
+    @
 
 # Selector-based event handling
 

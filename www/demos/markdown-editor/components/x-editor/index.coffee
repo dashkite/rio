@@ -1,4 +1,4 @@
-import {Gadget} from "gadget"
+import {Gadget} from "panda-play"
 import {template} from "./template.coffee"
 
 class Editor extends Gadget

@@ -1,5 +1,5 @@
 import {properties} from "fairmont-helpers"
-import {Gadget} from "gadget"
+import {Gadget} from "panda-play"
 import {template} from "./template.coffee"
 
 # A few classes to allow us to nagivate from a label

@@ -1,4 +1,4 @@
-import {Gadget} from "gadget"
+import {Gadget} from "panda-play"
 import {template} from "./template.coffee"
 import MarkdownParser from "markdown-it"
 

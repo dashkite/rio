@@ -1,6 +1,5 @@
 gulp = require "gulp"
 del = require "del"
-footer = require "gulp-footer"
 pug = require "gulp-pug"
 stylus = require "gulp-stylus"
 coffeescript = require "coffeescript"
@@ -9,7 +8,29 @@ webserver = require "gulp-webserver"
 webpack = require "webpack"
 path = require "path"
 
-gulp.task "js", ->
+gulp.task "npm:clean", -> del "build/npm"
+gulp.task "npm:js", ->
+  gulp
+  .src "lib/**/*.coffee", sourcemaps: true
+  .pipe coffee
+    coffee: coffeescript
+    transpile:
+      presets: [
+        [
+          "env",
+            targets:
+              browsers: [
+                "Chrome >= 62"
+                "ChromeAndroid >= 61"
+                "Safari >= 11"
+                "iOS >= 11"
+              ]
+            modules: false
+          ]
+        ]
+  .pipe gulp.dest "build/npm/lib"
+
+gulp.task "www:js", ->
   new Promise (yay, nay) ->
     webpack
       entry: "./www/demos/markdown-editor/index.coffee"
@@ -26,7 +47,7 @@ gulp.task "js", ->
         ]
       resolve:
         modules: [
-          path.resolve "lib"
+          # path.resolve "lib"
           "node_modules"
         ]
         extensions: [ ".js", ".json", ".coffee" ]
@@ -37,7 +58,7 @@ gulp.task "js", ->
         else
           yay()
 
-gulp.task "server", ->
+gulp.task "www:server", ->
   gulp
   .src "build/www"
   .pipe webserver
@@ -45,39 +66,34 @@ gulp.task "server", ->
       port: 8000
       extensions: [ "html" ]
 
-gulp.task "clean", ->
-  del "build"
+gulp.task "www:clean", ->
+  del "build/www"
 
-gulp.task "html", ->
+gulp.task "www:html", ->
   gulp
   .src [ "www/**/*.pug" ]
   .pipe pug {}
   .pipe gulp.dest "build/www"
 
-gulp.task "css", ->
+gulp.task "www:css", ->
   gulp
   .src "www/**/*.styl"
   .pipe stylus()
   .pipe gulp.dest "build/www"
 
-gulp.task "images", ->
+gulp.task "www:images", ->
   gulp
   .src [ "www/images/**/*" ]
   .pipe gulp.dest "build/www/images"
 
 
-# watch doesn't take a task name for some reason
-# so we need to first define this as a function
-build = gulp.series "clean",
-  gulp.parallel "html", "css", "js", "images"
+gulp.task "www:build",
+  gulp.series "www:clean",
+    gulp.parallel "www:html", "www:css", "www:js", "www:images"
 
-gulp.task "build", build
-
-gulp.task "watch", ->
-  # TODO this isn't picking up changes
-  # to the stylus or coffeescript files
-  gulp.watch [ "www/**/*", "lib/**/*" ], build
+gulp.task "www:watch", ->
+  gulp.watch [ "www/**/*", "lib/**/*", "./*" ], gulp.task "www:build"
 
 gulp.task "default",
-  gulp.series "build",
-    gulp.parallel "watch", "server"
+  gulp.series "www:build",
+    gulp.parallel "www:watch", "www:server"

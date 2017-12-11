@@ -22,4 +22,4 @@ HTML[tag] = el tag for tag in tags
 HTML.stylesheet = (url) ->
   HTML.link rel: "stylesheet", href: url
 
-export default HTML
+export {HTML}

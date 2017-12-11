@@ -1,4 +1,4 @@
-import HTML from "vhtml"
+import HTML from "panda-play"
 import css from "./index.styl"
 
 {style, textarea} = HTML

@@ -2,7 +2,7 @@ import "./components/x-tabs/index.coffee"
 import "./components/x-editor/index.coffee"
 import "./components/x-markdown/index.coffee"
 
-import {Gadget} from "gadget"
+import {Gadget} from "panda-play"
 
 Gadget.ready ->
 

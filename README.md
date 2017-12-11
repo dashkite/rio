@@ -5,7 +5,7 @@ Play is a lightweight library for building Web Components.
 To create a component, just extend `Gadget`:
 
 ```coffee
-import {Gadget} from "//play.pandastrike.com/v/1.0.0-alpha-00/play.js"
+import {Gadget} from "play"
 
 class Greeting extends Gadget
 
@@ -21,10 +21,28 @@ class Greeting extends Gadget
 
 ```
 
-## How It Works
+## Features
 
-Play uses [diffHTML](https://diffhtml.org/) to diff the DOM and make lightning fast updates. Events are bubbled up to the Shadow DOM root and matched using `DOM.match`. Change events are fired when observed values are changed. By default, change events trigger a render.
+- Fully encapsulated native Web Components
+- Virtual DOM, with diff-based updates
+- Selector-based event handlers instead of inline
+- Arbitrary template functions—use template literals, JSX, Pug, …
+- Or use VHTML and generate VDOM directly
+- Observable properties generate change events and re-render
+- Component-targetable CSS from client document
+- Pipe operator to wire components together
+- Delegation pattern—Gadgets are handles to DOM elements
 
 ## Demo
 
 [Try it out!](https://play.pandastrike.com/v/1.0.0-alpha-00/demos/markdown-editor)
+
+## Install
+
+Bundle using your favorite bundler:
+
+```
+npm i -S panda-play
+```
+
+Standalone and JavaScript module distributions coming soon.
