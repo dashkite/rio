@@ -3,9 +3,10 @@ import HTML from "vhtml"
 
 import {innerHTML} from "diffhtml"
 
-# TODO: import from Fairmont Helpers
-import {isString, isFunction, isObject,
+import {isKind, isString, isFunction, isAsyncFunction, isObject,
   prototype, properties} from "fairmont-helpers"
+
+import {Method} from "fairmont-multimethods"
 
 base = (x) -> prototype x.constructor
 
@@ -30,6 +31,8 @@ class Gadget
             styles += (rule.cssText.replace re, "") + "\n"
         styles
 
+  @properties: (description) -> properties @::, description
+
   connect: ->
     await @initialize()
     @ready()
@@ -52,18 +55,8 @@ class Gadget
     else
       @html = ""
 
-  # TODO: use multimethod here?
-  on: (descriptors) ->
-    for key, value of descriptors
-      if isFunction value
-        @shadow.addEventListener key, (value.bind @)
-      else if isObject value
-        for name, handler of value
-          @shadow.addEventListener name, do (handler=(handler.bind @)) =>
-            if key == "host"
-              (event) => (handler event) if event.target == @shadow
-            else
-              (event) => (handler event) if event.target.matches key
+  # defined using multimethods, see below
+  on: (description) -> _on @, description
 
   dispatch: (name) ->
     @shadow.dispatchEvent new Event name,
@@ -71,9 +64,6 @@ class Gadget
       cancelable: false
       # allow to bubble up from shadow DOM
       composed: true
-
-  bind: (gadget) ->
-    @on change: -> gadget.value = @value
 
   events: ->
     @on host: change: (event) =>
@@ -115,6 +105,8 @@ class Gadget
         {gadgets} = target
         if isFunction Gadget::[property]
           -> (gadget[property] arguments...) for gadget in gadgets
+        else if isAsyncFunction Gadget::[property]
+          -> Promise.all ((gadget[property] arguments...) for gadget in gadgets)
         else
           [first] = gadgets
           first?[property]
@@ -132,5 +124,48 @@ class Gadget
         await customElements.whenDefined tag
         results.push element.gadget if element.gadget?
     new @Collection results
+
+  @pipe: (gadgets...) ->
+    # TODO: use Fairmont Reactor
+    gadgets.reduce (source, target) ->
+      source.on change: -> target.value = source.value
+      target
+
+  @ready: (f) -> document.addEventListener "DOMContentLoaded", f
+
+# Selector-based event handling
+
+isGadget = isKind Gadget
+isHostSelector = (s) -> s == "host"
+
+_on = Method.create default: -> # ignore bad descriptions
+
+# simple event handler with no selector
+Method.define _on, isGadget, isString, isFunction,
+  (gadget, name, handler) ->
+    gadget.shadow.addEventListener name, handler.bind gadget
+
+# event handler using a selector, event name, and handler
+Method.define _on, isGadget, isString, isString, isFunction,
+  (gadget, selector, name, handler) ->
+    gadget.shadow.addEventListener name, (event) ->
+      (handler.call gadget, event) if (event.target.matches selector)
+
+# event handler using special host selector (that's the shadow root)
+# must be defined after generic selector otw this never gets called
+Method.define _on, isGadget, isHostSelector, isString, isFunction,
+  (gadget, selector, name, handler) ->
+    gadget.shadow.addEventListener name, (event) ->
+      (handler.call gadget, event) if (event.target == gadget.shadow)
+
+# a dictionary of event handlers for a selector
+Method.define _on, isGadget, isString, isObject,
+  (gadget, selector, description) ->
+    (_on gadget, selector, name, handler) for name, handler of description
+
+# a dictionary of event handlers of some kind—our starting point
+Method.define _on, isGadget, isObject,
+  (gadget, description) ->
+    (_on gadget, key, value) for key, value of description
 
 export {Gadget}

@@ -2,14 +2,14 @@ import "./components/x-tabs/index.coffee"
 import "./components/x-editor/index.coffee"
 import "./components/x-markdown/index.coffee"
 
-import {Gadget} from "play"
+import {Gadget} from "gadget"
 
-document.addEventListener "DOMContentLoaded", ->
+Gadget.ready ->
 
   editor = await Gadget.select "x-editor"
   markdown = await Gadget.select "x-markdown"
 
-  editor.bind markdown
+  Gadget.pipe editor, markdown
 
   editor.value = """
     # Chapter 1

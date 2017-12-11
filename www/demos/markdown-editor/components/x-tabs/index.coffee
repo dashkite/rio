@@ -1,11 +1,24 @@
-import {Gadget} from "play"
+import {properties} from "fairmont-helpers"
+import {Gadget} from "gadget"
 import {template} from "./template.coffee"
 
-properties = (self, descriptors) ->
-  for name, descriptor of descriptors
-    descriptor.enumerable ?= true
-    Object.defineProperty self, name, descriptor
-
+# A few classes to allow us to nagivate from a label
+# to tab content or to the corresponding slots
+#
+# tab
+#   name: logical reference we use to map to the slot
+#   label: what do we display on the tab
+#   dom:
+#     name: see above
+#     label: the label element (as opposed to text)
+#     tabs: this tab's parent
+#     shadow: this tab's parent's shadow root
+#     content: tab content
+#     slots:
+#       name: see above
+#       label: the slot element for the label
+#       content: the slot element for the content
+#
 class Tab
 
   constructor: (label) ->
@@ -50,9 +63,11 @@ class Tabs extends Gadget
 
   @register "x-tabs"
 
-  properties @::,
-    tabs: get: ->
-      (new Tab label) for label in (@dom.querySelectorAll "label[slot]")
+  @properties
+    tabs:
+      get: ->
+        for label in (@dom.querySelectorAll "label[slot]")
+          new Tab label
 
   @events
     label:

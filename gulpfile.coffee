@@ -12,18 +12,21 @@ path = require "path"
 gulp.task "js", ->
   new Promise (yay, nay) ->
     webpack
-      entry: "./www/v/1.0.0-alpha-00/demos/markdown-editor/index.coffee"
+      entry: "./www/demos/markdown-editor/index.coffee"
       output:
-        path: path.resolve "build/v/1.0.0-alpha-00/demos/markdown-editor"
+        path: path.resolve "build/www/demos/markdown-editor"
         filename: "index.js"
       module:
         rules: [
           test: /\.coffee$/
           use: [ 'coffee-loader' ]
+        ,
+          test: /\.styl$/
+          use: [ 'raw-loader', 'stylus-loader' ]
         ]
       resolve:
         modules: [
-          path.resolve "www/v/1.0.0-alpha-00/lib"
+          path.resolve "lib"
           "node_modules"
         ]
         extensions: [ ".js", ".json", ".coffee" ]
@@ -36,7 +39,7 @@ gulp.task "js", ->
 
 gulp.task "server", ->
   gulp
-  .src "build"
+  .src "build/www"
   .pipe webserver
       livereload: true
       port: 8000
@@ -49,39 +52,18 @@ gulp.task "html", ->
   gulp
   .src [ "www/**/*.pug" ]
   .pipe pug {}
-  .pipe gulp.dest "build"
+  .pipe gulp.dest "build/www"
 
 gulp.task "css", ->
   gulp
   .src "www/**/*.styl"
   .pipe stylus()
-  .pipe gulp.dest "build"
-
-# gulp.task "js", ->
-#   gulp
-#   .src "www/**/*.coffee", sourcemaps: true
-#   .pipe coffee
-#     coffee: coffeescript
-#     transpile:
-#       presets: [
-#         [
-#           "env",
-#             targets:
-#               browsers: [
-#                 "Chrome >= 62"
-#                 "ChromeAndroid >= 61"
-#                 "Safari >= 11"
-#                 "iOS >= 11"
-#               ]
-#             modules: "umd"
-#           ]
-#         ]
-#   .pipe gulp.dest "build"
+  .pipe gulp.dest "build/www"
 
 gulp.task "images", ->
   gulp
   .src [ "www/images/**/*" ]
-  .pipe gulp.dest "build/images"
+  .pipe gulp.dest "build/www/images"
 
 
 # watch doesn't take a task name for some reason
@@ -94,7 +76,7 @@ gulp.task "build", build
 gulp.task "watch", ->
   # TODO this isn't picking up changes
   # to the stylus or coffeescript files
-  gulp.watch [ "www/**/*" ], build
+  gulp.watch [ "www/**/*", "lib/**/*" ], build
 
 gulp.task "default",
   gulp.series "build",
