@@ -1,4 +1,4 @@
-var Gadget, _on, base, isGadget, isHostSelector, parse, style;
+var Gadget, _on, base, gadget, isGadget, isGadgetClass, isHostSelector, parse, style;
 
 import { HTML } from "./vhtml";
 
@@ -6,7 +6,7 @@ import { HTML } from "./vhtml";
 
 import { innerHTML } from "diffhtml";
 
-import { isKind, isString, isFunction, isAsyncFunction, isObject, prototype, properties } from "fairmont-helpers";
+import { prototype, isKind, isTransitivePrototype, isString, isFunction, isAsyncFunction, isObject, properties } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
@@ -323,4 +323,52 @@ Method.define(_on, isGadget, isObject, function (gadget, description) {
   return results1;
 });
 
-export { Gadget };
+isGadgetClass = function (x) {
+  return x === Gadget || isTransitivePrototype(Gadget, x);
+};
+
+// gadget creation function if you want less clutter
+gadget = Method.create({
+  default: function () {
+    throw new TypeError("gadget: bad arguments");
+  }
+});
+
+Method.define(gadget, isGadgetClass, isObject, function (base, description) {
+  if (description.ready == null) {
+    description.ready = function () {
+      return base.prototype.ready.call(this);
+    };
+  }
+  return function () {
+    var _Class;
+
+    _Class = class extends base {};
+
+    _Class.prototype.template = description.template;
+
+    _Class.prototype.ready = description.ready;
+
+    _Class.register(description.name);
+
+    if (description.events != null) {
+      _Class.events(description.events);
+    }
+
+    if (description.observe != null) {
+      _Class.observe(description.observe);
+    }
+
+    if (description.properties != null) {
+      _Class.properties(description.properties);
+    }
+
+    return _Class;
+  }();
+});
+
+Method.define(gadget, isObject, function (description) {
+  return gadget(Gadget, description);
+});
+
+export { gadget, Gadget };

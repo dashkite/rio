@@ -1,5 +1,5 @@
 fs = require "fs"
-{task,src,dest,series,parallel} = require "gulp"
+{task,src,dest,series,parallel, watch} = require "gulp"
 del = require "del"
 coffeescript = require "coffeescript"
 coffee = require "gulp-coffee"
@@ -26,7 +26,7 @@ print = ([stdout, stderr]) ->
   process.stderr.write stderr if stderr.length > 0
 
 task "clean", -> del "build"
-task "npm", ->
+task "build", ->
   src "lib/**/*.coffee", sourcemaps: true
   .pipe coffee
     coffee: coffeescript
@@ -51,3 +51,6 @@ task "git:tag", ->
   {version} = $package
   await run "git tag -am #{version} #{version}"
   await run "git push --tags"
+
+task "watch", ->
+  watch [ "lib/**/*.coffee" ], series (task "clean"), (task "build")

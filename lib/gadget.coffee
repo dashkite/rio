@@ -3,8 +3,9 @@ import {HTML} from "./vhtml"
 
 import {innerHTML} from "diffhtml"
 
-import {isKind, isString, isFunction, isAsyncFunction, isObject,
-  prototype, properties} from "fairmont-helpers"
+import {prototype, isKind, isTransitivePrototype,
+  isString, isFunction, isAsyncFunction, isObject,
+  properties} from "fairmont-helpers"
 
 import {Method} from "fairmont-multimethods"
 
@@ -173,4 +174,23 @@ Method.define _on, isGadget, isObject,
   (gadget, description) ->
     (_on gadget, key, value) for key, value of description
 
-export {Gadget}
+isGadgetClass = (x) ->
+  x == Gadget || (isTransitivePrototype Gadget, x)
+
+# gadget creation function if you want less clutter
+gadget = Method.create default: -> throw new TypeError "gadget: bad arguments"
+
+Method.define gadget, isGadgetClass, isObject, (base, description) ->
+  description.ready ?= -> base::ready.call @
+  class extends base
+    template: description.template
+    ready: description.ready
+    @register description.name
+    @events description.events if description.events?
+    @observe description.observe if description.observe?
+    @properties description.properties if description.properties?
+
+Method.define gadget, isObject, (description) ->
+  gadget Gadget, description
+
+export {gadget, Gadget}
