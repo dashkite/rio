@@ -1,8 +1,8 @@
 # Selector-based event handling
-import {isKind, isString, isArray, isFunction} from "fairmont-helpers"
+import {isKind, isString, isArray, isObject, isFunction} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 
-isGadget = isKind Gadget
+isGadget = isObject
 isHostSelector = (s) -> s == "host"
 
 events = Method.create default: -> # ignore bad descriptions

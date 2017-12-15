@@ -1,26 +1,33 @@
 import {properties} from "fairmont-helpers"
-import {events} from "./events.coffee"
-import {mixins} from "./mixins.coffee"
+import {events} from "./events"
+import {mixins} from "./mixins"
 
 class Gadget
 
-  @register: (tag) ->
-    self = @
-    self.Component = class extends HTMLElement
-      constructor: ->
-        super()
-        @attachShadow mode: "open"
-        @gadget = new self @
-      connectedCallback: -> @gadget.connect()
-    requestAnimationFrame ->
-      customElements.define self.tag, self.Component
-    @
+  properties @,
+    tag:
+      set: (tag) ->
+        properties @, tag: value: tag
+        self = @
+        self.Component = class extends HTMLElement
+          constructor: ->
+            super()
+            @attachShadow mode: "open"
+            @gadget = new self @
+          connectedCallback: -> @gadget.connect()
+        requestAnimationFrame ->
+          customElements.define self.tag, self.Component
+        @tag
+
+  @properties: (description) -> properties @::, description
 
   @mixins: (list) -> mixins @, list
 
+  @on: (description) -> @events.push description
+
   @events: []
 
-  properties @::,
+  @properties
     tag:
       get: -> @constructor.tag
     shadow:

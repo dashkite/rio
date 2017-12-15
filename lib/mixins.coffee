@@ -1,6 +1,6 @@
 import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
-import {isArray, isObject, isFunction,
+import {isArray, isKind, isFunction,
   properties as _properties} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 
@@ -10,7 +10,7 @@ properties = (description) ->
   (type) -> _properties type::, description
 
 property = (key, value) ->
-  (type) -> _properties type::, "#{key}": description
+  (type) -> _properties type::, "#{key}": value
 
 observe = (description, handler) ->
   for key, value of description
@@ -18,9 +18,14 @@ observe = (description, handler) ->
       get: -> value
       set: (x) ->
         value = x
-        handler.call @, x
+        handler.call @, value
 
-composable = observe value: "", -> @target.dispatch "change"
+composable = [
+  observe value: "", -> @dispatch "change"
+  (source) ->
+    source::pipe = (target) ->
+      @on change: -> target.value = @value
+]
 
 vdom = (type) ->
   properties type::,
@@ -52,9 +57,10 @@ zen = [ composable, vdom, autorender, styles, template ]
 
 mixins = Method.create default: -> new TypeError "mixins: bad argument"
 
-Method.define mixins, isObject, isFunction, (type, f) -> f type
-Method.define mixins, isObject, isArray, (type, mixins) ->
-  (mixins type, mixin) for mixin in mixins
+Method.define mixins, (isKind Object), isFunction, (type, f) -> f type
+
+Method.define mixins, (isKind Object), isArray, (type, list) ->
+  (mixins type, mixin) for mixin in list
 
 export {property, properties, observe,
   composable, vdom, autorender, template, styles,

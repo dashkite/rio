@@ -1,11 +1,11 @@
 // Selector-based event handling
 var events, isGadget, isHostSelector;
 
-import { isKind, isString, isArray, isFunction } from "fairmont-helpers";
+import { isKind, isString, isArray, isObject, isFunction } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
-isGadget = isKind(Gadget);
+isGadget = isObject;
 
 isHostSelector = function (s) {
   return s === "host";

@@ -4,7 +4,7 @@ import { HTML } from "./vhtml";
 
 import { innerHTML } from "diffhtml";
 
-import { isArray, isObject, isFunction, properties as _properties } from "fairmont-helpers";
+import { isArray, isKind, isFunction, properties as _properties } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
@@ -19,7 +19,7 @@ properties = function (description) {
 property = function (key, value) {
   return function (type) {
     return _properties(type.prototype, {
-      [`${key}`]: description
+      [`${key}`]: value
     });
   };
 };
@@ -36,7 +36,7 @@ observe = function (description, handler) {
         },
         set: function (x) {
           value = x;
-          return handler.call(this, x);
+          return handler.call(this, value);
         }
       };
     }(value)));
@@ -44,11 +44,19 @@ observe = function (description, handler) {
   return results;
 };
 
-composable = observe({
+composable = [observe({
   value: ""
 }, function () {
-  return this.target.dispatch("change");
-});
+  return this.dispatch("change");
+}), function (source) {
+  return source.prototype.pipe = function (target) {
+    return this.on({
+      change: function () {
+        return target.value = this.value;
+      }
+    });
+  };
+}];
 
 vdom = function (type) {
   return properties(type.prototype, {
@@ -115,15 +123,15 @@ mixins = Method.create({
   }
 });
 
-Method.define(mixins, isObject, isFunction, function (type, f) {
+Method.define(mixins, isKind(Object), isFunction, function (type, f) {
   return f(type);
 });
 
-Method.define(mixins, isObject, isArray, function (type, mixins) {
+Method.define(mixins, isKind(Object), isArray, function (type, list) {
   var i, len, mixin, results;
   results = [];
-  for (i = 0, len = mixins.length; i < len; i++) {
-    mixin = mixins[i];
+  for (i = 0, len = list.length; i < len; i++) {
+    mixin = list[i];
     results.push(mixins(type, mixin));
   }
   return results;

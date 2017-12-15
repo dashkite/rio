@@ -2,37 +2,22 @@ var Gadget;
 
 import { properties } from "fairmont-helpers";
 
-import { events } from "./events.coffee";
+import { events } from "./events";
 
-import { mixins } from "./mixins.coffee";
+import { mixins } from "./mixins";
 
 Gadget = function () {
   class Gadget {
-    static register(tag) {
-      var self;
-      self = this;
-      self.Component = class extends HTMLElement {
-        constructor() {
-          super();
-          this.attachShadow({
-            mode: "open"
-          });
-          this.gadget = new self(this);
-        }
-
-        connectedCallback() {
-          return this.gadget.connect();
-        }
-
-      };
-      requestAnimationFrame(function () {
-        return customElements.define(self.tag, self.Component);
-      });
-      return this;
+    static properties(description) {
+      return properties(this.prototype, description);
     }
 
     static mixins(list) {
       return mixins(this, list);
+    }
+
+    static on(description) {
+      return this.events.push(description);
     }
 
     constructor(dom) {
@@ -67,9 +52,41 @@ Gadget = function () {
 
   };
 
+  properties(Gadget, {
+    tag: {
+      set: function (tag) {
+        var self;
+        properties(this, {
+          tag: {
+            value: tag
+          }
+        });
+        self = this;
+        self.Component = class extends HTMLElement {
+          constructor() {
+            super();
+            this.attachShadow({
+              mode: "open"
+            });
+            this.gadget = new self(this);
+          }
+
+          connectedCallback() {
+            return this.gadget.connect();
+          }
+
+        };
+        requestAnimationFrame(function () {
+          return customElements.define(self.tag, self.Component);
+        });
+        return this.tag;
+      }
+    }
+  });
+
   Gadget.events = [];
 
-  properties(Gadget.prototype, {
+  Gadget.properties({
     tag: {
       get: function () {
         return this.constructor.tag;
