@@ -173,6 +173,11 @@ Gadget = function () {
   };
 
   properties(Gadget.prototype, {
+    super: {
+      get: function () {
+        return prototype(prototype(this));
+      }
+    },
     tag: {
       get: function () {
         return this.constructor.tag;
@@ -336,18 +341,20 @@ gadget = Method.create({
 
 Method.define(gadget, isGadgetClass, isObject, function (base, description) {
   if (description.ready == null) {
-    description.ready = function () {
-      return base.prototype.ready.call(this);
-    };
+    description.ready = function () {};
   }
   return function () {
     var _Class;
 
-    _Class = class extends base {};
+    _Class = class extends base {
+      ready() {
+        super.ready();
+        return description.ready.call(this);
+      }
+
+    };
 
     _Class.prototype.template = description.template;
-
-    _Class.prototype.ready = description.ready;
 
     _Class.register(description.name);
 

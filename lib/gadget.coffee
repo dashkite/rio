@@ -16,6 +16,8 @@ class Gadget
   constructor: (@dom) ->
 
   properties @::,
+    super:
+      get: -> (prototype prototype @)
     tag:
       get: -> @constructor.tag
     shadow:
@@ -181,10 +183,12 @@ isGadgetClass = (x) ->
 gadget = Method.create default: -> throw new TypeError "gadget: bad arguments"
 
 Method.define gadget, isGadgetClass, isObject, (base, description) ->
-  description.ready ?= -> base::ready.call @
+  description.ready ?= ->
   class extends base
     template: description.template
-    ready: description.ready
+    ready: ->
+      super.ready()
+      description.ready.call @
     @register description.name
     @events description.events if description.events?
     @observe description.observe if description.observe?
