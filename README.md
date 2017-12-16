@@ -51,7 +51,7 @@ gadget
 - Component-targetable CSS from client document
 - Pipe operator to wire components together
 - Delegation pattern—Gadgets are handles to DOM elements
-- Mixin-based composition avoid [fragile base class problem][elliot]
+- Mixin-based composition avoid [fragile base class problem][elliott]
 
 [elliott]:https://medium.com/@_ericelliott/why-composition-is-immune-to-fragile-base-class-problem-8dfc6a5272aa
 

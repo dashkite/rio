@@ -1,8 +1,9 @@
 {
   "name": "panda-play",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "",
   "author": "Dan Yoder",
+  "homepage": "https://play.pandastrike.com/",
   "files": [
     "build/lib"
   ],
