@@ -1,6 +1,6 @@
 var gadget, isGadgetClass;
 
-import { isObject, isFunction, isTransitivePrototype } from "fairmont-helpers";
+import { isObject, isKind, isFunction, isTransitivePrototype } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
@@ -32,6 +32,13 @@ Method.define(gadget, isGadgetClass, isObject, function (base, description) {
 
 Method.define(gadget, isObject, function (description) {
   return gadget(class extends Gadget {}, description);
+});
+
+Method.define(gadget, isKind(HTMLElement), async function (element) {
+  var tag;
+  tag = element.tagName.toLowerCase();
+  await customElements.whenDefined(tag);
+  return element.gadget;
 });
 
 export { gadget };

@@ -1,4 +1,7 @@
-import {isObject, isFunction, isTransitivePrototype} from "fairmont-helpers"
+import {
+  isObject, isKind, isFunction, isTransitivePrototype
+} from "fairmont-helpers"
+
 import {Method} from "fairmont-multimethods"
 import {Gadget} from "./gadget"
 
@@ -16,5 +19,11 @@ Method.define gadget, isGadgetClass, isObject, (base, description) ->
 
 Method.define gadget, isObject, (description) ->
   gadget (class extends Gadget), description
+
+Method.define gadget, (isKind HTMLElement), (element) ->
+  tag = element.tagName.toLowerCase()
+  await customElements.whenDefined tag
+  element.gadget
+
 
 export {gadget}

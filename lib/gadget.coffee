@@ -9,10 +9,14 @@ class Gadget
     self.Component = class extends HTMLElement
       constructor: ->
         super()
-        @attachShadow mode: "open"
         @gadget = new self @
+        console.log "gadget #{self.tag} ready"
+        @attachShadow mode: "open"
       connectedCallback: -> @gadget.connect()
+    # allow the gadget to be fully defined
+    # before registering it...
     requestAnimationFrame ->
+      console.log "registering #{self.tag}"
       customElements.define self.tag, self.Component
     @tag
 

@@ -15,10 +15,11 @@ Gadget = function () {
       self.Component = class extends HTMLElement {
         constructor() {
           super();
+          this.gadget = new self(this);
+          console.log(`gadget ${self.tag} ready`);
           this.attachShadow({
             mode: "open"
           });
-          this.gadget = new self(this);
         }
 
         connectedCallback() {
@@ -26,7 +27,10 @@ Gadget = function () {
         }
 
       };
+      // allow the gadget to be fully defined
+      // before registering it...
       requestAnimationFrame(function () {
+        console.log(`registering ${self.tag}`);
         return customElements.define(self.tag, self.Component);
       });
       return this.tag;
