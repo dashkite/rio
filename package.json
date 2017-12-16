@@ -1,9 +1,13 @@
 {
   "name": "panda-play",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "",
   "author": "Dan Yoder",
   "homepage": "https://play.pandastrike.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pandastrike/panda-play.git"
+  },
   "files": [
     "build/lib"
   ],
