@@ -5,14 +5,19 @@ import { isKind, isString, isArray, isObject, isFunction } from "fairmont-helper
 
 import { Method } from "fairmont-multimethods";
 
-isGadget = isObject;
+isGadget = isKind(Object);
 
 isHostSelector = function (s) {
   return s === "host";
 };
 
 events = Method.create({
-  default: function () {} // ignore bad descriptions
+  default: function () {
+    console.log({
+      "arguments": arguments
+    });
+    throw new Error("gadget: bad event descriptor");
+  }
 });
 
 // simple event handler with no selector
@@ -62,7 +67,7 @@ Method.define(events, isGadget, isObject, function (gadget, description) {
 });
 
 // an array of dictionaries
-Method.define(events, isGadget, isArray(function (gadget, descriptions) {
+Method.define(events, isGadget, isArray, function (gadget, descriptions) {
   var description, i, len, results;
   results = [];
   for (i = 0, len = descriptions.length; i < len; i++) {
@@ -70,11 +75,6 @@ Method.define(events, isGadget, isArray(function (gadget, descriptions) {
     results.push(events(gadget, description));
   }
   return results;
-}));
-
-// read from events property of a gadget
-Method.define(events, isGadget, function (gadget) {
-  return events(gadget, gadget.constructor.events);
 });
 
 export { events };

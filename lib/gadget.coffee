@@ -23,9 +23,13 @@ class Gadget
 
   @mixins: (list) -> mixins @, list
 
-  @on: (description) -> @events.push description
+  @on: (description) -> (@events ?= []).push description
 
-  @events: []
+  @ready: (f) ->
+    g = (event) ->
+      event.target.removeEventListener event.type, g
+      f.call @, event
+    @on initialize: g
 
   @properties
     tag:
@@ -38,24 +42,20 @@ class Gadget
 
   constructor: (@dom) ->
 
-  connect: ->
-    await @initialize()
-    @ready()
+  connect: -> @initialize()
 
   initialize: ->
     @initialize = ->
     @on @constructor.events
-    @dispatch 'initialize'
+    @dispatch "initialize", local: false
 
-  ready: ->
+  on: (description) -> events @, description
 
-  on: (description) -> events @
-
-  dispatch: (name) ->
+  dispatch: (name, {local} = {local: true}) ->
     @shadow.dispatchEvent new Event name,
       bubbles: true
       cancelable: false
       # allow to bubble up from shadow DOM
-      composed: true
+      composed: local
 
 export {Gadget}

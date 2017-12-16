@@ -4,7 +4,7 @@ import { HTML } from "./vhtml";
 
 import { innerHTML } from "diffhtml";
 
-import { isArray, isKind, isFunction, properties as _properties } from "fairmont-helpers";
+import { isString, isArray, isKind, isFunction, properties as _properties } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
@@ -58,62 +58,59 @@ composable = [observe({
   };
 }];
 
-vdom = function (type) {
-  return properties(type.prototype, {
-    html: {
-      get: function () {
-        return this.shadow.innerHTML;
-      },
-      set: function (html) {
-        vdom = isString(html) ? parse(html) : html;
-        if (this.styles) {
-          vdom.push(style(this.styles));
-        }
-        return innerHTML(this.shadow, value);
-      }
+vdom = properties({
+  html: {
+    get: function () {
+      return this.shadow.innerHTML;
+    },
+    set: function (html) {
+      vdom = isString(html) ? parse(html) : html;
+      vdom.push(style(this.styles));
+      return innerHTML(this.shadow, vdom);
     }
-  });
-};
+  }
+});
 
 autorender = function (type) {
-  return type.events.push({
+  type.on({
     change: function () {
       return this.render();
     }
   });
+  return type.prototype.ready = function () {
+    return this.render();
+  };
 };
 
 template = function (type) {
   return type.prototype.render = function () {
-    return this.html(this.template(this));
+    return this.html = this.constructor.template(this);
   };
 };
 
-styles = function (type) {
-  return properties(type.prototype, {
-    styles: {
-      get: function () {
-        var i, j, len, len1, re, ref, ref1, rule, sheet;
-        styles = "";
-        re = RegExp(`${this.tag}\\s+:host\\s+`, "g");
-        ref = document.styleSheets;
-        for (i = 0, len = ref.length; i < len; i++) {
-          sheet = ref[i];
-          if (sheet.rules != null) {
-            ref1 = sheet.rules;
-            for (j = 0, len1 = ref1.length; j < len1; j++) {
-              rule = ref1[j];
-              if (rule.cssText.match(re)) {
-                styles += rule.cssText.replace(re, "") + "\n";
-              }
+styles = properties({
+  styles: {
+    get: function () {
+      var i, j, len, len1, re, ref, ref1, rule, sheet;
+      styles = "";
+      re = RegExp(`${this.tag}\\s+:host\\s+`, "g");
+      ref = document.styleSheets;
+      for (i = 0, len = ref.length; i < len; i++) {
+        sheet = ref[i];
+        if (sheet.rules != null) {
+          ref1 = sheet.rules;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            rule = ref1[j];
+            if (rule.cssText.match(re)) {
+              styles += rule.cssText.replace(re, "") + "\n";
             }
           }
         }
-        return styles;
       }
+      return styles;
     }
-  });
-};
+  }
+});
 
 zen = [composable, vdom, autorender, styles, template];
 

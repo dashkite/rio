@@ -17,36 +17,48 @@ Gadget = function () {
     }
 
     static on(description) {
-      return this.events.push(description);
+      return (this.events != null ? this.events : this.events = []).push(description);
+    }
+
+    static ready(f) {
+      var g;
+      g = function (event) {
+        event.target.removeEventListener(event.type, g);
+        return f.call(this, event);
+      };
+      return this.on({
+        initialize: g
+      });
     }
 
     constructor(dom) {
       this.dom = dom;
     }
 
-    async connect() {
-      await this.initialize();
-      return this.ready();
+    connect() {
+      return this.initialize();
     }
 
     initialize() {
       this.initialize = function () {};
       this.on(this.constructor.events);
-      return this.dispatch('initialize');
+      return this.dispatch("initialize", {
+        local: false
+      });
     }
-
-    ready() {}
 
     on(description) {
-      return events(this);
+      return events(this, description);
     }
 
-    dispatch(name) {
+    dispatch(name, { local } = {
+      local: true
+    }) {
       return this.shadow.dispatchEvent(new Event(name, {
         bubbles: true,
         cancelable: false,
         // allow to bubble up from shadow DOM
-        composed: true
+        composed: local
       }));
     }
 
@@ -83,8 +95,6 @@ Gadget = function () {
       }
     }
   });
-
-  Gadget.events = [];
 
   Gadget.properties({
     tag: {

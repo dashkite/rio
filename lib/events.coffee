@@ -2,10 +2,12 @@
 import {isKind, isString, isArray, isObject, isFunction} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 
-isGadget = isObject
+isGadget = isKind Object
 isHostSelector = (s) -> s == "host"
 
-events = Method.create default: -> # ignore bad descriptions
+events = Method.create default: ->
+  console.log "arguments": arguments
+  throw new Error "gadget: bad event descriptor"
 
 # simple event handler with no selector
 Method.define events, isGadget, isString, isFunction,
@@ -36,11 +38,7 @@ Method.define events, isGadget, isObject,
     (events gadget, key, value) for key, value of description
 
 # an array of dictionaries
-Method.define events, isGadget, isArray (gadget, descriptions) ->
+Method.define events, isGadget, isArray, (gadget, descriptions) ->
   (events gadget, description) for description in descriptions
-
-# read from events property of a gadget
-Method.define events, isGadget, (gadget) ->
-  events gadget, gadget.constructor.events
 
 export {events}

@@ -1,6 +1,6 @@
 import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
-import {isArray, isKind, isFunction,
+import {isString, isArray, isKind, isFunction,
   properties as _properties} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 
@@ -27,31 +27,30 @@ composable = [
       @on change: -> target.value = @value
 ]
 
-vdom = (type) ->
-  properties type::,
-    html:
-      get: -> @shadow.innerHTML
-      set: (html) ->
-        vdom = if isString html then (parse html) else html
-        vdom.push (style @styles) if @styles
-        innerHTML @shadow, value
+vdom = properties
+  html:
+    get: -> @shadow.innerHTML
+    set: (html) ->
+      vdom = if (isString html) then (parse html) else html
+      vdom.push (style @styles)
+      innerHTML @shadow, vdom
 
 autorender = (type) ->
-  type.events.push change: -> @render()
+  type.on change: -> @render()
+  type::ready = -> @render()
 
 template = (type) ->
-  type::render = -> @html @template @
+  type::render = -> @html = @constructor.template @
 
-styles = (type) ->
-  properties type::,
-    styles:
-      get: ->
-        styles = ""
-        re = ///#{@tag}\s+:host\s+///g
-        for sheet in document.styleSheets when sheet.rules?
-          for rule in sheet.rules when (rule.cssText.match re)
-            styles += (rule.cssText.replace re, "") + "\n"
-        styles
+styles = properties
+  styles:
+    get: ->
+      styles = ""
+      re = ///#{@tag}\s+:host\s+///g
+      for sheet in document.styleSheets when sheet.rules?
+        for rule in sheet.rules when (rule.cssText.match re)
+          styles += (rule.cssText.replace re, "") + "\n"
+      styles
 
 zen = [ composable, vdom, autorender, styles, template ]
 
