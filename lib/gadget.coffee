@@ -4,20 +4,17 @@ import {mixins} from "./mixins"
 
 class Gadget
 
-  properties @,
-    tag:
-      set: (tag) ->
-        properties @, tag: value: tag
-        self = @
-        self.Component = class extends HTMLElement
-          constructor: ->
-            super()
-            @attachShadow mode: "open"
-            @gadget = new self @
-          connectedCallback: -> @gadget.connect()
-        requestAnimationFrame ->
-          customElements.define self.tag, self.Component
-        @tag
+  @tag: (@tag) ->
+    self = @
+    self.Component = class extends HTMLElement
+      constructor: ->
+        super()
+        @attachShadow mode: "open"
+        @gadget = new self @
+      connectedCallback: -> @gadget.connect()
+    requestAnimationFrame ->
+      customElements.define self.tag, self.Component
+    @tag
 
   @properties: (description) -> properties @::, description
 
