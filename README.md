@@ -2,20 +2,39 @@
 
 Play is a lightweight library for building Web Components.
 
-To create a component, just extend `Gadget`:
+To create a component, you can just call `gadget`:
 
 ```coffee
-import {Gadget} from "panda-play"
+import {Gadget, zen} from "panda-play"
 
 class Greeting extends Gadget
 
-  @register "x-editor"
+  @tag "x-greeting"
 
-  @observe value: "Hello"
+  @mixins zen
+
+  @on
+    h1:
+      click: ({target}) -> @value = "Goodbye"
 
   template: ({value}) -> "<h1>#{value}, World!</h1>"
 
-  @events
+```
+
+Or you can use a more functional style:
+
+```coffee
+import {gadget, zen} from "panda-play"
+
+gadget
+
+  tag: "x-greeting"
+
+  mixins: zen
+
+  template: ({value}) -> "<h1>#{value}, World!</h1>"
+
+  on:
     h1:
       click: ({target}) -> @value = "Goodbye"
 
@@ -32,10 +51,13 @@ class Greeting extends Gadget
 - Component-targetable CSS from client document
 - Pipe operator to wire components together
 - Delegation pattern—Gadgets are handles to DOM elements
+- Mixin-based composition avoid [fragile base class problem][elliot]
+
+[elliott]:https://medium.com/@_ericelliott/why-composition-is-immune-to-fragile-base-class-problem-8dfc6a5272aa
 
 ## Demo
 
-[Try it out!](https://play.pandastrike.com/v/1.0.0-alpha-00/demos/markdown-editor)
+[Try it out!](https://play.pandastrike.com/demos/markdown-editor)
 
 ## Install
 
@@ -44,5 +66,3 @@ Bundle using your favorite bundler:
 ```
 npm i -S panda-play
 ```
-
-Standalone and JavaScript module distributions coming soon.
