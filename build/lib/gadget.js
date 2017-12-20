@@ -1,119 +1,85 @@
-var Gadget;
+var Gadget, gadget, helper, helpers, isDerived;
 
-import { properties } from "fairmont-helpers";
+import { Method } from "fairmont-multimethods";
 
-import { events } from "./events";
+import { isObject, isKind } from "fairmont-helpers";
 
-import { mixins } from "./mixins";
+import { mix, domEvented, componentAccessors, tag, instance, observe, property, properties } from "./mixins";
 
-Gadget = function () {
-  class Gadget {
-    static tag(tag) {
-      var self;
-      this.tag = tag;
-      self = this;
-      self.Component = class extends HTMLElement {
-        constructor() {
-          super();
-          this.gadget = new self(this);
-          console.log(`gadget ${self.tag} ready`);
-          this.attachShadow({
-            mode: "open"
-          });
-        }
+Gadget = class Gadget {
+  static define() {
+    return mix(class extends Gadget {}, [domEvented, componentAccessors]);
+  }
 
-        connectedCallback() {
-          return this.gadget.connect();
-        }
+  constructor(dom) {
+    this.dom = dom;
+  }
 
-      };
-      // allow the gadget to be fully defined
-      // before registering it...
-      requestAnimationFrame(function () {
-        console.log(`registering ${self.tag}`);
-        return customElements.define(self.tag, self.Component);
-      });
-      return this.tag;
-    }
+  // initialize is idempotent
+  connect() {
+    return this.initialize();
+  }
 
-    static properties(description) {
-      return properties(this.prototype, description);
-    }
+};
 
-    static mixins(list) {
-      return mixins(this, list);
-    }
-
-    static on(description) {
-      return (this.events != null ? this.events : this.events = []).push(description);
-    }
-
-    static ready(f) {
-      var g;
-      g = function (event) {
-        event.target.removeEventListener(event.type, g);
-        return f.call(this, event);
-      };
-      return this.on({
-        initialize: g
-      });
-    }
-
-    constructor(dom) {
-      this.dom = dom;
-    }
-
-    connect() {
-      return this.initialize();
-    }
-
-    initialize() {
-      this.initialize = function () {};
-      this.on(this.constructor.events);
-      return this.dispatch("initialize", {
-        local: false
-      });
-    }
-
-    on(description) {
-      return events(this, description);
-    }
-
-    dispatch(name, { local } = {
-      local: true
-    }) {
-      return this.shadow.dispatchEvent(new Event(name, {
-        bubbles: true,
-        cancelable: false,
-        // allow to bubble up from shadow DOM
-        composed: local
-      }));
-    }
-
+// adapt mixins for use dynamically
+helper = function (mixin) {
+  return function (type, value) {
+    return mixin(value)(type);
   };
+};
 
-  Gadget.properties({
-    tag: {
-      get: function () {
-        return this.constructor.tag;
-      }
-    },
-    shadow: {
-      get: function () {
-        return this.dom.shadowRoot;
-      }
-    },
-    html: {
-      get: function () {
-        return this.shadow.innerHTML;
-      },
-      set: function (value) {
-        return this.shadow.innerHTML = value;
-      }
+helpers = {
+  tag: helper(tag),
+  mixins: mix,
+  instance: helper(instance),
+  property: helper(property),
+  properties: helper(properties),
+  observe: helper(observe),
+  on: function (type, handler) {
+    return type.on(handler);
+  },
+  ready: function (type, handler) {
+    return type.ready(handler);
+  }
+};
+
+isDerived = function (t) {
+  return function (x) {
+    return isKind(t, x.prototype);
+  };
+};
+
+gadget = Method.create({
+  default: function () {
+    throw new TypeError("gadget: bad arguments");
+  }
+});
+
+Method.define(gadget, isDerived(Gadget), isObject, function (type, description) {
+  var key, results, value;
+  results = [];
+  for (key in description) {
+    value = description[key];
+    if (helpers[key] != null) {
+      results.push(helpers[key](type, value));
+    } else {
+      results.push(type[key] = value);
     }
-  });
+  }
+  return results;
+});
 
-  return Gadget;
-}();
+Method.define(gadget, isObject, function (description) {
+  return gadget(Gadget.define(), description);
+});
 
-export { Gadget };
+Method.define(gadget, isKind(HTMLElement), function (tag) {
+  return async function (element) {
+    tag = element.tagName.toLowerCase();
+    await customElements.whenDefined(tag);
+    return element.gadget;
+  };
+}(void 0));
+
+export { gadget, Gadget };

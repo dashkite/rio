@@ -1,62 +1,47 @@
-import {properties} from "fairmont-helpers"
-import {events} from "./events"
-import {mixins} from "./mixins"
+import {Method} from "fairmont-multimethods"
+import {isObject, isKind} from "fairmont-helpers"
+import {mix, domEvented, componentAccessors,
+  tag, instance, observe, property, properties} from "./mixins"
 
 class Gadget
 
-  @tag: (@tag) ->
-    self = @
-    self.Component = class extends HTMLElement
-      constructor: ->
-        super()
-        @gadget = new self @
-        console.log "gadget #{self.tag} ready"
-        @attachShadow mode: "open"
-      connectedCallback: -> @gadget.connect()
-    # allow the gadget to be fully defined
-    # before registering it...
-    requestAnimationFrame ->
-      console.log "registering #{self.tag}"
-      customElements.define self.tag, self.Component
-    @tag
-
-  @properties: (description) -> properties @::, description
-
-  @mixins: (list) -> mixins @, list
-
-  @on: (description) -> (@events ?= []).push description
-
-  @ready: (f) ->
-    g = (event) ->
-      event.target.removeEventListener event.type, g
-      f.call @, event
-    @on initialize: g
-
-  @properties
-    tag:
-      get: -> @constructor.tag
-    shadow:
-      get: -> @dom.shadowRoot
-    html:
-      get: -> @shadow.innerHTML
-      set: (value) -> @shadow.innerHTML = value
+  @define: ->
+    mix (class extends Gadget),
+      [ domEvented, componentAccessors ]
 
   constructor: (@dom) ->
 
+  # initialize is idempotent
   connect: -> @initialize()
+# adapt mixins for use dynamically
+helper = (mixin) -> (type, value) -> ((mixin value) type)
+helpers =
+  tag: helper tag
+  mixins: mix
+  instance: helper instance
+  property: helper property
+  properties: helper properties
+  observe: helper observe
+  on: (type, handler) -> type.on handler
+  ready: (type, handler) -> type.ready handler
 
-  initialize: ->
-    @initialize = ->
-    @on @constructor.events
-    @dispatch "initialize", local: false
+isDerived = (t) -> (x) -> isKind t, x::
 
-  on: (description) -> events @, description
+gadget = Method.create default: -> throw new TypeError "gadget: bad arguments"
 
-  dispatch: (name, {local} = {local: true}) ->
-    @shadow.dispatchEvent new Event name,
-      bubbles: true
-      cancelable: false
-      # allow to bubble up from shadow DOM
-      composed: local
+Method.define gadget, (isDerived Gadget), isObject, (type, description) ->
+  for key, value of description
+    if helpers[key]?
+      helpers[key] type, value
+    else
+      type[key] = value
 
-export {Gadget}
+Method.define gadget, isObject, (description) ->
+  gadget (Gadget.define()), description
+
+Method.define gadget, (isKind HTMLElement), do (tag=undefined) -> (element) ->
+  tag = element.tagName.toLowerCase()
+  await customElements.whenDefined tag
+  element.gadget
+
+export {gadget, Gadget}
