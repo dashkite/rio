@@ -39,9 +39,10 @@ Method.define gadget, (isDerived Gadget), isObject, (type, description) ->
 Method.define gadget, isObject, (description) ->
   gadget (Gadget.define()), description
 
-Method.define gadget, (isKind HTMLElement), do (tag=undefined) -> (element) ->
-  tag = element.tagName.toLowerCase()
-  await customElements.whenDefined tag
-  element.gadget
+do (tag=undefined) ->
+  Method.define gadget, (isKind HTMLElement), (element) ->
+    tag = element.tagName.toLowerCase()
+    await customElements.whenDefined tag
+    element.gadget
 
 export {gadget, Gadget}

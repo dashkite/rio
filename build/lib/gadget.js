@@ -74,12 +74,12 @@ Method.define(gadget, isObject, function (description) {
   return gadget(Gadget.define(), description);
 });
 
-Method.define(gadget, isKind(HTMLElement), function (tag) {
-  return async function (element) {
+(function (tag) {
+  return Method.define(gadget, isKind(HTMLElement), async function (element) {
     tag = element.tagName.toLowerCase();
     await customElements.whenDefined(tag);
     return element.gadget;
-  };
-}(void 0));
+  });
+})(void 0);
 
 export { gadget, Gadget };
