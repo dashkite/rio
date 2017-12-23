@@ -1,13 +1,13 @@
 import {Method} from "fairmont-multimethods"
 import {isObject, isKind} from "fairmont-helpers"
-import {mix, domEvented, componentAccessors,
-  tag, instance, observe, property, properties} from "./mixins"
+import {mix, evented, accessors,
+  tag, assign, observe, property, properties} from "./mixins"
 
 class Gadget
 
   @define: ->
     mix (class extends Gadget),
-      [ domEvented, componentAccessors ]
+      [ evented, accessors ]
 
   constructor: (@dom) ->
 
@@ -18,7 +18,7 @@ helper = (mixin) -> (type, value) -> ((mixin value) type)
 helpers =
   tag: helper tag
   mixins: mix
-  instance: helper instance
+  instance: helper assign
   property: helper property
   properties: helper properties
   observe: helper observe

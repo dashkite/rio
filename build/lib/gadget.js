@@ -4,11 +4,11 @@ import { Method } from "fairmont-multimethods";
 
 import { isObject, isKind } from "fairmont-helpers";
 
-import { mix, domEvented, componentAccessors, tag, instance, observe, property, properties } from "./mixins";
+import { mix, evented, accessors, tag, assign, observe, property, properties } from "./mixins";
 
 Gadget = class Gadget {
   static define() {
-    return mix(class extends Gadget {}, [domEvented, componentAccessors]);
+    return mix(class extends Gadget {}, [evented, accessors]);
   }
 
   constructor(dom) {
@@ -32,7 +32,7 @@ helper = function (mixin) {
 helpers = {
   tag: helper(tag),
   mixins: mix,
-  instance: helper(instance),
+  instance: helper(assign),
   property: helper(property),
   properties: helper(properties),
   observe: helper(observe),

@@ -2,26 +2,7 @@
 
 Play is a lightweight library for building Web Components.
 
-To create a component, you can just call `gadget`:
-
-```coffee
-import {Gadget, zen} from "panda-play"
-
-class Greeting extends Gadget
-
-  @tag "x-greeting"
-
-  @mixins zen
-
-  @on
-    h1:
-      click: ({target}) -> @value = "Goodbye"
-
-  template: ({value}) -> "<h1>#{value}, World!</h1>"
-
-```
-
-Or you can use a more functional style:
+To create a component, you just call `gadget`:
 
 ```coffee
 import {gadget, zen} from "panda-play"
@@ -30,6 +11,7 @@ gadget
 
   tag: "x-greeting"
 
+  # zen preset gives us all the goodies :)
   mixins: zen
 
   template: ({value}) -> "<h1>#{value}, World!</h1>"

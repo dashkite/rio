@@ -1,6 +1,6 @@
 {
   "name": "panda-play",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "",
   "author": "Dan Yoder",
   "homepage": "https://play.pandastrike.com/",
@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "diffhtml": "^1.0.0-beta.9",
-    "fairmont-helpers": "^3.0.2",
+    "fairmont-core": "^2.1.2",
+    "fairmont-helpers": "^3.1.0",
     "fairmont-multimethods": "^2.0.2"
   }
 }
