@@ -1,7 +1,7 @@
 import {Method} from "fairmont-multimethods"
 import {isObject, isKind} from "fairmont-helpers"
-import {mix, evented, accessors,
-  tag, assign, observe, property, properties} from "./mixins"
+import {evented, accessors, tag,
+  assign, observe, property, properties} from "./mixins"
 
 class Gadget
 
@@ -17,7 +17,9 @@ class Gadget
 helper = (mixin) -> (type, value) -> ((mixin value) type)
 helpers =
   tag: helper tag
-  mixins: mix
+  mixins: (type, handler) ->
+    handler = pipe handler if isArray handler
+    handler type
   instance: helper assign
   property: helper property
   properties: helper properties

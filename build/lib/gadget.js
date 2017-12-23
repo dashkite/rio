@@ -4,7 +4,7 @@ import { Method } from "fairmont-multimethods";
 
 import { isObject, isKind } from "fairmont-helpers";
 
-import { mix, evented, accessors, tag, assign, observe, property, properties } from "./mixins";
+import { evented, accessors, tag, assign, observe, property, properties } from "./mixins";
 
 Gadget = class Gadget {
   static define() {
@@ -31,7 +31,12 @@ helper = function (mixin) {
 
 helpers = {
   tag: helper(tag),
-  mixins: mix,
+  mixins: function (type, handler) {
+    if (isArray(handler)) {
+      handler = pipe(handler);
+    }
+    return handler(type);
+  },
   instance: helper(assign),
   property: helper(property),
   properties: helper(properties),
