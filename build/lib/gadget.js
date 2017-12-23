@@ -1,14 +1,18 @@
-var Gadget, gadget, helper, helpers, isDerived;
+var Gadget, gadget, helper, helpers, isDerived, pipe;
+
+import { apply, spread, pipe as _pipe } from "fairmont-core";
 
 import { Method } from "fairmont-multimethods";
 
-import { isObject, isKind } from "fairmont-helpers";
+import { isObject, isKind, isArray } from "fairmont-helpers";
 
 import { evented, accessors, tag, assign, observe, property, properties } from "./mixins";
 
+pipe = spread(_pipe);
+
 Gadget = class Gadget {
   static define() {
-    return mix(class extends Gadget {}, [evented, accessors]);
+    return apply(pipe([evented, accessors]), class extends Gadget {});
   }
 
   constructor(dom) {

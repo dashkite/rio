@@ -1,13 +1,14 @@
+import {apply, spread, pipe as _pipe} from "fairmont-core"
 import {Method} from "fairmont-multimethods"
-import {isObject, isKind} from "fairmont-helpers"
+import {isObject, isKind, isArray} from "fairmont-helpers"
 import {evented, accessors, tag,
   assign, observe, property, properties} from "./mixins"
 
+pipe = spread _pipe
+
 class Gadget
 
-  @define: ->
-    mix (class extends Gadget),
-      [ evented, accessors ]
+  @define: -> apply (pipe [evented, accessors]), (class extends Gadget)
 
   constructor: (@dom) ->
 

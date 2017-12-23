@@ -1,4 +1,4 @@
-var $assign, $method, $methods, $properties, $property, accessors, assign, autorender, calypso, composable, evented, method, methods, observe, properties, property, styles, tag, template, vdom, zen;
+var $assign, $method, $methods, $properties, $property, accessors, assign, autorender, calypso, composable, evented, method, methods, observe, pipe, properties, property, styles, tag, template, vdom, zen;
 
 import { HTML } from "./vhtml";
 
@@ -8,9 +8,11 @@ import { isString, properties as $P, methods as $M } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
-import { pipe, tee } from "fairmont-core";
+import { spread, pipe as _pipe, tee } from "fairmont-core";
 
 import { events } from "./events";
+
+pipe = spread(_pipe);
 
 property = properties = function (description) {
   return tee(function (type) {

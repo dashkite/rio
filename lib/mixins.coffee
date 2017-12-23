@@ -2,8 +2,10 @@ import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
 import {isString, properties as $P, methods as $M} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
-import {pipe, tee} from "fairmont-core"
+import {spread, pipe as _pipe, tee} from "fairmont-core"
 import {events} from "./events"
+
+pipe = spread _pipe
 
 property = properties = (description) -> tee (type) -> $P type::, description
 $property = $properties = (description) -> tee (type) -> $P type, description
