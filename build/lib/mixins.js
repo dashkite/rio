@@ -8,7 +8,7 @@ import { isString, properties as $P, methods as $M } from "fairmont-helpers";
 
 import { Method } from "fairmont-multimethods";
 
-import { spread, pipe as _pipe, tee } from "fairmont-core";
+import { spread, pipe as _pipe, tee, apply } from "fairmont-core";
 
 import { events } from "./events";
 
@@ -51,27 +51,29 @@ $assign = function (description) {
 };
 
 observe = function (description, handler) {
-  return pipe(function () {
-    var key, results, value;
-    results = [];
-    for (key in description) {
-      value = description[key];
-      results.push(property({
-        [key]: function (value) {
-          return {
-            get: function () {
-              return value;
-            },
-            set: function (x) {
-              value = x;
-              return handler.call(this, value);
-            }
-          };
-        }(value)
-      }));
-    }
-    return results;
-  }());
+  return function (type) {
+    return apply(pipe(function () {
+      var key, results, value;
+      results = [];
+      for (key in description) {
+        value = description[key];
+        results.push(property({
+          [key]: function (value) {
+            return {
+              get: function () {
+                return value;
+              },
+              set: function (x) {
+                value = x;
+                return handler.call(this, value);
+              }
+            };
+          }(value)
+        }));
+      }
+      return results;
+    }()), type);
+  };
 };
 
 evented = pipe([$methods({

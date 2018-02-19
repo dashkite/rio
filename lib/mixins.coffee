@@ -2,7 +2,7 @@ import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
 import {isString, properties as $P, methods as $M} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
-import {spread, pipe as _pipe, tee} from "fairmont-core"
+import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
 import {events} from "./events"
 
 pipe = spread _pipe
@@ -15,13 +15,14 @@ assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
 
 observe = (description, handler) ->
-  pipe do ->
-    for key, value of description
-      property [key]: do (value) ->
-        get: -> value
-        set: (x) ->
-          value = x
-          handler.call @, value
+  (type) ->
+    apply (pipe do ->
+      for key, value of description
+        property [key]: do (value) ->
+          get: -> value
+          set: (x) ->
+            value = x
+            handler.call @, value), type
 
 evented = pipe [
   $methods
