@@ -106,7 +106,9 @@ evented = pipe([$methods({
   },
   initialize: function () {
     this.initialize = function () {};
-    this.on(this.constructor.events);
+    if (this.constructor.events != null) {
+      this.on(this.constructor.events);
+    }
     return this.dispatch("initialize", {
       local: true
     });

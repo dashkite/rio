@@ -21,7 +21,7 @@ Method.define(events, isKind(Object), isString, isFunction, function (gadget, na
 // event handler using a selector, event name, and handler
 Method.define(events, isKind(Object), isString, isString, isFunction, function (gadget, selector, name, handler) {
   return gadget.shadow.addEventListener(name, function (event) {
-    if (event.target.matches(selector)) {
+    if (event.target.matches(selector) || event.target.closest(selector) != null) {
       return handler.call(gadget, event);
     }
   });
