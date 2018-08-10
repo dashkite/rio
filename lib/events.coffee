@@ -15,7 +15,8 @@ Method.define events, (isKind Object), isString, isFunction,
 Method.define events, (isKind Object), isString, isString, isFunction,
   (gadget, selector, name, handler) ->
     gadget.shadow.addEventListener name, (event) ->
-      (handler.call gadget, event) if (event.target.matches selector)
+      if (event.target.matches selector) || (event.target.closest selector)?
+        handler.call gadget, event
 
 # event handler using special host selector (that's the shadow root)
 # must be defined after generic selector otw this never gets called
