@@ -42,7 +42,7 @@ evented = pipe [
         composed: !local
     initialize: ->
       @initialize = ->
-      @on @constructor.events
+      @on @constructor.events if @constructor.events?
       @dispatch "initialize", local: true
 ]
 
