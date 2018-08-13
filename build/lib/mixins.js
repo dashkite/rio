@@ -1,4 +1,4 @@
-var $assign, $method, $methods, $properties, $property, accessors, assign, autorender, calypso, composable, evented, method, methods, observe, pipe, properties, property, styles, tag, template, vdom, zen;
+var $assign, $method, $methods, $properties, $property, accessors, assign, autorender, calypso, composable, evented, method, methods, observe, pipe, properties, property, tag, template, vdom, zen;
 
 import { HTML } from "./vhtml";
 
@@ -162,7 +162,7 @@ tag = function (name) {
 };
 
 composable = pipe([observe({
-  value: ""
+  value: void 0
 }, function () {
   return this.dispatch("change");
 }), method({
@@ -180,11 +180,14 @@ vdom = tee(properties({
     get: function () {
       return this.shadow.innerHTML;
     },
-    set: function ({ style, parse }) {
+    set: function ({ parse }) {
       return function (html) {
         vdom = isString(html) ? parse(html) : html;
-        vdom.push(style(this.styles));
-        return innerHTML(this.shadow, vdom);
+        return innerHTML(this.shadow, vdom).then(() => {
+          return this.dispatch("render", {
+            local: true
+          });
+        });
       };
     }(HTML)
   }
@@ -192,8 +195,10 @@ vdom = tee(properties({
 
 autorender = tee(function (type) {
   type.on({
-    change: function () {
-      return this.render();
+    host: {
+      change: function () {
+        return this.render();
+      }
     }
   });
   return type.ready(function () {
@@ -207,35 +212,11 @@ template = method({
   }
 });
 
-styles = property({
-  styles: {
-    get: function () {
-      var i, j, len, len1, re, ref, ref1, rule, sheet;
-      styles = "";
-      re = RegExp(`${this.tag}\\s+:host\\s+`, "g");
-      ref = document.styleSheets;
-      for (i = 0, len = ref.length; i < len; i++) {
-        sheet = ref[i];
-        if (sheet.rules != null) {
-          ref1 = sheet.rules;
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            rule = ref1[j];
-            if (rule.cssText.match(re)) {
-              styles += rule.cssText.replace(re, "") + "\n";
-            }
-          }
-        }
-      }
-      return styles;
-    }
-  }
-});
-
-calypso = pipe([vdom, styles, template]);
+calypso = pipe([vdom, template]);
 
 zen = pipe([calypso, composable, autorender]);
 
-export { property, properties, $property, $properties, method, methods, $method, $methods, assign, $assign, observe, evented, accessors, tag, composable, vdom, autorender, template, styles,
+export { property, properties, $property, $properties, method, methods, $method, $methods, assign, $assign, observe, evented, accessors, tag, composable, vdom, autorender, template,
 // presets
 calypso, zen,
 // application
