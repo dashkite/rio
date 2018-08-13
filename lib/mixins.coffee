@@ -70,7 +70,7 @@ tag = (name) ->
       customElements.define type.tag, type.Component
 
 composable = pipe [
-  observe value: "", -> @dispatch "change"
+  observe value: undefined, -> @dispatch "change"
   method pipe: (target) -> @on change: -> target.value = @value
 ]
 
