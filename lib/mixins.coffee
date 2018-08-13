@@ -34,7 +34,7 @@ evented = pipe [
       @on initialize: g
   methods
     on: (description) -> events @, description
-    dispatch: (name, {local} = {local: false}) ->
+    dispatch: (name, { local } = { local: false }) ->
       @shadow.dispatchEvent new Event name,
         bubbles: true
         cancelable: false
