@@ -85,7 +85,7 @@ vdom = tee properties
           @dispatch "render", local: true
 
 autorender = tee (type) ->
-  type.on change: -> @render()
+  type.on host: change: -> @render()
   type.ready -> @render()
 
 template = method render: -> @html = @constructor.template @
