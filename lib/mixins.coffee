@@ -77,11 +77,12 @@ composable = pipe [
 vdom = tee properties
   html:
     get: -> @shadow.innerHTML
-    set: do ({style, parse} = HTML) ->
+    set: do ({parse} = HTML) ->
       (html) ->
         vdom = if (isString html) then (parse html) else html
-        vdom.push (style @styles)
         innerHTML @shadow, vdom
+        .then =>
+          @dispatch "render", local: true
 
 autorender = tee (type) ->
   type.on change: -> @render()
