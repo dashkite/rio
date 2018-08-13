@@ -90,23 +90,13 @@ autorender = tee (type) ->
 
 template = method render: -> @html = @constructor.template @
 
-styles = property
-  styles:
-    get: ->
-      styles = ""
-      re = ///#{@tag}\s+:host\s+///g
-      for sheet in document.styleSheets when sheet.rules?
-        for rule in sheet.rules when (rule.cssText.match re)
-          styles += (rule.cssText.replace re, "") + "\n"
-      styles
-
-calypso = pipe [ vdom, styles, template ]
+calypso = pipe [ vdom, template ]
 zen = pipe [ calypso, composable, autorender ]
 
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
   observe, evented, accessors, tag,
-  composable, vdom, autorender, template, styles,
+  composable, vdom, autorender, template,
   # presets
   calypso, zen,
   # application
