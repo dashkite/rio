@@ -1,8 +1,10 @@
 import {apply, spread, pipe as _pipe} from "fairmont-core"
 import {Method} from "fairmont-multimethods"
 import {isObject, isKind, isArray} from "fairmont-helpers"
-import {evented, accessors, tag,
-  assign, observe, property, properties} from "./mixins"
+import {property, properties, method, methods, assign, observe, decorate,
+  evented,
+  accessors, tag,
+  } from "./mixins"
 
 pipe = spread _pipe
 
@@ -15,6 +17,7 @@ class Gadget
   # initialize is idempotent
   connect: -> @initialize()
 # adapt mixins for use dynamically
+# make this accessible so new mixins can add helpers
 helper = (mixin) -> (type, value) -> ((mixin value) type)
 helpers =
   tag: helper tag
@@ -24,8 +27,12 @@ helpers =
   instance: helper assign
   property: helper property
   properties: helper properties
+  method: helper method
+  methods: helper methods
   observe: helper observe
+  # decorate: helper decorate
   on: (type, handler) -> type.on handler
+  once: (type, handler) -> type.once handler
   ready: (type, handler) -> type.ready handler
 
 isDerived = (t) -> (x) -> isKind t, x::
@@ -46,6 +53,7 @@ do (tag=undefined) ->
   Method.define gadget, (isKind HTMLElement), (element) ->
     tag = element.tagName.toLowerCase()
     await customElements.whenDefined tag
+    await element.gadget.isReady if element.gadget.isReady?
     element.gadget
 
 export {gadget, Gadget}

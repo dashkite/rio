@@ -4,6 +4,8 @@ import {isString, properties as $P, methods as $M} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
 import {events} from "./events"
+import {queue} from "./river/queue"
+import {mutex} from "./river/mutex"
 
 pipe = spread _pipe
 
@@ -14,36 +16,55 @@ $method = $methods = (description) -> tee (type) -> $M type, description
 assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
 
+decorate = (decorator) ->
+  tee (type) -> type::decorate = decorator
+
 observe = (description, handler) ->
-  (type) ->
-    apply (pipe do ->
-      for key, value of description
-        property [key]: do (value) ->
-          get: -> value
-          set: (x) ->
-            value = x
-            handler.call @, value), type
+  pipe do ->
+    for key, {initialize, handler, decorator} of description
+      pipe do (key, initialize, handler, decorator) ->
+        _key = "_#{key}"
+        [
+          property [key]:
+            get: -> @[_key] ?= initialize.call @
+            set: (value) ->
+              @[_key] = decorator.call @, value
+              handler.call @
+              @value
+        ]
 
 evented = pipe [
   $methods
     on: (description) -> (@events ?= []).push description
+    # TODO: add support for once
     ready: (f) ->
-      g = (event) ->
-        event.target.removeEventListener event.type, g
-        f.call @, event
-      @on initialize: g
+      @::isReady = new Promise (resolve) =>
+        @on host:
+          initialize: ->
+            # TODO: I thought we didn't need this wrapper for async handlers
+            do =>
+              await f.call @
+              resolve()
+
   methods
     on: (description) -> events @, description
-    dispatch: (name, { local } = { local: false }) ->
-      @shadow.dispatchEvent new Event name,
+    dispatch: (name) ->
+      @dom.dispatchEvent new CustomEvent name,
+        detail: @
         bubbles: true
         cancelable: false
         # allow to bubble up from shadow DOM
-        composed: !local
+        composed: true
     initialize: ->
       @initialize = ->
       @on @constructor.events if @constructor.events?
-      @dispatch "initialize", local: true
+      @dispatch "initialize"
+    when: (name) ->
+      new Promise (resolve) =>
+        @on host:
+          [name]:
+            once: true
+            handler: resolve
 ]
 
 accessors = properties
@@ -70,34 +91,45 @@ tag = (name) ->
       customElements.define type.tag, type.Component
 
 composable = pipe [
-  observe value: undefined, -> @dispatch "change"
-  method pipe: (target) -> @on change: -> target.value = @value
-]
+    property updates: get: -> @_updates ?= queue()
+    observe value:
+      initialize: -> undefined,
+      handler: (value) -> @updates.enqueue value
+      decorator: (value) ->
+        if @decorator?
+          @decorator value
+        else value
+    method pipe: (target) ->
+      for await value from @updates
+        target.value = await value
+  ]
 
-vdom = tee properties
+vdom = properties
   html:
     get: -> @shadow.innerHTML
     set: do ({parse} = HTML) ->
       (html) ->
         vdom = if (isString html) then (parse html) else html
         innerHTML @shadow, vdom
-        .then =>
-          @dispatch "render", local: true
+        .then => @dispatch "render"
 
 autorender = tee (type) ->
   type.on host: change: -> @render()
-  type.ready -> @render()
+  type.on host: initialize: -> @render()
 
 template = method render: -> @html = @constructor.template @
 
-calypso = pipe [ vdom, template ]
-zen = pipe [ calypso, composable, autorender ]
+ragtime = pipe [ vdom, template ]
+swing = pipe [ ragtime, autorender ]
+bebop = pipe [ swing, composable ]
 
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
-  observe, evented, accessors, tag,
+  decorate, observe,
+  evented,
+  accessors, tag,
   composable, vdom, autorender, template,
   # presets
-  calypso, zen,
+  ragtime, swing, bebop,
   # application
   mix}
