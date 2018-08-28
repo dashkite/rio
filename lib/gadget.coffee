@@ -1,9 +1,10 @@
 import {apply, spread, pipe as _pipe} from "fairmont-core"
 import {Method} from "fairmont-multimethods"
 import {isObject, isKind, isArray} from "fairmont-helpers"
-import {property, properties, method, methods, assign, observe, decorate,
+import {property, properties, method, methods, assign,
   evented,
   accessors, tag,
+  decorate,
   } from "./mixins"
 
 pipe = spread _pipe
@@ -29,8 +30,7 @@ helpers =
   properties: helper properties
   method: helper method
   methods: helper methods
-  observe: helper observe
-  # decorate: helper decorate
+  decorate: helper decorate
   on: (type, handler) -> type.on handler
   once: (type, handler) -> type.once handler
   ready: (type, handler) -> type.ready handler

@@ -5,6 +5,8 @@ import {Method} from "fairmont-multimethods"
 import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
 import {events} from "./events"
 import {queue} from "./river/queue"
+
+# TODO: lock updates to value
 import {mutex} from "./river/mutex"
 
 pipe = spread _pipe
@@ -15,23 +17,6 @@ method = methods = (description) -> tee (type) -> $M type::, description
 $method = $methods = (description) -> tee (type) -> $M type, description
 assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
-
-decorate = (decorator) ->
-  tee (type) -> type::decorate = decorator
-
-observe = (description, handler) ->
-  pipe do ->
-    for key, {initialize, handler, decorator} of description
-      pipe do (key, initialize, handler, decorator) ->
-        _key = "_#{key}"
-        [
-          property [key]:
-            get: -> @[_key] ?= initialize.call @
-            set: (value) ->
-              @[_key] = decorator.call @, value
-              handler.call @
-              @value
-        ]
 
 evented = pipe [
   $methods
@@ -59,12 +44,6 @@ evented = pipe [
       @initialize = ->
       @on @constructor.events if @constructor.events?
       @dispatch "initialize"
-    when: (name) ->
-      new Promise (resolve) =>
-        @on host:
-          [name]:
-            once: true
-            handler: resolve
 ]
 
 accessors = properties
@@ -90,19 +69,30 @@ tag = (name) ->
     requestAnimationFrame ->
       customElements.define type.tag, type.Component
 
-composable = pipe [
-    property updates: get: -> @_updates ?= queue()
-    observe value:
-      initialize: -> undefined,
-      handler: (value) -> @updates.enqueue value
-      decorator: (value) ->
-        if @decorator?
-          @decorator value
-        else value
-    method pipe: (target) ->
+composable = tee (type) ->
+  $P type::,
+    lock: get: -> @_lock ?= mutex()
+    updates: get: -> @_updates ?= queue()
+    value:
+      get: -> @_value
+      set: (value) ->
+        @lock =>
+          @_value = @decorate value
+          @updates.enqueue @_value
+          do =>
+            await @_value
+            @dispatch "change"
+          @_value
+
+  $M type::,
+    # default decorator is identity
+    decorate: (value) -> value
+    pipe: (target) ->
       for await value from @updates
         target.value = await value
-  ]
+
+decorate = (decorator) ->
+  tee (type) -> type::decorate = decorator
 
 vdom = properties
   html:
@@ -111,7 +101,6 @@ vdom = properties
       (html) ->
         vdom = if (isString html) then (parse html) else html
         innerHTML @shadow, vdom
-        .then => @dispatch "render"
 
 autorender = tee (type) ->
   type.on host: change: -> @render()
@@ -125,10 +114,10 @@ bebop = pipe [ swing, composable ]
 
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
-  decorate, observe,
   evented,
   accessors, tag,
-  composable, vdom, autorender, template,
+  composable, decorate,
+  vdom, autorender, template,
   # presets
   ragtime, swing, bebop,
   # application
