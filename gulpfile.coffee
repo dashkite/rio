@@ -1,8 +1,24 @@
 fs = require "fs"
 {task,src,dest,series,parallel, watch} = require "gulp"
 del = require "del"
-coffeescript = require "coffeescript"
-coffee = require "gulp-coffee"
+coffee = require "coffeescript"
+thru = require "through2"
+
+tee = (f) ->
+  thru.obj (file, encoding, callback) ->
+    await f file, encoding
+    callback null, file
+
+pluck = (key, f) ->
+  tee (file) -> f file[key]
+
+extension = (extension) ->
+  tee (file) ->
+    file.extname = extension
+
+content = (f) ->
+  tee (file, encoding) ->
+    file.contents = Buffer.from await f (file.contents.toString encoding), file
 
 # package.json object
 $package = do ->
@@ -27,23 +43,23 @@ print = ([stdout, stderr]) ->
 
 task "clean", -> del "build"
 task "build", ->
-  src "lib/**/*.coffee", sourcemaps: true
-  .pipe coffee
-    coffee: coffeescript
-    transpile:
-      presets: [
-        [
-          "env",
-            targets:
-              browsers: [
-                "Chrome >= 62"
-                "ChromeAndroid >= 61"
-                "Safari >= 11"
-                "iOS >= 11"
-              ]
-            modules: false
-          ]
-        ]
+  src "lib/**/*.coffee" #, sourcemaps: true
+  .pipe content (code, file) ->
+    coffee.compile code,
+      bare: true
+      inlineMap: true
+      filename: file.relative
+      transpile:
+        presets: [[ "stage-3" ]]
+      #   [
+      #     "env",
+      #       targets:
+      #         browsers: [ "chrome >= 67" ]
+      #       modules: false
+      #   ]
+      # ]
+      #       bare: false,
+  .pipe extension ".js"
   .pipe dest "build/lib"
 
 # Tag a release
