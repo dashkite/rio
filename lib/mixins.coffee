@@ -49,27 +49,31 @@ evented = pipe [
 ]
 
 accessors = properties
+  root:
+    get: -> if @shadow? then @shadow else @dom
   tag:
     get: -> @constructor.tag
-  shadow:
-    get: -> @dom.shadowRoot
   html:
-    get: -> @shadow.innerHTML
-    set: (value) -> @shadow.innerHTML = value
+    get: -> @root.innerHTML
+    set: (value) -> @root.innerHTML = value
 
-tag = (name) ->
+tag = (name, options = {}) ->
   tee (type) ->
     type.tag = name
     type.Component = class extends HTMLElement
       constructor: ->
         super()
         @gadget = new type @
-        @attachShadow mode: "open"
       connectedCallback: -> @gadget.connect()
     # allow the gadget to be fully defined
     # before registering it...
     requestAnimationFrame ->
-      customElements.define type.tag, type.Component
+      customElements.define type.tag, type.Component, options
+
+shadow = tee (type) ->
+  type.ready ->
+    @dom.attachShadow mode: "open"
+  $P type::, shadow: get: -> @dom.shadowRoot
 
 composable = tee (type) ->
   $P type::,
@@ -98,15 +102,15 @@ decorate = (decorator) ->
 
 vdom = properties
   html:
-    get: -> @shadow.innerHTML
+    get: -> @root.innerHTML
     set: do ({parse} = HTML) ->
       (html) ->
         vdom = if (isString html) then (parse html) else html
-        innerHTML @shadow, vdom
+        innerHTML @root, vdom
 
 autorender = tee (type) ->
   type.on host: change: -> @render()
-  type.on host: initialize: -> @render()
+  type.ready -> @render()
 
 template = method render: -> @html = @constructor.template @
 
@@ -117,7 +121,7 @@ bebop = pipe [ swing, composable ]
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
   evented,
-  accessors, tag,
+  accessors, tag, shadow,
   composable, decorate,
   vdom, autorender, template,
   # presets
