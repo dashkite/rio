@@ -53,7 +53,7 @@ do (tag=undefined) ->
   Method.define gadget, (isKind HTMLElement), (element) ->
     tag = element.tagName.toLowerCase()
     await customElements.whenDefined tag
-    await element.gadget.isReady if element.gadget.isReady?
+    await element.gadget.isReady
     element.gadget
 
 export {gadget, Gadget}
