@@ -7,10 +7,11 @@ import {Method} from "fairmont-multimethods"
 
 normalize = (options = {}) ->
   {bubble, once, predicate} = Object.assign
-    predicate: -> true
-    once: false
-    bubble: true
-    options
+      predicate: -> true
+      once: false
+      bubble: true
+    ,
+      options
   {bubble, once, predicate}
 
 listen = (gadget, name, options, handler) ->
