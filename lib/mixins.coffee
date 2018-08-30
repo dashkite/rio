@@ -1,6 +1,7 @@
 import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
-import {isString, properties as $P, methods as $M} from "fairmont-helpers"
+import {isString, promise,
+  properties as $P, methods as $M} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
 import {events} from "./events"
@@ -19,17 +20,18 @@ assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
 
 evented = pipe [
+  tee (type) -> type::isReady = true
   $methods
     on: (description) -> (@events ?= []).push description
-    # TODO: add support for once
     ready: (f) ->
-      @::isReady = new Promise (resolve) =>
-        @on host:
-          initialize: ->
-            # TODO: I thought we didn't need this wrapper for async handlers
-            do =>
-              await f.call @
-              resolve()
+      @on
+        host:
+          initialize:
+            handler: ->
+              @isReady = promise (resolve) =>
+                await f.call @
+                resolve true
+            once: true
 
   methods
     on: (description) -> events @, description
