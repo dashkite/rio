@@ -112,7 +112,7 @@ autorender = tee (type) ->
   type.on host: change: -> @render()
   type.ready -> @render()
 
-template = method render: -> @html = @constructor.template @
+template = method render: -> @html = await @constructor.template @
 
 ragtime = pipe [ vdom, template ]
 swing = pipe [ ragtime, autorender ]
