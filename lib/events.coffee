@@ -55,12 +55,16 @@ Method.define events,
           (options.bubble && ((event.target.closest selector)?)))
       listen gadget, name, options, handler
 
-# event handler using special host selector (that's the shadow root)
+# event handler using special host selector (the gadget dom)
 # must be defined after generic selector otw this never gets called
 Method.define events,
   (isKind Object), isHost, isString, isObject, isFunction,
     (gadget, selector, name, options, handler) ->
-      options.predicate = (event) -> event.target == gadget.dom
+      options.predicate = (event) ->
+        if event.detail?
+          event.detail.dom == gadget.dom
+        else
+          event.target == gadget.dom
       listen gadget, name, options, handler
 
 # selector + event handler defined as part of options
