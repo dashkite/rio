@@ -1,5 +1,9 @@
 ## Type: `Gadget`
 
+Gadgets are wrappers around, or handles for, a Web Component. This allows us to work seamlessly with Virtual DOM or other useful abstractions without concerning ourselves with conflicts with the existing DOM API. Gadgets delegate many operations to its DOM node or handle events on its behalf.
+
+The Gadget base type is not intended to be used directly. It's only responsibility is to bind a Gadget instance to a DOM node when constructed, and to provide a base class from which to derive new types of Gadgets. Mixins make it easy to add common features, such as support for Shadow DOM or reactive rendering.
+
 ### Constructor
 
 _**constructor** element &rarr; gadget_
@@ -11,7 +15,7 @@ _**constructor** element &rarr; gadget_
 
 Constructs a new Gadget. Takes a corresponding Custom Element that the Gadget will proxy. Usually not invoked directly. Instead, call `gadget` with the Custom Element to obtain the proxy, which ensures that the Gadget is initialized and ready for use.
 
-### Mixins
+## Mixins
 
 Use mixins to add Features to your Gadget.
 
@@ -32,7 +36,7 @@ Use mixins to add Features to your Gadget.
 | autorender | Autorender |
 | template   | Template   |
 
-#### Factories
+### Factories
 
 | Factory    | Features   |
 | ---------- | ---------- |
@@ -52,6 +56,8 @@ _**tag** {name, extends} &rarr; mixin_
 
 To declare a Custom Element with no Shadow DOM, use the `extends` option to inherit from a built-in element.
 
+You typically would access this mixin factory by setting the `tag` property of a Gadget definition, rather than calling it directly.
+
 ##### Example: With Tacit Shadow DOM
 
 ```coffee
@@ -66,7 +72,7 @@ gadget
   tag: name: "play-page", extends: "div"
 ```
 
-#### Presets
+### Presets
 
 | Preset     | Mixins                         |
 | ---------- | ------------------------------ |
