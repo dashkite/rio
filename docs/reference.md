@@ -27,7 +27,7 @@ Use mixins to add Features to your Gadget.
 | shadow     | Shadow     |
 | html       | HTML       |
 | vdom       | VDOM       |
-| flow       | Reactor       |
+| reactor    | Reactor    |
 | decorate   | Decorate   |
 | autorender | Autorender |
 | template   | Template   |
@@ -40,12 +40,14 @@ Use mixins to add Features to your Gadget.
 
 #### `tag`
 
-_**tag** name[, options ] &rarr; mixin_
+_**tag** name &rarr; mixin_
+
+_**tag** {name, extends} &rarr; mixin_
 
 | Name          | Type   | Description                                              |
 | ------------- | ------ | -------------------------------------------------------- |
 | name          | string | The name of the tag corresponding to the Custom Element. |
-| options | object | Options passed to `customElement.define`.                |
+| extends | string | Built-in Element to extend. |
 |  &rarr; mixin             | mixin | A mixin for Component Features. |
 
 To declare a Custom Element with no Shadow DOM, use the `extends` option to inherit from a built-in element.
@@ -70,7 +72,7 @@ gadget
 | ---------- | ------------------------------ |
 | ragtime    | evented, root, vdom, template  |
 | swing      | ragtime, autorender            |
-| bebop      | swing, flow                    |
+| bebop      | swing, reactor                    |
 
 ## Features: Component
 
@@ -242,3 +244,6 @@ gadget
 #### `render`
 
 #### `update`
+
+## Asynchronous Processing
+
