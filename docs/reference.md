@@ -11,28 +11,6 @@ _**constructor** element &rarr; gadget_
 
 Constructs a new Gadget. Takes a corresponding Custom Element that the Gadget will proxy. Usually not invoked directly. Instead, call `gadget` with the Custom Element to obtain the proxy, which ensures that the Gadget is initialized and ready for use.
 
-### Definition
-
-- _tag: string._ The tag corresponding to the Custom Element, ex: `x-component`.
-
-- _mixins: mixin | array<mixin>_. Mixins to be applied to the class.
-
-- _properties: dictionary<property>_ . Describes the properties of an instance. The schema for the description is similar to that of `Object.defineProperties`, except that `enumerable` and `configurable` default to `true`.
-
-- _property._ Alias for `property`.
-
-- _methods: dictionary<method>_. Describes the methods for an instance.
-
-- _method._ Alias for `methods`.
-
-- _decorate: method_. Defines the `decorate` method, which should accept a value and returned a modified value. Useful in conjunction with the `composable` mixin.
-
-- _on: dictionary<event>_. Event handlers that will be defined during initialization.
-
-- _once: dictionary<event>_. Event handlers that will be defined during initialization.
-
-- _ready: method_. Short hand for defining an `initialize` event handler.
-
 ### Mixins
 
 Use mixins to add Features to your Gadget.
@@ -49,7 +27,7 @@ Use mixins to add Features to your Gadget.
 | shadow     | Shadow     |
 | html       | HTML       |
 | vdom       | VDOM       |
-| flow       | Flow       |
+| flow       | Reactor       |
 | decorate   | Decorate   |
 | autorender | Autorender |
 | template   | Template   |
@@ -171,7 +149,7 @@ Called by the Custom Element when its `connectedCallback` is invoked. Takes no a
 
 #### `initialize`
 
-## Features: Flow
+## Features: Reactor
 
 ### Properties
 
@@ -246,7 +224,20 @@ gadget
   template: template
 ```
 
+##### Gadget Description
 
+| Name       | Type                            | Description                                                  |
+| ---------- | ------------------------------- | ------------------------------------------------------------ |
+| tag        | string                          | The tag corresponding to the Custom Element, ex: `x-component`. Required. |
+| mixins     | mixin&nbsp;\|&nbsp;array<mixin> | Mixins to be applied to the class.                           |
+| properties | dictionary<property>            | Describes the properties of an instance. The schema for the description is similar to that of `Object.defineProperties`, except that `enumerable` and `configurable` default to `true`. |
+| property   | dictionary<property>            | Alias for `properties`.                                      |
+| methods    | dictionary<method>              | Describes the methods for an instance.                       |
+| method     | dictionary<method>              | Alias for `methods`.                                         |
+| decorate   | method                          | Defines the `decorate` method, which should accept a value and returned a modified value. Useful in conjunction with the `reactor` mixin. |
+| on         | object                          | Event handlers that will be defined during initialization.   |
+| once       | object                          | Event handlers that will be defined during initialization, but declared using `once` set to true. |
+| ready      | method                          | Short hand for defining an `initialize` event handler using `once.` |
 
 #### `render`
 
