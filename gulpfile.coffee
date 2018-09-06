@@ -43,7 +43,7 @@ print = ([stdout, stderr]) ->
 
 task "clean", -> del "build"
 task "build", ->
-  src "lib/**/*.coffee" #, sourcemaps: true
+  src "src/**/*.coffee" #, sourcemaps: true
   .pipe content (code, file) ->
     coffee.compile code,
       bare: true
@@ -60,7 +60,7 @@ task "build", ->
       # ]
       #       bare: false,
   .pipe extension ".js"
-  .pipe dest "build/lib"
+  .pipe dest "build/src"
 
 # Tag a release
 task "git:tag", ->
@@ -69,4 +69,4 @@ task "git:tag", ->
   await run "git push --tags"
 
 task "watch", ->
-  watch [ "lib/**/*.coffee" ], series (task "clean"), (task "build")
+  watch [ "src/**/*.coffee" ], series (task "clean"), (task "build")
