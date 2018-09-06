@@ -32,7 +32,6 @@ Use mixins to add Features to your Gadget.
 | html       | HTML       |
 | vdom       | VDOM       |
 | reactor    | Reactor    |
-| decorate   | Decorate   |
 | autorender | Autorender |
 | template   | Template   |
 
@@ -163,21 +162,11 @@ Called by the Custom Element when its `connectedCallback` is invoked. Takes no a
 
 #### `value`
 
-#### `updates`
-
 ### Methods
 
 #### `lock`
 
-#### `decorate`
-
 #### `pipe`
-
-## Features: Decorator
-
-### Methods
-
-#### `decorate`
 
 ## Features: VDOM
 
@@ -242,7 +231,6 @@ gadget
 | property   | dictionary<property>            | Alias for `properties`.                                      |
 | methods    | dictionary<method>              | Describes the methods for an instance.                       |
 | method     | dictionary<method>              | Alias for `methods`.                                         |
-| decorate   | method                          | Defines the `decorate` method, which should accept a value and returned a modified value. Useful in conjunction with the `reactor` mixin. |
 | on         | object                          | Event handlers that will be defined during initialization.   |
 | once       | object                          | Event handlers that will be defined during initialization, but declared using `once` set to true. |
 | ready      | method                          | Short hand for defining an `initialize` event handler using `once.` |
@@ -253,3 +241,57 @@ gadget
 
 ## Asynchronous Processing
 
+Play offers features, through mixins, that allow rigorous control over the processing flow. The Reactive and VDOM Features, together, allow you to ensure that a Gadget is in a well-defined state before doing anything further.
+
+### Promised Properties
+
+These features rely on _promised properties_, promises whose value is a promise that resolves to a well-defined value for any given iteration of the event loop. They introduce two promised properties:
+
+- `value`: useful for components that have state outside the DOM.
+- `html`: the DOM tree for the component's root.
+
+Promised properties allow each component to encapsulate its state while supporting asynchronous network operations and DOM events.
+
+### Update And Render Events
+
+Both of these properties have corresponding events that are fired whenever they're updated.
+
+| Property | Event  |
+| -------- | ------ |
+| value    | update |
+| html     | render |
+
+Since these are promised properties, your event handler cannot access them without first waiting for the promise to resolve. In turn, this ensures that they're in a well-defined state when you access them.
+
+```coffee
+on:
+  host:
+    render: ->
+      @extractLinks await @html
+```
+
+### Yielding Control
+
+When handling the resolved value from a promised property, you may need to yield control of the event loop. For example, you may need to wait for another promise to resolve or a callback to be invoked. When control is returned the resolved value may no longer be in a well-defined state. There are three potential ways to manage this:
+
+- Make a (deep) copy of the value.
+- Use a decorator (useful *during* an update).
+- Use a lock (useful in between updates).
+
+#### Make A Copy
+
+This is the simplest solution. Simply make a copy of the value (or at least the parts you need) before performing an asynchronous operations. You can update the copy, knowing you control its state and, if necessary, reassign the property.
+
+#### Decorators And Custom Setters
+
+Decorators hook into the setter for a promised property to allow for asynchronous processing during assignment. Alternatively, you could write a Setter to do this.
+
+Decorators are being considered as part of the Play roadmap. In order to support them generally, we will use a value container that acts as a proxy for the real value. This would allow for mixins to additively support a variety of useful patterns, including copy-on-write, decorators, and nested values.
+
+#### Locks
+
+Locks help ensure that only one thread of execution is modifying value at any one time. This is particular useful for DOM updates that happen outside of the Play rendering cycle. Locking may also be supported in future versions of Play. Since every access to a value must agree to use a given lock, they're a last resort.
+
+### Pipes
+
+You can pipe the value of one component to another using the `pipe` method, which is just a shorthand for defining an event handler to do assignment.
