@@ -6,6 +6,7 @@ import {isString, promise, follow,
 import {Method} from "fairmont-multimethods"
 import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
 import {events} from "./events"
+import {Gadget} from "./gadget"
 
 pipe = spread _pipe
 
@@ -77,8 +78,8 @@ Method.define tag, isObject, (options) ->
       connectedCallback: -> @gadget.connect()
 
     $P type,
-      tag: get -> name
-      Component: get -> E
+      tag: get: -> name
+      Component: get: -> E
 
     $P type::, tag: get: -> @constructor.tag
 

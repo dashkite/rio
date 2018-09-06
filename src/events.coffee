@@ -1,7 +1,8 @@
-import {isString, isObject, isArray, isKind, isFunction,
+import {isString, isObject, isArray, isKind,
   properties as $P, methods as $M} from "fairmont-helpers"
 import {Method} from "fairmont-multimethods"
 
+isFunction = (x) -> x.call?
 
 # implementation helpers
 
