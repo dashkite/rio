@@ -2,9 +2,9 @@ import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
 import {isString, promise, follow,
   isObject, isKind, isArray,
-  properties as $P, methods as $M} from "fairmont-helpers"
-import {Method} from "fairmont-multimethods"
-import {spread, pipe as _pipe, tee, apply} from "fairmont-core"
+  properties as $P, methods as $M} from "panda-parchment"
+import {Method} from "panda-generics"
+import {spread, pipe as _pipe, tee, apply} from "panda-garden"
 import {events} from "./events"
 import {Gadget} from "./gadget"
 
@@ -111,18 +111,22 @@ reactor = tee (type) ->
 
 vdom = properties
   html:
-    get: -> @_html
+    # follow if not set to ensure interface
+    # is consistent
+    get: -> @_html ?= follow @root.innerHTML
     set: (html) ->
       @_html = innerHTML @root, html
       .then => @root.innerHTML
-      @dispatch "render"
-      @_html
+
+template = method
+  render: ->
+    @html = await @constructor.template @
+    @dispatch "render"
 
 autorender = tee (type) ->
   type.on host: change: -> @render()
   type.ready -> @render()
 
-template = method render: -> @html = await @constructor.template @
 ragtime = pipe [ evented, root, vdom, template ]
 swing = pipe [ ragtime, autorender ]
 bebop = pipe [ swing, reactor ]

@@ -1,6 +1,6 @@
 import {isString, isObject, isArray, isKind,
-  properties as $P, methods as $M} from "fairmont-helpers"
-import {Method} from "fairmont-multimethods"
+  properties as $P, methods as $M} from "panda-parchment"
+import {Method} from "panda-generics"
 
 isFunction = (x) -> x.call?
 
