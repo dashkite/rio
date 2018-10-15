@@ -18,41 +18,38 @@ assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
 
 evented = pipe [
-  tee (type) -> type::isReady = true
   $methods
     on: (description) -> (@events ?= []).push description
+    connect: (description) -> @on host: connect: description
     ready: (f) ->
-      @on
-        host:
-          initialize:
-            # initialize event can only be fired once
-            # but we go ahead and set once here as well
-            # so the event handler isn't hanging around
-            once: true
-            handler: ->
-              @isReady = promise (resolve) =>
-                await f.call @
-                resolve true
+      @::ready = ->
+        await f.call @
+        @_isReady true
+
+  tee (type) ->
+    # the first time we fire the connect event
+    # we'll also fire the initialize event, but
+    # only the first time ...
+    type.connect
+      once: true
+      handler: ->
+        requestAnimationFrame =>
+          @dispatch "initialize"
+          @ready()
 
   methods
-    on: (description) -> events @, description
+    ready: -> @_isReady true
+    on: (args...) -> events @, args...
     dispatch: (name) ->
-      @dom.dispatchEvent new CustomEvent name,
+      @root.dispatchEvent new CustomEvent name,
         detail: @
         bubbles: true
         cancelable: false
         # allow to bubble up from shadow DOM
         composed: true
     connect: ->
-      # the first time we fire the connect event
-      # we'll also fire the initialize event, but
-      # only the first time ...
-      @on
-        host:
-          connect:
-            once: true
-            handler: -> @dispatch "initialize"
       @on @constructor.events if @constructor.events?
+      @isReady = promise (@_isReady) =>
       @dispatch "connect"
 ]
 
@@ -93,7 +90,9 @@ Method.define tag, isObject, (options) ->
 Method.define tag, isString, (name) -> tag {name}
 
 shadow = tee (type) ->
-  type.ready -> @dom.attachShadow mode: "open"
+  type.connect
+    once: true
+    handler: -> @dom.attachShadow mode: "open"
   $P type::, shadow: get: -> @dom.shadowRoot
 
 reactor = tee (type) ->
@@ -127,12 +126,12 @@ autorender = tee (type) ->
   type.on host: change: -> @render()
   type.ready -> @render()
 
-ragtime = pipe [ evented, root, vdom, template ]
-swing = pipe [ ragtime, autorender ]
-bebop = pipe [ swing, reactor ]
+
+ragtime = pipe [ root, evented, vdom, template ]
+swing = pipe [ ragtime, reactor ]
+bebop = pipe [ swing, autorender ]
 
 # adapt mixins for use dynamically
-# make this accessible so new mixins can add helpers
 helper = (mixin) -> (type, value) -> ((mixin value) type)
 helpers =
   tag: helper tag
@@ -145,38 +144,14 @@ helpers =
   method: helper method
   methods: helper methods
   on: (type, handler) -> type.on handler
-  once: (type, handler) -> type.once handler
   ready: (type, handler) -> type.ready handler
-
-isDerived = (t) -> (x) -> isKind t, x::
-
-gadget = Method.create default: -> throw new TypeError "gadget: bad arguments"
-
-Method.define gadget, (isDerived Gadget), isObject, (type, description) ->
-  for key, value of description
-    if helpers[key]?
-      helpers[key] type, value
-    else
-      type[key] = value
-
-Method.define gadget, isObject, (description) ->
-  gadget (Gadget.define()), description
-
-do (tag=undefined) ->
-  Method.define gadget, (isKind HTMLElement), (element) ->
-    tag = element.tagName.toLowerCase()
-    await customElements.whenDefined tag
-    await element.gadget.isReady
-    element.gadget
-
 
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
-  evented,
+  root, evented,
   accessors, tag, shadow,
   reactor,
   vdom, autorender, template,
   # presets
   ragtime, swing, bebop,
-  # create or obtain gadget
-  gadget}
+  helper, helpers}

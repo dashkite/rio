@@ -22,11 +22,10 @@ listen = (gadget, name, options, handler) ->
     if predicate event
       handler.call gadget, event
       (mute gadget, name, _handler) if once
-
-  gadget.dom.addEventListener name, _handler
+  gadget.root.addEventListener name, _handler
 
 mute = (gadget, name, handler) ->
-  gadget.dom.removeEventListener name, handler
+  gadget.root.removeEventListener name, handler
 
 # event generic
 
@@ -54,7 +53,8 @@ Method.define events,
       options.predicate = (event) ->
         ((event.target.matches selector) ||
           (options.bubble && ((event.target.closest selector)?)))
-      listen gadget, name, options, handler
+      listen gadget, "initialize", once: true,
+        -> listen gadget, name, options, handler
 
 # event handler using special host selector (the gadget dom)
 # must be defined after generic selector otw this never gets called
@@ -66,7 +66,15 @@ Method.define events,
           event.detail.dom == gadget.dom
         else
           event.target == gadget.dom
-      listen gadget, name, options, handler
+      if name == "connect"
+        listen gadget, name, options, handler
+      else if name == "initialize"
+        listen gadget, "connect", once: true,
+          -> listen gadget, name, options, handler
+      else
+        listen gadget, "initialize", once: true,
+          -> listen gadget, name, options, handler
+
 
 # selector + event handler defined as part of options
 Method.define events,
@@ -86,9 +94,8 @@ Method.define events,
 # (currently, ambiguous with next generic, but could distinguish
 # based on property names?)
 Method.define events,
-  (isKind Object), isString, isFunction,
-    (gadget, name, handler) ->
-      events gadget, name, {}, handler
+  (isKind Object), isString, isFunction, (gadget, name, handler) ->
+    events gadget, name, {}, handler
 
 # a dictionary of event handlers for a selector
 Method.define events, (isKind Object), isString, isObject,
