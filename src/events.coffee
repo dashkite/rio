@@ -1,8 +1,5 @@
-import {isString, isObject, isArray, isKind,
-  properties as $P, methods as $M} from "panda-parchment"
+import {isString, isObject, isArray, isFunction, isKind} from "panda-parchment"
 import {Method} from "panda-generics"
-
-isFunction = (x) -> x.call?
 
 # implementation helpers
 
@@ -35,9 +32,6 @@ class EventDescriptorError extends Error
     if Error.captureStackTrace?
       Error.captureStackTrace @, EventDescriptorError
 
-# argument matching predicate
-isHost = (s) -> s == "host"
-
 events = Method.create default: (args...)->
   throw new EventDescriptorError args
 
@@ -53,28 +47,7 @@ Method.define events,
       options.predicate = (event) ->
         ((event.target.matches selector) ||
           (options.bubble && ((event.target.closest selector)?)))
-      listen gadget, "initialize", once: true,
-        -> listen gadget, name, options, handler
-
-# event handler using special host selector (the gadget dom)
-# must be defined after generic selector otw this never gets called
-Method.define events,
-  (isKind Object), isHost, isString, isObject, isFunction,
-    (gadget, selector, name, options, handler) ->
-      options.predicate = (event) ->
-        if event.detail?
-          event.detail.dom == gadget.dom
-        else
-          event.target == gadget.dom
-      if name == "connect"
-        listen gadget, name, options, handler
-      else if name == "initialize"
-        listen gadget, "connect", once: true,
-          -> listen gadget, name, options, handler
-      else
-        listen gadget, "initialize", once: true,
-          -> listen gadget, name, options, handler
-
+      listen gadget, name, options, handler
 
 # selector + event handler defined as part of options
 Method.define events,
@@ -102,7 +75,7 @@ Method.define events, (isKind Object), isString, isObject,
   (gadget, selector, description) ->
     (events gadget, selector, name, handler) for name, handler of description
 
-# a dictionary of event handlers of some kind—our starting point
+# a dictionary of event handlers
 Method.define events, (isKind Object), isObject,
   (gadget, description) ->
     (events gadget, key, value) for key, value of description

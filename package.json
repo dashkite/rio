@@ -17,13 +17,14 @@
     "diffhtml": "^1.0.0-beta.9",
     "panda-garden": "^3.0.4",
     "panda-generics": "^4.0.2",
-    "panda-parchment": "^4.0.4"
+    "panda-parchment": "^4.0.4",
+    "panda-river-esm": "^4.2.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.1.0",
     "coffeescript": "^2.3.2",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#v4.0.0-alpha.3",
-    "panda-builder": "^2.3.3"
+    "panda-builder": "^2.4.0"
   }
 }

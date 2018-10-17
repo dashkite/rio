@@ -1,10 +1,12 @@
 import {HTML} from "./vhtml"
 import {innerHTML} from "diffhtml"
-import {isString, promise, follow,
-  isObject, isKind, isArray,
+import {w, bind,
+  isString, isObject, isKind, isArray,
+  promise, follow,
   properties as $P, methods as $M} from "panda-parchment"
 import {Method} from "panda-generics"
-import {spread, pipe as _pipe, tee, apply} from "panda-garden"
+import {apply, spread, pipe as _pipe, tee} from "panda-garden"
+import {go, map, into, wait} from "panda-river-esm"
 import {events} from "./events"
 import {Gadget} from "./gadget"
 
@@ -17,28 +19,40 @@ $method = $methods = (description) -> tee (type) -> $M type, description
 assign = (description) -> tee (type) -> Object.assign type::, description
 $assign = (description) -> tee (type) -> Object.assign type, description
 
-evented = pipe [
-  $methods
-    on: (description) -> (@events ?= []).push description
-    connect: (description) -> @on host: connect: description
-    ready: (f) ->
-      @::ready = ->
-        await f.call @
-        @_isReady true
+phased = pipe [
 
-  tee (type) ->
-    # the first time we fire the connect event
-    # we'll also fire the initialize event, but
-    # only the first time ...
-    type.connect
-      once: true
-      handler: ->
-        requestAnimationFrame =>
-          @dispatch "initialize"
-          @ready()
+  $methods
+    connect: (f) -> (@_connect ?= []).push f
+    prepare: (f) -> (@_prepare ?= []).push f
+    ready: (f) -> (@_ready ?= []).push f
 
   methods
-    ready: -> @_isReady true
+    connect: ->
+      @ready = promise (resolve) =>
+        await go [
+          w "connect prepare ready"
+          map (phase) => @constructor["_#{phase}"]
+          # map into [
+          #   map bind @
+          #   map apply
+          # ]
+          map (handlers) =>
+            if handlers?
+              for handler in handlers
+                apply bind handler, @
+            else
+              []
+          wait map (promises) -> Promise.all promises
+        ]
+        resolve true
+]
+
+evented = pipe [
+
+  $methods
+    on: (description) -> (@events ?= []).push description
+
+  methods
     on: (args...) -> events @, args...
     dispatch: (name) ->
       @root.dispatchEvent new CustomEvent name,
@@ -47,10 +61,10 @@ evented = pipe [
         cancelable: false
         # allow to bubble up from shadow DOM
         composed: true
-    connect: ->
-      @on @constructor.events if @constructor.events?
-      @isReady = promise (@_isReady) =>
-      @dispatch "connect"
+
+  tee (type) ->
+    type.ready -> @on @constructor.events if @constructor.events?
+
 ]
 
 root = property root: get: -> if @shadow? then @shadow else @dom
@@ -80,19 +94,13 @@ Method.define tag, isObject, (options) ->
 
     $P type::, tag: get: -> @constructor.tag
 
-    # allow the gadget to be fully defined
-    # before registering it...otw the connect
-    # callback may fire before we've set up
-    # initialization handlers
     requestAnimationFrame ->
       customElements.define type.tag, type.Component, extends: _extends
 
 Method.define tag, isString, (name) -> tag {name}
 
 shadow = tee (type) ->
-  type.connect
-    once: true
-    handler: -> @dom.attachShadow mode: "open"
+  type.prepare -> @dom.attachShadow mode: "open"
   $P type::, shadow: get: -> @dom.shadowRoot
 
 reactor = tee (type) ->
@@ -106,7 +114,7 @@ reactor = tee (type) ->
 
   $M type::,
     pipe: (target) ->
-      @on host: change: -> target.value = @value
+      @on change: -> target.value = @value
 
 vdom = properties
   html:
@@ -123,11 +131,11 @@ template = method
     @dispatch "render"
 
 autorender = tee (type) ->
-  type.on host: change: -> @render()
+  type.on change: -> @render()
   type.ready -> @render()
 
 
-ragtime = pipe [ root, evented, vdom, template ]
+ragtime = pipe [ phased, root, evented, vdom, template ]
 swing = pipe [ ragtime, reactor ]
 bebop = pipe [ swing, autorender ]
 
@@ -148,7 +156,7 @@ helpers =
 
 export {property, properties, $property, $properties,
   method, methods, $method, $methods, assign, $assign,
-  root, evented,
+  phased, root, evented,
   accessors, tag, shadow,
   reactor,
   vdom, autorender, template,

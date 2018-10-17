@@ -42,7 +42,7 @@ Method.define $, isPromise, identity
 Method.define $, isHTMLElement, (element) ->
   _tag = element.tagName.toLowerCase()
   await customElements.whenDefined _tag
-  await element.gadget.isReady
+  await element.gadget.ready
   element.gadget
 
 Method.define $, isString, isQueryable, (selector, dom) ->
