@@ -1,33 +1,16 @@
 import {identity} from "panda-garden"
 import {isString, isArray, isKind, isPromise} from "panda-parchment"
 import {Method} from "panda-generics"
-import {helpers} from "./mixins"
 
 class Gadget
 
-  @define: (description) ->
-    type = class extends @
-    for key, value of description
-      if helpers[key]?
-        helpers[key] type, value
-      else
-        type[key] = value
+  # definitions below
+  @query: Method.create()
 
   # definitions below
-  @query: Method.create
-    default: (args...) ->
-      console.error args...
-      throw "Gadget.query: bad arguments"
-
-  # definitions below
-  @queryAll: Method.create
-    default: (args...) ->
-      console.error args...
-      throw "Gadget.queryAll: bad arguments"
+  @queryAll: Method.create()
 
   constructor: (@dom) ->
-
-gadget = (description) -> Gadget.define description
 
 isQueryable = (value) -> value?.querySelectorAll?
 isHTMLElement = isKind HTMLElement
@@ -40,8 +23,8 @@ Method.define $, isGadget, identity
 Method.define $, isPromise, identity
 
 Method.define $, isHTMLElement, (element) ->
-  _tag = element.tagName.toLowerCase()
-  await customElements.whenDefined _tag
+  tag = element.tagName.toLowerCase()
+  await customElements.whenDefined tag
   await element.gadget.ready
   element.gadget
 
@@ -60,4 +43,4 @@ Method.define $$, isString, isQueryable, (selector, dom) ->
 Method.define $$, isString, (selector) ->
   $$ selector, document
 
-export {Gadget, gadget, $, $$}
+export {Gadget, $, $$}
