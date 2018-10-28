@@ -1,9 +1,9 @@
 import {pipe} from "panda-garden"
-import {root, render, autorender} from "./simple"
 import {phased} from "./phased"
 import {evented} from "./evented"
 import {vdom} from "./vdom"
-import {reactor} from "./reactor"
+import {root, render} from "./render"
+import {reactor, autorender} from "./reactor"
 
 habanera = pipe phased, root, evented
 ragtime = pipe habanera, vdom

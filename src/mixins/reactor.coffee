@@ -1,6 +1,10 @@
-import {pipe, spread} from "panda-garden"
+import {pipe, tee, spread} from "panda-garden"
 import {follow} from "panda-parchment"
-import {property, method} from "./simple"
+import {property, method} from "./helpers"
+
+autorender = tee (type) ->
+  type.on change: -> @render()
+  type.ready -> @render()
 
 reactor = (spread pipe) [
 
@@ -19,4 +23,4 @@ reactor = (spread pipe) [
 
 ]
 
-export {reactor}
+export {autorender, reactor}

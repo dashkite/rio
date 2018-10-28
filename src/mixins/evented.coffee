@@ -1,7 +1,7 @@
 import {isString, isObject, isArray, isFunction, isKind} from "panda-parchment"
 import {Method} from "panda-generics"
 import {pipe, spread, tee} from "panda-garden"
-import {$property, $methods, methods} from "./simple"
+import {$property, $methods, methods} from "./helpers"
 
 # simple DOM wrappers for Gadgets
 

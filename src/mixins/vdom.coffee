@@ -1,6 +1,6 @@
 import {innerHTML} from "diffhtml"
 import {follow} from "panda-parchment"
-import {property} from "./simple"
+import {property} from "./helpers"
 
 vdom = property
   html:

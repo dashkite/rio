@@ -1,7 +1,7 @@
 import {w, bind, promise} from "panda-parchment"
 import {apply, pipe, spread, tee} from "panda-garden"
 import {go, map, into, wait} from "panda-river-esm"
-import {$methods, methods} from "./simple"
+import {$methods, methods} from "./helpers"
 
 phased = (spread pipe) [
 
@@ -31,6 +31,8 @@ phased = (spread pipe) [
         resolve true
 ]
 
+connect = (handler) -> tee (type) -> type.connect handlers
+prepare = (handler) -> tee (type) -> type.prepare handler
 ready = (handler) -> tee (type) -> type.ready handler
 
-export {phased, ready}
+export {phased, connect, prepare, ready}
