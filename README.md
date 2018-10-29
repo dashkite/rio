@@ -38,10 +38,6 @@ mixin class extends Gadget, [
 
 [elliott]:https://medium.com/@_ericelliott/why-composition-is-immune-to-fragile-base-class-problem-8dfc6a5272aa
 
-## Demo
-
-[Try it out!](https://play.pandastrike.com/demos/markdown-editor)
-
 ## Install
 
 Bundle using your favorite bundler:
