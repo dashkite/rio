@@ -1,8 +1,8 @@
 {
   "name": "panda-play",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "license": "MIT",
-  "description": "",
+  "description": "a lightweight library for building Web Components",
   "author": "Dan Yoder",
   "homepage": "https://play.pandastrike.com/",
   "repository": {
@@ -25,6 +25,6 @@
     "coffeescript": "^2.3.2",
     "del": "^3.0.0",
     "panda-9000": "^4.2.0",
-    "panda-builder": "^3.1.0"
+    "panda-builder": "^3.1.2"
   }
 }

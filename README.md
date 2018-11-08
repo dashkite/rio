@@ -20,7 +20,6 @@ mixin class extends Gadget, [
   events
     h1:
       click: ({target}) -> @value = "Goodbye"
-
 ```
 
 ## Features
