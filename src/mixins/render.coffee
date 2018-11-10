@@ -21,7 +21,8 @@ shadow = (spread pipe) [
 render = (template) ->
   method
     render: ->
-      @html = await template @
+      # allow for html/template to be async
+      await @html = await template @
       @dispatch "render"
 
 export {root, html, shadow, render}
