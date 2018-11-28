@@ -29,7 +29,7 @@ Method.define $, isHTMLElement, (element) ->
   element.gadget
 
 Method.define $, isString, isQueryable, (selector, dom) ->
-  $ dom.querySelector selector
+  ($ element) if (element = dom.querySelector selector)?
 
 Method.define $, isString, (selector) -> $ selector, document
 

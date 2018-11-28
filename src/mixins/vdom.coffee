@@ -4,11 +4,7 @@ import {property} from "./helpers"
 
 vdom = property
   html:
-    # follow if not set to ensure interface
-    # is consistent
-    get: -> @_html ?= follow @root.innerHTML
-    set: (html) ->
-      @_html = innerHTML @root, html
-      .then => @root.innerHTML
+    get: -> @_html ?= @root.innerHTML
+    set: (html) -> innerHTML @root, html
 
 export {vdom}
