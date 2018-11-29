@@ -5,6 +5,6 @@ import {property} from "./helpers"
 vdom = property
   html:
     get: -> @_html ?= @root.innerHTML
-    set: (html) -> innerHTML @root, html
+    set: (html) -> @_html = innerHTML @root, html
 
 export {vdom}
