@@ -18,10 +18,17 @@ once = (handler) ->
     handler.call @, event
     mute @, name, _handler
 
+prevent = (handler) ->
+  (event) ->
+    event.preventDefault()
+    handler.call @, event
+
 stop = (handler) ->
   (event) ->
     event.stopPropagation()
     handler.call @, event
+
+intercept = (handler) -> prevent stop handler
 
 local = (handler) ->
   (event) ->
@@ -100,4 +107,4 @@ evented = (spread pipe) [
 
 events = (description) -> tee (type) -> type.on description
 
-export {evented, once, stop, local, matches, events}
+export {evented, once, stop, prevent, intercept, local, matches, events}
