@@ -12,7 +12,7 @@ phased = (spread pipe) [
 
   methods
     connect: ->
-      @ready = promise (resolve) =>
+      @ready ?= promise (resolve) =>
         await go [
           w "connect prepare ready"
           map (phase) => @constructor["_#{phase}"]
