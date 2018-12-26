@@ -143,8 +143,16 @@ On change the gadget will re-render.
 
 ### habanera
 
+Mixin that includes the following mixins: `phased`, `root`, `evented`
+
 ### ragtime
+
+Mixin that includes the following mixins: `habanera`, `vdom`
 
 ### swing
 
+Mixin that includes the following mixins: `ragtime`, `reactor`
+
 ### bebop
+
+Mixin that includes the following mixins: `swing`, `autorender`
