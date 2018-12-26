@@ -116,11 +116,9 @@ class extends Gadget
 ### phased
 
 The `phased` mixin function allows your gadget to tap into the [Web Component
-Lifeycle Hooks][lifecycle-hooks].... 
+Lifeycle Hooks](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks).... 
 
 TBD... Ready/Prepare/Connect... seek further clarity.
-
-[lifecycle-hooks][https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks]
 
 ### root
 
@@ -129,9 +127,7 @@ gadget is using the `shadow` mixin.
 
 ### vdom
 
-Adds vdom support via [diffHTML][diffhtml].
-
-[diffhtml][https://github.com/tbranyen/diffhtml]
+Adds vdom support via [diffHTML](https://github.com/tbranyen/diffhtml).
 
 ### reactor
 
