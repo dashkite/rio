@@ -28,10 +28,10 @@ class extends Gadget
 
 
 # Querying the DOM for the gadget that has loaded and is `ready`
-hello_world = await $ "x-hello-world"
+helloWorld = await $ "x-hello-world"
 
-# Now we can use `hello_world` as a handle on the DOM element and modify it.
-hello_world.value = "Hello, World!"
+# Now we can use `helloWorld` as a handle on the DOM element and modify it.
+helloWorld.value = "Hello, World!"
 ```
 
 ### $$
@@ -57,8 +57,8 @@ class extends Gadget
   ]
 
 
-# Querying the DOM for all the hello_world gadgets that are loaded
-hello_worlds = await $$ "x-hello-world"
+# Querying the DOM for all the helloWorld gadgets that are loaded
+helloWorlds = await $$ "x-hello-world"
 ```
 
 ## Mixins
@@ -115,10 +115,51 @@ class extends Gadget
 
 ### phased
 
-The `phased` mixin function allows your gadget to tap into the [Web Component
-Lifeycle Hooks](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks).... 
+The `phased` mixin allows your gadget to hook into a custom element's `connectedCallback`
+lifecycle callback which is invoked each time the custom element is appended
+into a document-connected element ([read more about lifecycle callbacks](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks)).
 
-TBD... Ready/Prepare/Connect... seek further clarity.
+The mixin exposes three gadget lifecycle hooks: `connect`, `prepare`, and
+`ready`, which will be fired sequentially on gadget initialization and take as
+an argument a handler function to be executed.
+
+_**connect** handler &rarr; gadget_
+
+| name     | type     | description                                            |
+|----------|----------|--------------------------------------------------------|
+| handler  | function | A function that will execute when the lifecycle hook is called |
+| gadget   | gadget   | the gadget that `connect` is being mixed into. |
+
+Fired first, and every time the gadget is inserted into the DOM.
+
+_**prepare** handler &rarr; gadget_
+
+| name     | type     | description                                            |
+|----------|----------|--------------------------------------------------------|
+| handler  | function | A function that will execute when the lifecycle hook is called |
+| gadget   | gadget   | the gadget that `connect` is being mixed into. |
+
+Fired once, after `connect` and before `ready`.
+
+_**ready** handler &rarr; gadget_
+
+| name     | type     | description                                            |
+|----------|----------|--------------------------------------------------------|
+| handler  | function | A function that will execute when the lifecycle hook is called |
+| gadget   | gadget   | the gadget that `connect` is being mixed into. |
+
+Fired after `prepare` once the gadget's element is present in the DOM and ready
+for manipulation.
+
+The three hooks are exposed for your use as well as for the use of other mixins.
+This allows the mixins some granularity over when they're effects take place.
+For example, the `shadow` mixin relies on the `prepare` hook to make sure the
+`attachShadow` call is set before any handlers that are fired in the `ready`
+hook (like the `events` mixin).
+
+Because of the above, the order in which mixins are added can matter. You cannot
+place `shadow` before `phased` (included as the first mixin the `habanera` base
+preset), as an example.
 
 ### root
 
@@ -131,9 +172,33 @@ Adds vdom support via [diffHTML](https://github.com/tbranyen/diffhtml).
 
 ### reactor
 
+The idea behind gadgets is that they closely resemble native elements, and so
+each has a `value` property, much like a native `input` element. The `reactor`
+plugin introduces getters and setters for the gadgets `value` property that emit
+a `change` event when the `value` is updated.
+
+The `reactor` mixin also introduces a `pipe` method that allows you to update
+the passed in element's `value` property whenever the gadget's `value` property is
+updated.
+
+```coffee
+editor = await $ "x-editor"
+markdownPreview = await $ "x-markdown"
+
+# Whenver we update the `value` of the editor gadget, we will set the value
+# property for the markdownPreview gadget to match.
+editor.pipe markdownPreview
+```
+
 ### autorender
 
-On change the gadget will re-render.
+The `autorender` mixin adds a `render()` call to the `ready` hook added by the
+`phased` mixin (essentially rendering your template even if your gadget does not
+call `render` itself).
+
+It also listens for a `change` event and will re-render itself. It works great with
+`reactor` plugin (which will dispatch a `change` event when the `value`
+property's setter is executed).
 
 ## Presets
 
