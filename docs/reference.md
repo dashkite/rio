@@ -206,14 +206,32 @@ property's setter is executed).
 
 Mixin that includes the following mixins: `phased`, `root`, `evented`
 
+This is the base mixin that includes the basics such as adding lifecycle hooks
+to add your own handlers to (see `phased`), adding an easy and compact way to
+attach listeners on events (see `evented`), and setting the gadgets `@root`
+property to either the DOM or the shadowDOM, should a shadowDOM be attached (see
+`root`).
+
 ### ragtime
 
 Mixin that includes the following mixins: `habanera`, `vdom`
+
+This includes all of what `habanera` offers and adds in Virtual DOM support via
+`vdom` and the diffHTML libray.
 
 ### swing
 
 Mixin that includes the following mixins: `ragtime`, `reactor`
 
+This includes all of what `habanera` and `ragtime` offer and adds in the
+`reactor` mixin, which adds getters and setters for the gadget's `@value`
+property that will hook in to `autorender` as well as a helpful `pipe` function
+that lets you pass in other gadgets and update their `@value` properties anytime
+the parent gadget's `@value` is set.
+
 ### bebop
 
 Mixin that includes the following mixins: `swing`, `autorender`
+
+This includes all other presets plus the `autorender` mixin, which will
+re-render the gadget anytime its `@value` property is set.
