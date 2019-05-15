@@ -1,9 +1,10 @@
 import {pipe, tee, spread} from "panda-garden"
 import {follow} from "panda-parchment"
 import {property, method} from "./helpers"
+import {local} from "./evented"
 
 autorender = tee (type) ->
-  type.on change: -> @render()
+  type.on change: local -> @render()
   type.ready -> @render()
 
 reactor = (spread pipe) [
@@ -18,8 +19,7 @@ reactor = (spread pipe) [
 
   method
     pipe: (target) ->
-      # TODO: scope to local
-      @on change: -> target.value = @value
+      @on change: local -> target.value = @value
 
 ]
 

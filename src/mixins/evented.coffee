@@ -37,7 +37,7 @@ local = (handler) ->
 
 matches = (selector, handler) ->
   (event) ->
-    if (target = (event.target.closest selector))?
+    if (target = (event.target.closest? selector))?
       if @root.contains target
         handler.call @, event
 
