@@ -1,14 +1,18 @@
 import {identity} from "panda-garden"
 import {isString, isArray, isKind, isPromise} from "panda-parchment"
-import {Method} from "panda-generics"
+import Method from "panda-generics"
 
 class Gadget
 
   # definitions below
-  @query: Method.create()
+  @query: Method.create
+    name: "query"
+    description: "provides document.querySelector interface for gadget"
 
   # definitions below
-  @queryAll: Method.create()
+  @queryAll: Method.create
+    name: "queryAll"
+    description: "provides document.querySelectorAll interface for gadget"
 
   constructor: (@dom) ->
 

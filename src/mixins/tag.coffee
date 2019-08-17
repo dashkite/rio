@@ -1,8 +1,10 @@
-import {Method} from "panda-generics"
+import Method from "panda-generics"
 import {tee} from "panda-garden"
 import {properties, isString, isObject} from "panda-parchment"
 
-tag = Method.create()
+tag = Method.create
+  name: "tag"
+  description: "creates an element that extends HTMLElement"
 
 Method.define tag, isObject, (options) ->
 

@@ -1,6 +1,6 @@
 {
   "name": "panda-play",
-  "version": "1.8.6",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "a lightweight library for building Web Components",
   "author": "Dan Yoder",
@@ -18,18 +18,15 @@
   },
   "dependencies": {
     "diffhtml": "^1.0.0-beta.10",
-    "panda-garden": "^3.2.0",
-    "panda-generics": "^4.2.0",
-    "panda-parchment": "^4.2.0",
-    "panda-river-esm": "^4.4.2"
+    "panda-garden": "^4.0.0",
+    "panda-generics": "^6.0.0",
+    "panda-parchment": "^5.0.0",
+    "panda-river-esm": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.1.6",
     "amen": "^2.1.0",
-    "coffeescript": "^2.3.2",
-    "del": "^3.0.0",
-    "panda-9000": "^4.4.0",
-    "panda-builder": "^3.2.1",
-    "puppeteer": "^1.10.0"
+    "panda-9000": "5.0.2",
+    "panda-builder": "4.0.13",
+    "puppeteer": "^1.19.0"
   }
 }

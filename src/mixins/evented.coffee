@@ -1,5 +1,5 @@
 import {isString, isObject, isArray, isFunction, isKind} from "panda-parchment"
-import {Method} from "panda-generics"
+import Method from "panda-generics"
 import {pipe, spread, tee} from "panda-garden"
 import {$property, $methods, methods} from "./helpers"
 
@@ -44,7 +44,9 @@ matches = (selector, handler) ->
 # _on generic, used as the event registration
 # implementation for the mixin
 
-_on = Method.create()
+_on = Method.create
+  name: "on"
+  description: "event registration implementation for the mixin"
 
 # helper just makes declarations more concise
 define = (terms, implementation) ->
