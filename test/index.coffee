@@ -10,7 +10,7 @@ do ->
 
     test "Play loads as a module", ->
       await page.addScriptTag
-        path: "./build/npm/src/index.js"
+        path: "./build/web/src/index.js"
         type: "module"
 
 
