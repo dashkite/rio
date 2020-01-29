@@ -18,15 +18,16 @@
   },
   "dependencies": {
     "diffhtml": "^1.0.0-beta.10",
-    "panda-garden": "^4.0.0",
-    "panda-generics": "^6.0.0",
-    "panda-parchment": "^5.0.0",
-    "panda-river-esm": "^5.0.0"
+    "panda-garden": "^5.0.0",
+    "panda-generics": "^6.0.2",
+    "panda-parchment": "^6.0.3",
+    "panda-river-esm": "^6.0.0"
   },
   "devDependencies": {
-    "amen": "^2.1.0",
+    "amen": "^3.0.0",
+    "npm-check-updates": "^3.2.2",
     "panda-9000": "5.0.2",
     "panda-builder": "4.0.13",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^2.0.0"
   }
 }
