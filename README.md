@@ -1,6 +1,6 @@
-# Play
+# Carbon
 
-Play is a lightweight library for building Web Components.
+Carbon is a lightweight library for building Web Components.
 
 To create a component, you just call `gadget`:
 
