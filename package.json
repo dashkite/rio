@@ -1,5 +1,5 @@
 {
-  "name": "panda-play",
+  "name": "carbon",
   "version": "2.0.1",
   "license": "MIT",
   "description": "a lightweight library for building Web Components",
@@ -28,6 +28,6 @@
     "npm-check-updates": "^3.2.2",
     "panda-9000": "5.0.2",
     "panda-builder": "4.0.13",
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^2.1.1"
   }
 }
