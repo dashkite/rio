@@ -1,9 +1,10 @@
 {
-  "name": "carbon",
+  "name": "@dashkite/carbon",
   "version": "2.0.1",
   "license": "MIT",
   "description": "a lightweight library for building Web Components",
   "author": "Dan Yoder",
+  "license": "SEE LICENSE IN LICENSE.md",
   "homepage": "https://play.pandastrike.com/",
   "repository": {
     "type": "git",
@@ -14,7 +15,7 @@
   ],
   "main": "build/web/src/index.js",
   "scripts": {
-    "test": "p9k npm:test"
+    "test": "p9k web:test"
   },
   "dependencies": {
     "diffhtml": "^1.0.0-beta.10",
