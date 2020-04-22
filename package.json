@@ -1,8 +1,8 @@
 {
   "name": "@dashkite/carbon",
   "version": "2.0.1",
-  "license": "SEE LICENSE IN\nLICENSE.md",
-  "description": "a lightweight library for building Web\nComponents",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "description": "A lightweight library for building Web Components",
   "author": "Dan\nYoder",
   "homepage": "https://play.pandastrike.com/",
   "repository": {
@@ -14,7 +14,7 @@
   ],
   "main": "build/web/src/index.js",
   "scripts": {
-    "test": "p9k\ntest"
+    "test": "p9k test"
   },
   "dependencies": {
     "diffhtml": "^1.0.0-beta.10",
