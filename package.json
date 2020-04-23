@@ -17,7 +17,7 @@
     "test": "p9k test"
   },
   "dependencies": {
-    "diffhtml": "^1.0.0-beta.10",
+    "diffhtml": "^1.0.0-beta.15",
     "panda-garden": "^5.0.0",
     "panda-generics": "^6.0.2",
     "panda-parchment": "^6.0.3",
