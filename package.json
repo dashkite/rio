@@ -1,18 +1,18 @@
 {
   "name": "@dashkite/carbon",
   "version": "2.0.1",
-  "license": "SEE LICENSE IN LICENSE.md",
   "description": "A lightweight library for building Web Components",
-  "author": "Dan\nYoder",
   "homepage": "https://play.pandastrike.com/",
   "repository": {
     "type": "git",
     "url": "git://github.com/pandastrike/panda-play.git"
   },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Dan\nYoder",
+  "main": "build/npm/src/index.js",
   "files": [
     "./build"
   ],
-  "main": "build/web/src/index.js",
   "scripts": {
     "test": "p9k test"
   },
