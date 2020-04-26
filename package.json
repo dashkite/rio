@@ -8,7 +8,7 @@
     "url": "git://github.com/pandastrike/panda-play.git"
   },
   "license": "SEE LICENSE IN LICENSE.md",
-  "author": "Dan\nYoder",
+  "author": "Dan Yoder",
   "main": "build/npm/src/index.js",
   "files": [
     "./build"
@@ -25,9 +25,8 @@
   },
   "devDependencies": {
     "amen": "^3.0.0",
-    "npm-check-updates": "^3.2.2",
-    "panda-9000": "5.0.2",
+    "panda-9000": "^5.0.2",
     "panda-builder": "4.0.13",
-    "puppeteer": "^2.1.1"
+    "puppeteer": "^3.0.1"
   }
 }
