@@ -1,8 +1,13 @@
-import {mixin, tag} from "../../src"
+import {mixin, tag, connect} from "../../src"
 
 class
-  mixin @, [
-    tag "x-greeting"
-  ]
 
-  connect: ->
+  mixin @, [
+
+    tag "x-greeting"
+
+    connect [
+      ([gadget])-> gadget.test = "Hello, world!"
+    ]
+
+  ]

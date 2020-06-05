@@ -1,3 +1,4 @@
+import "source-map-support/register"
 import Path from "path"
 import assert from "assert"
 import {print, test, success} from "amen"
@@ -16,6 +17,7 @@ build = Path.resolve "test", "build"
 
 compiler = webpack
   mode: "development"
+  devtool: "inline-source-map"
   entry: Path.join source, "index.coffee"
   resolve:
     mainFiles: [ "index" ]
@@ -64,9 +66,12 @@ do ->
     test "loads", ->
         content = await page.evaluate ->
           await customElements.whenDefined "x-greeting"
-          true
+          document
+          .querySelector "x-greeting"
+          .gadget
+          .test
 
-        assert.equal content, true
+        assert.equal content, "Hello, world!"
   ]
 
   await browser.close()
