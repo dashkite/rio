@@ -25,10 +25,15 @@
   },
   "devDependencies": {
     "amen": "^3.0.0",
+    "coffee-loader": "^1.0.0",
+    "coffeescript": "^2.5.1",
     "express": "^4.17.1",
     "express-static": "^1.2.6",
     "panda-9000": "^5.0.3",
     "panda-builder": "4.0.13",
+    "panda-quill": "^5.0.0",
+    "panda-river": "^6.0.0",
+    "pug": "^3.0.0",
     "puppeteer": "^3.3.0",
     "webpack": "^4.43.0"
   }

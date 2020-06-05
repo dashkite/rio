@@ -5,39 +5,68 @@ import puppeteer from "puppeteer"
 import webpack from "webpack"
 import express from "express"
 import files from "express-static"
+import pug from "pug"
+import {wrap, flow} from "@pandastrike/garden"
+import {collect, tee, wait} from "panda-river"
+import {rmr, mkdirp} from "panda-quill"
+p9k = require "panda-9000"
 
-directory = Path.resolve "test", "app"
+source = Path.resolve "test", "app"
+build = Path.resolve "test", "build"
 
 compiler = webpack
   mode: "development"
-  entry: Path.join directory, "index.js"
+  entry: Path.join source, "index.coffee"
+  resolve:
+    mainFiles: [ "index" ]
+    extensions: [ ".coffee" ]
+    modules: [ "node_modules" ]
   output:
-    path: directory
+    path: build
     filename: "index.min.js"
+  module:
+    rules: [
+      test: /.coffee$/
+      loader: "coffee-loader"
+    ]
 
 compiler.watch {}, ->
 
 app = express()
-  .use files Path.join directory
+  .use files Path.join build
 
 do ->
+
+  await rmr build
+  await mkdirp "0777", "build"
+
+  await do flow [
+    wrap p9k.glob "**/*.pug", source
+    wait tee p9k.read
+    tee (context) ->
+      context.target.content = pug.render context.source.content,
+        filename: context.source.path
+        basedir: source
+    tee p9k.extension ".html"
+    wait tee p9k.write build
+    collect
+  ]
 
   server = await app.listen 3000
   browser = await puppeteer.launch()
   page = await browser.newPage()
+  page.on "console", (message) -> console.log "browser:", message.text()
+  page.on "pageerror", (error) -> console.error "browser:", error
+  await page.goto "http://localhost:3000"
 
   print await test "Carbon",  [
 
     test "loads", ->
+        content = await page.evaluate ->
+          await customElements.whenDefined "x-greeting"
+          true
 
-      await page.goto "http://localhost:3000"
-
-      content = await page.evaluate ->
-        document
-          .querySelector "p"
-          .textContent
-
-      assert.equal content, "Hello, world!"
+        assert.equal content, true
   ]
 
   await browser.close()

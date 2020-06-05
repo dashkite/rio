@@ -10,6 +10,6 @@ tag = curry rtee (name, type) ->
 
   # allow other mixins to process before registering
   requestAnimationFrame ->
-    customElements.define options.name, E
+    customElements.define name, E
 
 export {tag}
