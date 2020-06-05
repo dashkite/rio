@@ -17,16 +17,19 @@
     "test": "p9k npm:test"
   },
   "dependencies": {
-    "diffhtml": "^1.0.0-beta.15",
-    "panda-garden": "^5.0.0",
+    "@pandastrike/garden": "^6.0.1",
+    "diffhtml": "^1.0.0-beta.17",
     "panda-generics": "^6.0.2",
     "panda-parchment": "^6.0.3",
     "panda-river-esm": "^6.0.0"
   },
   "devDependencies": {
     "amen": "^3.0.0",
-    "panda-9000": "^5.0.2",
+    "express": "^4.17.1",
+    "express-static": "^1.2.6",
+    "panda-9000": "^5.0.3",
     "panda-builder": "4.0.13",
-    "puppeteer": "^3.0.1"
+    "puppeteer": "^3.3.0",
+    "webpack": "^4.43.0"
   }
 }
