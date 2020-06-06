@@ -116,3 +116,12 @@ If the property is undefined, it will be initialized as an empty object.
 #### `event`
 
 Register an event handler for the root of the component (which will either be the shadow root or the component itself) and define a handler in the form of an array of functions. Use `matches` to handle events for element within the component.
+
+### Event Combinators
+
+#### `matches`
+
+Checks to see if the event originates from within an element matching the given selector.
+
+> **Important ▸** Differs from the DOM API [`matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) which only checks the element itself.
+

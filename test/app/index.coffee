@@ -8,6 +8,7 @@ import {
   describe
   observe
   event
+  matches
 } from "../../src"
 
 class extends Handle
@@ -27,7 +28,12 @@ class extends Handle
             #{handle.data.name}!"
       ]
       event "click", [
+        matches "p"
         ([event, handle]) -> handle.clicked = true
+      ]
+      event "click", [
+        matches "h1"
+        ([event, handle]) -> handle.clicked = false
       ]
     ]
 
