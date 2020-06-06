@@ -1,9 +1,12 @@
+import {Observable} from "object-observer"
 import {curry, flow} from "@pandastrike/garden"
 
-observe = curry (fx, handle) ->
+observe = curry (name, fx, handle) ->
   handler = flow fx
-  handle.update = (f) ->
-    await f.call @
-    handler [ @ ]
+  wrapper = Observable.from handle[name] ? {}
+  Object.defineProperty handle, name,
+    value: wrapper
+    writeable: false
+  wrapper.observe -> handler [ handle ]
 
 export {observe}

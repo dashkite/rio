@@ -15,13 +15,13 @@ class Greeting extends Handle
         matches "h1"
         intercept
         bind ->
-          if @greeting == "Hello"
-            @greeting = "Goodbye"
+          if @value.greeting == "Hello"
+            @value.greeting = "Goodbye"
           else
-            @greeting = "Hello"
+            @value.greeting = "Hello"
       ]
-      observe [
-        render -> "<h1>#{@greeting}, world!</h1>"
+      observe "value", [
+        render -> "<h1>#{@data.greeting}, world!</h1>"
       ]
     ]
 ```
@@ -82,19 +82,27 @@ describe [
 
 #### `observe`
 
-Defines an `update` function that will fire the given handlers when called.
+Wraps the given property in a proxy that listens for changes to the object (or array). The property becomes readonly. This behavior is analogous to the way `describe` works with the component’s `dataset` property.
 
 For example, given the following handler:
 
 ```coffeescript
-observe [
-  render -> "<h1>Hello, #{@name}<h1>"
+observe "value", [
+  render -> "<h1>Hello, #{@value.name}<h1>"
 ]
 ```
 
-calling `update` will automatically re-render the component:
+updating properties of `value` will call it:
 
 ```coffeescript
-handle.update -> @name = "Alice"
+handle.value.name = "Alice"
 ```
 
+However, you cannot assign to `value`:
+
+```coffeescript
+# this is effectively a no-op
+handle.value = name: "Alice"
+```
+
+If the property is undefined, it will be initialized as an empty object.

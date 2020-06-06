@@ -121,10 +121,14 @@ do ->
           .querySelector "x-greeting"
 
           before = handle.fullGreeting
-          await handle.update -> @name = "Alice"
-          after = handle.fullGreeting
-
-          [before, after]
+          handle.data.name = "Alice"
+          # shouldn't be able to overwrite proxy
+          handle.data = "Alice"
+          # need to wait for observe flow to complete
+          new Promise (resolve) ->
+            requestAnimationFrame ->
+              after = handle.fullGreeting
+              resolve [ before, after ]
 
         assert.equal before, undefined
         assert.equal after, "Hello, Alice!"

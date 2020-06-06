@@ -20,11 +20,10 @@ class extends Handle
         ([handle]) ->
           handle.greeting = handle.description.greeting
       ]
-      observe [
+      observe "data", [
         ([handle]) ->
-          console.log "changing"
           handle.fullGreeting = "#{handle.description.greeting},
-            #{handle.name}!"
+            #{handle.data.name}!"
       ]
     ]
 
