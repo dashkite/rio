@@ -7,6 +7,7 @@ import {
   shadow
   describe
   observe
+  event
 } from "../../src"
 
 class extends Handle
@@ -24,6 +25,9 @@ class extends Handle
         ([handle]) ->
           handle.fullGreeting = "#{handle.description.greeting},
             #{handle.data.name}!"
+      ]
+      event "click", [
+        ([event, handle]) -> handle.clicked = true
       ]
     ]
 

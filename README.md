@@ -105,4 +105,14 @@ However, you cannot assign to `value`:
 handle.value = name: "Alice"
 ```
 
+If the value is an object, you can use `Object.assign` to avoid nesting:
+
+```coffeescript
+Object.assign handle.value, name: "Alice"
+```
+
 If the property is undefined, it will be initialized as an empty object.
+
+#### `event`
+
+Register an event handler for the root of the component (which will either be the shadow root or the component itself) and define a handler in the form of an array of functions. Use `matches` to handle events for element within the component.

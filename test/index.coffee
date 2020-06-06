@@ -78,10 +78,10 @@ do ->
         .querySelector "x-greeting"
         .handle
 
-        handle.html = "This is a test."
+        handle.html = "<p>This is a test.</p>"
         await handle.html
 
-      assert.equal content, "This is a test."
+      assert.equal content, "<p>This is a test.</p>"
 
     test "connect", [
 
@@ -132,10 +132,19 @@ do ->
 
         assert.equal before, undefined
         assert.equal after, "Hello, Alice!"
+
+      test "event", ->
+        await page.click "x-greeting"
+        result = await page.evaluate ->
+          await customElements.whenDefined "x-greeting"
+          document
+          .querySelector "x-greeting"
+          .handle
+          .clicked
+
+        assert.equal result, true
+
     ]
-
-
-
 
   ]
 
