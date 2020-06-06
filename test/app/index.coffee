@@ -9,6 +9,8 @@ import {
   observe
   event
   matches
+  discard
+  bind
 } from "../../src"
 
 class extends Handle
@@ -29,11 +31,13 @@ class extends Handle
       ]
       event "click", [
         matches "p"
-        ([event, handle]) -> handle.clicked = true
+        discard
+        bind -> @clicked = true
       ]
       event "click", [
         matches "h1"
-        ([event, handle]) -> handle.clicked = false
+        discard
+        bind -> @clicked = false
       ]
     ]
 

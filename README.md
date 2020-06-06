@@ -125,3 +125,22 @@ Checks to see if the event originates from within an element matching the given 
 
 > **Important ▸** Differs from the DOM API [`matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) which only checks the element itself.
 
+### Action Combinators
+
+#### `discard`
+
+Discard the top of the stack. Typically used to discard the event object for handlers that don’t need to reference it.
+
+#### `bind`
+
+Call a function bound to the object on the top of the stack, typically a handle.
+
+```coffeescript
+event "click", [
+  matches "button"
+  intercept
+  discard
+  bind -> @clicked = true
+]
+```
+
