@@ -5,11 +5,10 @@ tag = curry rtee (name, type) ->
   E = class extends HTMLElement
     constructor: ->
       super()
-      @gadget = new type @
-    connectedCallback: -> @gadget.connect()
+      @handle = new type @
+    connectedCallback: -> @handle.connect()
 
   # allow other mixins to process before registering
-  requestAnimationFrame ->
-    customElements.define name, E
+  requestAnimationFrame -> customElements.define name, E
 
 export {tag}

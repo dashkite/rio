@@ -1,13 +1,15 @@
-import {mixin, tag, connect} from "../../src"
+import {mixin, tag, connect, shadow} from "../../src"
 
 class
+
+  constructor: (@dom) ->
 
   mixin @, [
 
     tag "x-greeting"
 
     connect [
-      ([gadget])-> gadget.test = "Hello, world!"
+      shadow
     ]
 
   ]

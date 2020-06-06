@@ -2,45 +2,66 @@
 
 Carbon is a lightweight library for building Web Components.
 
-To create a component, you just call `gadget`:
-
-```coffee
-import {Gadget, bebop, shadow, template, events} from "panda-play"
-
-mixin class extends Gadget, [
-
-  tag "x-greeting"
-
-  # bebop preset gives us VDOM + automatic rendering
-  # shadow give us Shadow DOM support
-  bebop, shadow
-
-  template ({value}) -> "<h1>#{value}, World!</h1>"
-
-  events
-    h1:
-      click: ({target}) -> @value = "Goodbye"
+```coffeescript
+class
+  constructor: (@dom) ->
+  mixin @, [
+    tag "x-greeting"
+    vdom
+    sheet select "h1", type "heading large"
+    connect [
+      shadow
+      event "click", [
+        matches "h1"
+        intercept
+        bind ->
+          if @greeting == "Hello"
+            @greeting = "Goodbye"
+          else
+            @greeting = "Hello"
+      ]
+      observe "name", [
+        render -> "<h1>#{@greeting}, world!</h1>"
+      ]
+    ]
 ```
 
 ## Features
 
 - Fully encapsulated native Web Components
 - Virtual DOM, with diff-based updates
-- Selector-based event handlers instead of inline
-- Arbitrary template functions—use template literals, JSX, Pug, …
-- Or use VHTML and generate VDOM directly
-- Observable properties generate change events and re-render
-- Component-targetable CSS from client document
-- Pipe operator to wire components together
-- Delegation pattern—Gadgets are handles to DOM elements
-- Mixin-based composition avoid [fragile base class problem][elliott]
-
-[elliott]:https://medium.com/@_ericelliott/why-composition-is-immune-to-fragile-base-class-problem-8dfc6a5272aa
+- Render with simple HTML
+- Parse CSS once and attach using CSSOM
+- Observable properties
+- Explicit ordering without hooks
+- Uses handle pattern to avoid naming conflicts
 
 ## Install
 
 Bundle using your favorite bundler:
 
 ```
-npm i -S panda-play
+npm i @dashkite/carbon
 ```
+
+## API
+
+### Class Mixins
+
+#### `tag`
+
+Define the tag for the Custom Element.
+
+```coffeescript
+tag "x-greeting"
+```
+
+#### `connect`
+
+Define the handler for the `connectedCallback`, in the form of an array of functions.
+
+### Connect Combinators
+
+#### `shadow`
+
+Define a `shadowRoot` for the component, accessible via the handle as `shadow`.

@@ -63,15 +63,16 @@ do ->
 
   print await test "Carbon",  [
 
-    test "loads", ->
+    test "tag / connect / shadow", ->
         content = await page.evaluate ->
           await customElements.whenDefined "x-greeting"
+          console.log "checking for shadowRoot"
           document
           .querySelector "x-greeting"
           .gadget
-          .test
+          .shadow?
 
-        assert.equal content, "Hello, world!"
+        assert.equal content, true
   ]
 
   await browser.close()
