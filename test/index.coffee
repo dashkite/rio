@@ -114,6 +114,20 @@ do ->
         assert.equal content, "Hello"
 
 
+      test "observe", ->
+        [before, after] = await page.evaluate ->
+          await customElements.whenDefined "x-greeting"
+          {handle} = document
+          .querySelector "x-greeting"
+
+          before = handle.fullGreeting
+          await handle.update -> @name = "Alice"
+          after = handle.fullGreeting
+
+          [before, after]
+
+        assert.equal before, undefined
+        assert.equal after, "Hello, Alice!"
     ]
 
 

@@ -20,7 +20,7 @@ class Greeting extends Handle
           else
             @greeting = "Hello"
       ]
-      observe "greeting", [
+      observe [
         render -> "<h1>#{@greeting}, world!</h1>"
       ]
     ]
@@ -78,5 +78,23 @@ Defines a `description` getter corresponding to the component’s `dataset` and 
 describe [
   render -> "<h1>Hello, #{@description.name}<h1>"
 ]
+```
+
+#### `observe`
+
+Defines an `update` function that will fire the given handlers when called.
+
+For example, given the following handler:
+
+```coffeescript
+observe [
+  render -> "<h1>Hello, #{@name}<h1>"
+]
+```
+
+calling `update` will automatically re-render the component:
+
+```coffeescript
+handle.update -> @name = "Alice"
 ```
 

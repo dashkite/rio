@@ -6,6 +6,7 @@ import {
   connect
   shadow
   describe
+  observe
 } from "../../src"
 
 class extends Handle
@@ -18,6 +19,12 @@ class extends Handle
       describe [
         ([handle]) ->
           handle.greeting = handle.description.greeting
+      ]
+      observe [
+        ([handle]) ->
+          console.log "changing"
+          handle.fullGreeting = "#{handle.description.greeting},
+            #{handle.name}!"
       ]
     ]
 
