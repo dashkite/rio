@@ -121,9 +121,9 @@ do ->
           .querySelector "x-greeting"
 
           before = handle.fullGreeting
-          handle.data.name = "Alice"
+          Object.assign handle.data, name: "Alice"
           # shouldn't be able to overwrite proxy
-          handle.data = "Alice"
+          handle.data = name: "Bob"
           # need to wait for observe flow to complete
           new Promise (resolve) ->
             requestAnimationFrame ->
