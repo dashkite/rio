@@ -20,7 +20,7 @@ class
           else
             @greeting = "Hello"
       ]
-      observe "name", [
+      observe "greeting", [
         render -> "<h1>#{@greeting}, world!</h1>"
       ]
     ]
