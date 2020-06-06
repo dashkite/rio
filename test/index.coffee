@@ -84,7 +84,9 @@ do ->
       assert.equal content, "This is a test."
 
     test "connect", [
+
       test "shadow", ->
+
         content = await page.evaluate ->
           await customElements.whenDefined "x-greeting"
           document
@@ -92,7 +94,28 @@ do ->
           .handle
           .shadow?
         assert.equal content, true
+
+      test "describe", ->
+
+        content = await page.evaluate ->
+          await customElements.whenDefined "x-greeting"
+          component = document
+          .querySelector "x-greeting"
+
+          component
+          .dataset
+          .greeting = "Hello"
+
+          # need to wait for describe flow to complete
+          new Promise (resolve) ->
+            requestAnimationFrame ->
+              resolve component.handle.greeting
+
+        assert.equal content, "Hello"
+
+
     ]
+
 
 
 

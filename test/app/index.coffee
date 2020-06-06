@@ -1,4 +1,12 @@
-import {Handle, mixin, tag, diff, connect, shadow} from "../../src"
+import {
+  Handle
+  mixin
+  tag
+  diff
+  connect
+  shadow
+  describe
+} from "../../src"
 
 class extends Handle
 
@@ -7,6 +15,10 @@ class extends Handle
     diff
     connect [
       shadow
+      describe [
+        ([handle]) ->
+          handle.greeting = handle.description.greeting
+      ]
     ]
 
   ]

@@ -69,3 +69,14 @@ Define the handler for the `connectedCallback`, in the form of an array of funct
 #### `shadow`
 
 Define a `shadowRoot` for the component, accessible via the handle as `shadow`.
+
+#### `describe`
+
+Defines a `description` getter corresponding to the component’s `dataset` and listens for changes to it, calling the given handlers.
+
+```coffeescript
+describe [
+  render -> "<h1>Hello, #{@description.name}<h1>"
+]
+```
+
