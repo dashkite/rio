@@ -125,6 +125,18 @@ Checks to see if the event originates from within an element matching the given 
 
 > **Important ▸** Differs from the DOM API [`matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) which only checks the element itself.
 
+#### `stop`
+
+Stop event propagation (calls [`stopPropagation`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) on the event).
+
+#### `prevent`
+
+Prevents default action (calls [`preventDefault`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) on the event).
+
+#### `intercept`
+
+Combines `stop` and `prevent`.
+
 ### Action Combinators
 
 #### `discard`
