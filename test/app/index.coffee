@@ -1,13 +1,10 @@
-import {mixin, tag, connect, shadow} from "../../src"
+import {Handle, mixin, tag, diff, connect, shadow} from "../../src"
 
-class
-
-  constructor: (@dom) ->
+class extends Handle
 
   mixin @, [
-
     tag "x-greeting"
-
+    diff
     connect [
       shadow
     ]

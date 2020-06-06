@@ -21,7 +21,7 @@ compiler = webpack
   entry: Path.join source, "index.coffee"
   resolve:
     mainFiles: [ "index" ]
-    extensions: [ ".coffee" ]
+    extensions: [ ".js", ".coffee" ]
     modules: [ "node_modules" ]
   output:
     path: build
@@ -69,16 +69,32 @@ do ->
         true
       assert.equal content, true
 
-    test "connect"
-
-    test "shadow", ->
+    test "diff", ->
       content = await page.evaluate ->
+
         await customElements.whenDefined "x-greeting"
-        document
+
+        handle = document
         .querySelector "x-greeting"
         .handle
-        .shadow?
-      assert.equal content, true
+
+        handle.html = "This is a test."
+        await handle.html
+
+      assert.equal content, "This is a test."
+
+    test "connect", [
+      test "shadow", ->
+        content = await page.evaluate ->
+          await customElements.whenDefined "x-greeting"
+          document
+          .querySelector "x-greeting"
+          .handle
+          .shadow?
+        assert.equal content, true
+    ]
+
+
 
   ]
 

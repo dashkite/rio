@@ -3,7 +3,7 @@
 Carbon is a lightweight library for building Web Components.
 
 ```coffeescript
-class
+class Greeting extends Handle
   constructor: (@dom) ->
   mixin @, [
     tag "x-greeting"
@@ -55,6 +55,10 @@ Define the tag for the Custom Element.
 ```coffeescript
 tag "x-greeting"
 ```
+
+#### `diff`
+
+Define `html` property that will update the DOM using a [diff algorithm](https://diffhtml.org/) instead of replacing it.
 
 #### `connect`
 

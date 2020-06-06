@@ -1,8 +1,8 @@
 import {peek} from "@dashkite/katana"
-import {getter} from "../helpers"
+import {readonly} from "../helpers"
 
 shadow = peek (gadget) ->
   gadget.dom.attachShadow mode: "open"
-  getter gadget, shadow: -> @dom.shadowRoot
+  readonly gadget, shadow: -> @dom.shadowRoot
 
 export {shadow}
