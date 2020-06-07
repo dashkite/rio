@@ -1,7 +1,7 @@
 import {readonly} from "../helpers"
 
-shadow = (gadget) ->
-  gadget.dom.attachShadow mode: "open"
-  readonly gadget, shadow: -> @dom.shadowRoot
+shadow = ([handle]) ->
+  handle.dom.attachShadow mode: "open"
+  readonly handle, shadow: -> @dom.shadowRoot
 
 export {shadow}
