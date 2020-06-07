@@ -6,5 +6,6 @@ describe = curry (fx, handle) ->
   handler = flow fx
   observer = new MutationObserver -> handler [ handle ]
   observer.observe handle.dom, attributes: true
+  handler [ handle ]
 
 export {describe}

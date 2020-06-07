@@ -63,88 +63,20 @@ do ->
 
   print await test "Carbon",  [
 
-    test "tag", ->
-      content = await page.evaluate ->
+    test "Scenario: view", ->
+      result = await page.evaluate ->
+        document.body.insertAdjacentHTML "afterend",
+          "<x-greeting data-name='alice'/>"
         await customElements.whenDefined "x-greeting"
-        true
-      assert.equal content, true
-
-    test "diff", ->
-      content = await page.evaluate ->
-
-        await customElements.whenDefined "x-greeting"
-
-        handle = document
-        .querySelector "x-greeting"
-        .handle
-
-        handle.html = "<p>This is a test.</p>"
-        await handle.html
-
-      assert.equal content, "<p>This is a test.</p>"
-
-    test "connect", [
-
-      test "shadow", ->
-
-        content = await page.evaluate ->
-          await customElements.whenDefined "x-greeting"
-          document
+        root = document
           .querySelector "x-greeting"
-          .handle
-          .shadow?
-        assert.equal content, true
+          .shadowRoot
+        new Promise (resolve) ->
+          requestAnimationFrame -> resolve root.innerHTML
 
-      test "describe", ->
+      assert.equal result,
+        "<p>Hello, Alice!</p>"
 
-        content = await page.evaluate ->
-          await customElements.whenDefined "x-greeting"
-          component = document
-          .querySelector "x-greeting"
-
-          component
-          .dataset
-          .greeting = "Hello"
-
-          # need to wait for describe flow to complete
-          new Promise (resolve) ->
-            requestAnimationFrame ->
-              resolve component.handle.greeting
-
-        assert.equal content, "Hello"
-
-
-      test "observe", ->
-        [before, after] = await page.evaluate ->
-          await customElements.whenDefined "x-greeting"
-          {handle} = document
-          .querySelector "x-greeting"
-
-          before = handle.fullGreeting
-          Object.assign handle.data, name: "Alice"
-          # shouldn't be able to overwrite proxy
-          handle.data = name: "Bob"
-          # need to wait for observe flow to complete
-          new Promise (resolve) ->
-            requestAnimationFrame ->
-              after = handle.fullGreeting
-              resolve [ before, after ]
-
-        assert.equal before, undefined
-        assert.equal after, "Hello, Alice!"
-
-      test "event", ->
-        await page.click "x-greeting"
-        result = await page.evaluate ->
-          await customElements.whenDefined "x-greeting"
-          document
-          .querySelector "x-greeting"
-          .handle
-          .clicked
-
-        assert.equal result, true
-
-    ]
 
   ]
 
