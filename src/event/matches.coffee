@@ -1,4 +1,4 @@
-import {poke} from "@dashkite/katana"
+import {spoke as poke} from "@dashkite/katana"
 
 matches = (selector) ->
   poke (event, handle) ->

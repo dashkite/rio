@@ -1,7 +1,6 @@
+import {arity} from "@pandastrike/garden"
 import {peek} from "@dashkite/katana"
 
-# TODO should this use the arity of f to get add'l arguments?
-# ex: replace event with data from event target, then call bind
-bind = (f) -> peek (handle) -> f.call handle
+bind = (f) -> peek arity f.length, (ax..., handle) -> f.apply handle, ax
 
 export {bind}

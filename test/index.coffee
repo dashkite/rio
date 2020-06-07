@@ -37,6 +37,8 @@ compiler.watch {}, ->
 app = express()
   .use files Path.join build
 
+sleep = (ms) -> new Promise (resolve) -> setTimeout resolve, ms
+
 do ->
 
   await rmr build
@@ -65,8 +67,7 @@ do ->
 
     test "Scenario: view", ->
       result = await page.evaluate ->
-        document.body.insertAdjacentHTML "afterend",
-          "<x-greeting data-name='alice'/>"
+        document.body.innerHTML = "<x-greeting data-name='alice'/>"
         await customElements.whenDefined "x-greeting"
         root = document
           .querySelector "x-greeting"
@@ -74,9 +75,29 @@ do ->
         new Promise (resolve) ->
           requestAnimationFrame -> resolve root.innerHTML
 
-      assert.equal result,
-        "<p>Hello, Alice!</p>"
+      assert.equal result, "<p>Hello, Alice!</p>"
 
+    test description: "Scenario: create", wait: false, ->
+
+      await page.evaluate ->
+        document.body.innerHTML = "<x-create-greeting/>"
+
+      await page.evaluate ->
+        customElements.whenDefined "x-create-greeting"
+
+      component = await page.$ "x-create-greeting"
+
+      root = await component.evaluateHandle (node) -> node.shadowRoot
+      input = await root.$ "input"
+      await input.type "Alice"
+
+      await root.$eval "form", (form) -> form.requestSubmit()
+
+      await sleep 100
+
+      data = await component.evaluate (component) -> window.greeting
+
+      assert.equal data.name, "Alice"
 
   ]
 

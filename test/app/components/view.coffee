@@ -24,8 +24,6 @@ class extends Handle
       describe [
         bind -> @data.greeting = await Greetings.get @description.name
       ]
-      observe "data", [
-        bind -> @html = "<p>#{@data.greeting}</p>"
-      ]
+      observe "data", [ bind -> @html = "<p>#{@data.greeting}</p>" ]
     ]
   ]

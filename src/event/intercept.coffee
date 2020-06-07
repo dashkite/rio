@@ -1,7 +1,7 @@
-import {flow} from "@pandastrike/garden"
+import {pipe} from "@pandastrike/garden"
 import {prevent} from "./prevent"
 import {stop} from "./stop"
 
-intercept = flow [ prevent, stop ]
+intercept = pipe [ prevent, stop ]
 
 export {intercept}

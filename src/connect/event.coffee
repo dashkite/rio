@@ -3,7 +3,8 @@ import {curry, flow} from "@pandastrike/garden"
 event = curry (name, fx, [handle]) ->
   handler = (stack) ->
     for f in fx
-      stack = await f stack
+      tbd = f stack
+      stack = if tbd.then? then (await tbd) else tbd
       break if !stack[0]?
     stack
 
