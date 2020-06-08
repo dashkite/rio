@@ -8,7 +8,7 @@ import express from "express"
 import files from "express-static"
 import pug from "pug"
 import {wrap, curry, flow} from "@pandastrike/garden"
-import {push, pop, peek} from "@dashkite/katana"
+import {stack, push, pop, peek} from "@dashkite/katana"
 import {collect, tee, wait} from "panda-river"
 import {rmr, mkdirp} from "panda-quill"
 p9k = require "panda-9000"
@@ -33,10 +33,12 @@ compiler = webpack
       loader: "coffee-loader"
     ]
 
-compiler.watch {}, ->
+compiler.watch {}, (error) ->
+  if error? then console.error error
 
 app = express()
   .use files Path.join build
+
 
 defined = curry (name, page) ->
   page.evaluate -> customElements.whenDefined "x-greeting"
@@ -60,6 +62,14 @@ evaluate = curry (f, node) -> node.evaluate f
 
 equal = curry (expected, actual) -> assert.equal expected, actual
 
+page = curry (url, browser) ->
+  do ({page} = {}) ->
+    page = await browser.newPage()
+    page.on "console", (message) -> console.log "<#{url}>", message.text()
+    page.on "pageerror", (error) -> console.error "<#{url}>", error
+    await page.goto url
+    page
+
 do ->
 
   await rmr build
@@ -79,26 +89,23 @@ do ->
 
   server = await app.listen 3000
   browser = await puppeteer.launch()
-  page = await browser.newPage()
-  page.on "console", (message) -> console.log "browser:", message.text()
-  page.on "pageerror", (error) -> console.error "browser:", error
-  await page.goto "http://localhost:3000"
 
   print await test "Carbon",  [
 
-    await test "Scenario: view", flow [
-      -> [ page ]
+    test description: "Scenario: view", wait: false, flow [
+      wrap [ browser ]
+      push page "http://localhost:3000"
       peek defined "x-greeting"
       peek render "<x-greeting data-name='alice'/>"
-      peek pause
       push select "x-greeting"
       push shadow
       push evaluate (root) -> root.innerHTML
       peek equal "<p>Hello, Alice!</p>"
     ]
 
-    await test description: "Scenario: create", wait: false, flow [
-      -> [ page ]
+    test description: "Scenario: create", wait: false, stack flow [
+      wrap [ browser ]
+      push page "http://localhost:3000"
       peek defined "x-create-greeting"
       peek render "<x-create-greeting/>"
       push select "x-create-greeting"
