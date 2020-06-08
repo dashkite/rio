@@ -7,7 +7,8 @@ import webpack from "webpack"
 import express from "express"
 import files from "express-static"
 import pug from "pug"
-import {wrap, flow} from "@pandastrike/garden"
+import {wrap, curry, flow} from "@pandastrike/garden"
+import {push, pop, peek} from "@dashkite/katana"
 import {collect, tee, wait} from "panda-river"
 import {rmr, mkdirp} from "panda-quill"
 p9k = require "panda-9000"
@@ -37,7 +38,25 @@ compiler.watch {}, ->
 app = express()
   .use files Path.join build
 
+defined = curry (name, page) ->
+  page.evaluate -> customElements.whenDefined "x-greeting"
+
+render = curry (html, page) ->
+  page.evaluate ((html) -> document.body.innerHTML = html), html
+
+select = curry (selector, node) -> node.$ selector
+
+shadow = (node) -> node.evaluateHandle (node) -> node.shadowRoot
+
 sleep = (ms) -> new Promise (resolve) -> setTimeout resolve, ms
+
+type = curry (text, node) -> node.type text
+
+submit = (form) -> form.evaluate (form) -> form.requestSubmit()
+
+evaluate = curry (f, node) -> node.evaluate f
+
+equal = curry (expected, actual) -> assert.equal expected, actual
 
 do ->
 
@@ -65,39 +84,31 @@ do ->
 
   print await test "Carbon",  [
 
-    test "Scenario: view", ->
-      result = await page.evaluate ->
-        document.body.innerHTML = "<x-greeting data-name='alice'/>"
-        await customElements.whenDefined "x-greeting"
-        root = document
-          .querySelector "x-greeting"
-          .shadowRoot
-        new Promise (resolve) ->
-          requestAnimationFrame -> resolve root.innerHTML
+    await test "Scenario: view", flow [
+      -> [ page ]
+      peek defined "x-greeting"
+      peek render "<x-greeting data-name='alice'/>"
+      peek -> sleep 100
+      push select "x-greeting"
+      push shadow
+      push (root) -> root.evaluate (root) -> root.innerHTML
+      peek equal "<p>Hello, Alice!</p>"
+    ]
 
-      assert.equal result, "<p>Hello, Alice!</p>"
-
-    test description: "Scenario: create", wait: false, ->
-
-      await page.evaluate ->
-        document.body.innerHTML = "<x-create-greeting/>"
-
-      await page.evaluate ->
-        customElements.whenDefined "x-create-greeting"
-
-      component = await page.$ "x-create-greeting"
-
-      root = await component.evaluateHandle (node) -> node.shadowRoot
-      input = await root.$ "input"
-      await input.type "Alice"
-
-      await root.$eval "form", (form) -> form.requestSubmit()
-
-      await sleep 100
-
-      data = await component.evaluate (component) -> window.greeting
-
-      assert.equal data.name, "Alice"
+    await test description: "Scenario: create", wait: false, flow [
+      -> [ page ]
+      peek defined "x-create-greeting"
+      peek render "<x-create-greeting/>"
+      push select "x-create-greeting"
+      push shadow
+      push select "input"
+      pop type "Alice"
+      push select "form"
+      pop submit
+      peek -> sleep 100
+      push evaluate -> window.greeting?.name
+      peek equal "Alice"
+    ]
 
   ]
 
