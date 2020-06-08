@@ -50,6 +50,8 @@ shadow = (node) -> node.evaluateHandle (node) -> node.shadowRoot
 
 sleep = (ms) -> new Promise (resolve) -> setTimeout resolve, ms
 
+pause = -> sleep 100
+
 type = curry (text, node) -> node.type text
 
 submit = (form) -> form.evaluate (form) -> form.requestSubmit()
@@ -88,10 +90,10 @@ do ->
       -> [ page ]
       peek defined "x-greeting"
       peek render "<x-greeting data-name='alice'/>"
-      peek -> sleep 100
+      peek pause
       push select "x-greeting"
       push shadow
-      push (root) -> root.evaluate (root) -> root.innerHTML
+      push evaluate (root) -> root.innerHTML
       peek equal "<p>Hello, Alice!</p>"
     ]
 
@@ -105,7 +107,7 @@ do ->
       pop type "Alice"
       push select "form"
       pop submit
-      peek -> sleep 100
+      peek pause
       push evaluate -> window.greeting?.name
       peek equal "Alice"
     ]
