@@ -10,7 +10,7 @@ page = curry (url, browser) ->
     page
 
 defined = curry (name, page) ->
-  page.evaluate -> customElements.whenDefined "x-greeting"
+  page.evaluate ((name) -> customElements.whenDefined name), name
 
 render = curry (html, page) ->
   page.evaluate ((html) -> document.body.innerHTML = html), html
@@ -23,6 +23,8 @@ sleep = (ms) -> new Promise (resolve) -> setTimeout resolve, ms
 
 pause = -> sleep 100
 
+clear = (node) -> node.evaluate (node) -> node.value = ""
+
 type = curry (text, node) -> node.type text
 
 submit = (form) -> form.evaluate (form) -> form.requestSubmit()
@@ -33,4 +35,4 @@ equal = curry (expected, actual) -> assert.equal expected, actual
 
 
 export { page, defined, render, select, shadow,
-  sleep, pause, type, submit, evaluate, equal }
+  sleep, pause, clear, type, submit, evaluate, equal }

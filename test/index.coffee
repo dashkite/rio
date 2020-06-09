@@ -4,7 +4,7 @@ import {print, test, success} from "amen"
 import {wrap, flow} from "@pandastrike/garden"
 import {push, pop, peek} from "@dashkite/katana"
 import {page, defined, render, select, shadow,
-  pause, type, submit, evaluate, equal} from "./combinators"
+  pause, clear, type, submit, evaluate, equal} from "./combinators"
 import {bundle, clean, pug, server, browser} from "./helpers"
 
 prepare = ({source, build})->
@@ -31,7 +31,7 @@ do ({server, browser} = {})->
       wrap [ browser ]
       push page "http://localhost:3000"
       peek defined "x-greeting"
-      peek render "<x-greeting data-name='alice'/>"
+      peek render "<x-greeting data-key='alice'/>"
       push select "x-greeting"
       push shadow
       push evaluate (root) -> root.innerHTML
@@ -45,15 +45,33 @@ do ({server, browser} = {})->
       peek render "<x-create-greeting/>"
       push select "x-create-greeting"
       push shadow
-      push select "input"
-      pop type "Alice"
+      push select "input[name='key']"
+      pop type "bob"
+      push select "input[name='name']"
+      pop type "Bob"
       push select "form"
       pop submit
       peek pause
-      push evaluate -> window.greeting?.name
-      peek equal "Alice"
+      push evaluate -> window.db.greetings.bob.name
+      peek equal "Bob"
     ]
 
+    test description: "Scenario: update", wait: false, flow [
+      wrap [ browser ]
+      push page "http://localhost:3000"
+      peek defined "x-update-greeting"
+      peek render "<x-update-greeting data-key='alice'/>"
+      push select "x-update-greeting"
+      push shadow
+      push select "input[name='name']"
+      peek clear
+      pop type "Ally"
+      push select "form"
+      pop submit
+      peek pause
+      push evaluate -> window.db.greetings.alice.name
+      peek equal "Ally"
+    ]
   ]
 
   await browser.close()

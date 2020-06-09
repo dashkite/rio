@@ -13,7 +13,7 @@ import {
   form
 } from "../../../src"
 
-Greetings = put: (data) -> Promise.resolve (window.greeting = data)
+import Greetings from "./greetings"
 
 class extends Handle
 
@@ -25,6 +25,8 @@ class extends Handle
       bind ->
         @html = """
           <form>
+            <input name='key' type='text'/>
+            <input name='salutation' type='text'/>
             <input name='name' type='text'/>
           </form>
         """
@@ -33,7 +35,7 @@ class extends Handle
         intercept
         discard
         form
-        bind (data) -> Greetings.put data
+        bind (data) -> Greetings.put data.key, data
       ]
 
     ]

@@ -10,9 +10,7 @@ import {
   bind
 } from "../../../src"
 
-Greetings = get: (key) ->
-  Promise.resolve if key == "alice" then "Hello, Alice!"
-
+import Greetings from "./greetings"
 
 class extends Handle
 
@@ -22,8 +20,13 @@ class extends Handle
     connect [
       shadow
       describe [
-        bind -> @data.greeting = await Greetings.get @description.name
+        bind -> Object.assign @data, await Greetings.get @description.key
       ]
-      observe "data", [ bind -> @html = "<p>#{@data.greeting}</p>" ]
+      observe "data", [
+        bind ->
+          @html = """
+            <p>#{@data.salutation}, #{@data.name}!</p>
+          """
+      ]
     ]
   ]

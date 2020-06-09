@@ -10,6 +10,7 @@ import {rmr, mkdirp} from "panda-quill"
 p9k = require "panda-9000"
 
 bundle = (source, build) ->
+
   bundler = webpack
     mode: "development"
     devtool: "inline-source-map"
@@ -27,8 +28,9 @@ bundle = (source, build) ->
         loader: "coffee-loader"
       ]
 
-  bundler.watch {}, (error) ->
-    if error? then console.error error
+  new Promise (resolve, reject) ->
+    bundler.watch {}, (error) ->
+      unless error? then resolve() else reject error
 
 clean = (build) ->
   await rmr build
