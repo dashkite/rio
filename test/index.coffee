@@ -31,10 +31,7 @@ do ({server, browser} = {})->
       wrap [ browser ]
       push page "http://localhost:3000"
       peek evaluate ->
-        window.db.greetings =
-          alice:
-            salutation: "Hello"
-            name: "Alice"
+        window.db.greetings.alice = salutation: "Hello", name: "Alice"
       peek defined "x-greeting"
       peek render "<x-greeting data-key='alice'/>"
       push select "x-greeting"
@@ -65,10 +62,7 @@ do ({server, browser} = {})->
       wrap [ browser ]
       push page "http://localhost:3000"
       peek evaluate ->
-        window.db.greetings =
-          alice:
-            salutation: "Hello"
-            name: "Alice"
+        window.db.greetings.alice = salutation: "Hello", name: "Alice"
       peek defined "x-update-greeting"
       peek render "<x-update-greeting data-key='alice'/>"
       push select "x-update-greeting"

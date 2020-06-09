@@ -7,6 +7,7 @@ import {
   shadow
   describe
   observe
+  render
   bind
   event
   matches
@@ -16,6 +17,14 @@ import {
 } from "../../../src"
 
 import Greetings from "./greetings"
+
+template = ({data}) ->
+  """
+    <form>
+      <input name='salutation' type='text' value='#{data.salutation}'/>
+      <input name='name' type='text' value='#{data.name}'/>
+    </form>
+  """
 
 class extends Handle
 
@@ -27,15 +36,7 @@ class extends Handle
       describe [
         bind -> Object.assign @data, await Greetings.get @description.key
       ]
-      observe "data", [
-        bind ->
-          @html = """
-            <form>
-              <input name='salutation' type='text' value='#{@data.salutation}'/>
-              <input name='name' type='text' value='#{@data.name}'/>
-            </form>
-          """
-      ]
+      observe "data", [ render template ]
       event "submit", [
         matches "form"
         intercept

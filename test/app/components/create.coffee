@@ -5,6 +5,7 @@ import {
   diff
   connect
   shadow
+  render
   bind
   event
   matches
@@ -15,6 +16,15 @@ import {
 
 import Greetings from "./greetings"
 
+template = ->
+  """
+    <form>
+      <input name='key' type='text'/>
+      <input name='salutation' type='text'/>
+      <input name='name' type='text'/>
+    </form>
+  """
+
 class extends Handle
 
   mixin @, [
@@ -22,14 +32,7 @@ class extends Handle
     diff
     connect [
       shadow
-      bind ->
-        @html = """
-          <form>
-            <input name='key' type='text'/>
-            <input name='salutation' type='text'/>
-            <input name='name' type='text'/>
-          </form>
-        """
+      render template
       event "submit", [
         matches "form"
         intercept
