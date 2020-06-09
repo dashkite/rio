@@ -7,10 +7,13 @@ import {
   shadow
   describe
   observe
+  render
   bind
 } from "../../../src"
 
 import Greetings from "./greetings"
+
+template = ({data}) -> "<p>#{data.salutation}, #{data.name}!</p>"
 
 class extends Handle
 
@@ -22,11 +25,6 @@ class extends Handle
       describe [
         bind -> Object.assign @data, await Greetings.get @description.key
       ]
-      observe "data", [
-        bind ->
-          @html = """
-            <p>#{@data.salutation}, #{@data.name}!</p>
-          """
-      ]
+      observe "data", [ render template ]
     ]
   ]
