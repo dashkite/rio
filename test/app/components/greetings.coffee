@@ -1,9 +1,4 @@
-greetings =
-  alice:
-    salutation: "Hello"
-    name: "Alice"
-
-window.db = {greetings}
+window.db = greetings: {}
 
 Greetings =
   get: (key) -> Promise.resolve window.db.greetings[key]
