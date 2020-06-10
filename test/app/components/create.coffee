@@ -1,9 +1,10 @@
-import {peek} from "@dashkite/katana"
+import {push, peek, poke} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, render, bind, event,
   matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
 
 dup = (stack) -> [ stack[0], stack[0], stack[1...]... ]
+swap = (stack) -> [ stack[1], stack[0], stack[2...]... ]
 
 template = ->
   """
@@ -27,7 +28,9 @@ class extends Handle
         intercept
         discard
         form
-        dup
+        push ({name, salutation}) -> {name, salutation}
+        swap
+        poke ({key}) -> {key}
         peek Greetings.put
       ]
 
