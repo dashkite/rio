@@ -1,7 +1,7 @@
 import {curry, rtee, pipe} from "@pandastrike/garden"
 
-connect = curry rtee (f, type) ->
-  type::connect = -> f [ @ ]
+_connect = curry rtee (f, type) -> type::connect = -> f [ @ ]
 
+connect = (fx) -> _connect pipe fx
 
-export {connect}
+export {connect, _connect}

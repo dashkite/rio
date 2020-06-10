@@ -19,7 +19,7 @@ class extends Handle
   mixin @, [
     tag "x-create-greeting"
     diff
-    connect pipe [
+    connect [
       speek shadow
       speek render template
       speek event "submit", pipe [

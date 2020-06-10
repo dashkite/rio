@@ -18,7 +18,7 @@ class extends Handle
   mixin @, [
     tag "x-update-greeting"
     diff
-    connect pipe [
+    connect [
       speek shadow
       speek observe "data", flow [ peek render template ]
       speek describe flow [
