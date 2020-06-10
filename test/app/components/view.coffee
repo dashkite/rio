@@ -1,6 +1,7 @@
+import {flow} from "@pandastrike/garden"
 import {peek, poke} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, connect, shadow, describe, observe, render,
-  assign } from "../../../src"
+import { Handle, mixin, tag, diff, connect, shadow, describe, description,
+  observe, render, assign } from "../../../src"
 
 import Greetings from "./greetings"
 
@@ -14,7 +15,8 @@ class extends Handle
     connect [
       shadow
       observe "data", [ peek render template ]
-      describe [
+      describe flow [
+        push description
         poke Greetings.get
         peek assign "data"
       ]
