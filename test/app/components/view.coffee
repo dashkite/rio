@@ -1,5 +1,5 @@
 import {flow} from "@pandastrike/garden"
-import {peek, poke} from "@dashkite/katana"
+import {push, peek, poke} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, describe, description,
   observe, render, assign } from "../../../src"
 
