@@ -20,6 +20,7 @@ Metal =
   shadow: Connect._shadow
 
   assign: Actions._assign
+  bind: Actions._assign
 
 export {
   Metal
