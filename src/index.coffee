@@ -1,13 +1,14 @@
 export * from "./handle"
 export * from "./event"
-export * from "./actions"
 export * from "./mixin"
 
 import * as Mixins from "./mixins"
 import * as Connect from "./connect"
+import * as Actions from "./actions"
 
 {connect, diff, tag} = Mixins
 {describe, event, observe, shadow} = Connect
+{assign, bind, description, discard, form, render} = Actions
 
 Metal =
 
@@ -18,6 +19,8 @@ Metal =
   observe: Connect._observe
   shadow: Connect._shadow
 
+  assign: Actions._assign
+
 export {
   Metal
   connect
@@ -27,4 +30,10 @@ export {
   event
   observe
   shadow
+  assign
+  bind
+  description
+  discard
+  form
+  render
 }

@@ -1,5 +1,8 @@
 import {curry} from "@pandastrike/garden"
+import {peek} from "@dashkite/katana"
 
-assign = curry (name, value, handle) -> Object.assign handle[name], value
+_assign = curry (name, value, handle) -> Object.assign handle[name], value
 
-export {assign}
+assign = (name) -> peek _assign name
+
+export {assign, _assign}

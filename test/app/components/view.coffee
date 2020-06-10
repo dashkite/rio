@@ -17,7 +17,7 @@ class extends Handle
       observe "data", [ peek render template ]
       describe [
         poke Greetings.get
-        peek assign "data"
+        assign "data"
       ]
     ]
   ]
