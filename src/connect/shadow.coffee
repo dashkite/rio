@@ -1,6 +1,6 @@
 import {readonly} from "../helpers"
 
-shadow = ([handle]) ->
+shadow = (handle) ->
   handle.dom.attachShadow mode: "open"
   readonly handle, shadow: -> @dom.shadowRoot
 

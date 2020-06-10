@@ -1,7 +1,7 @@
 import {Observable} from "object-observer"
 import {curry, flow} from "@pandastrike/garden"
 
-observe = curry (name, handler, [handle]) ->
+observe = curry (name, handler, handle) ->
   wrapper = Observable.from handle[name] ? {}
   Object.defineProperty handle, name,
     value: wrapper

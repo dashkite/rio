@@ -1,5 +1,5 @@
 import {pipe, flow, curry} from "@pandastrike/garden"
-import {push, spop, peek, poke, pushn, stest} from "@dashkite/katana"
+import {push, spop, peek, speek, poke, pushn, stest} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, render, bind, event,
   matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
@@ -19,10 +19,10 @@ class extends Handle
   mixin @, [
     tag "x-create-greeting"
     diff
-    connect [
-      shadow
-      peek render template
-      event "submit", pipe [
+    connect pipe [
+      speek shadow
+      speek render template
+      speek event "submit", pipe [
         stest (matches "form"), pipe [
           spop intercept
           flow [

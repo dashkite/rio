@@ -1,5 +1,5 @@
 import {pipe, flow} from "@pandastrike/garden"
-import {push, pushn, spop, peek, poke, stest} from "@dashkite/katana"
+import {push, pushn, spop, peek, speek, poke, stest} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, describe, description,
   observe, render, assign, bind, event, matches, intercept, discard,
   form } from "../../../src"
@@ -18,15 +18,15 @@ class extends Handle
   mixin @, [
     tag "x-update-greeting"
     diff
-    connect [
-      shadow
-      observe "data", flow [ peek render template ]
-      describe flow [
+    connect pipe [
+      speek shadow
+      speek observe "data", flow [ peek render template ]
+      speek describe flow [
         push description
         poke Greetings.get
         peek assign "data"
       ]
-      event "submit", pipe [
+      speek event "submit", pipe [
         stest (matches "form"), pipe [
           spop intercept
           flow [
