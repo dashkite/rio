@@ -10,10 +10,13 @@ import * as Connect from "./connect"
 {describe, event, observe, shadow} = Connect
 
 Metal =
+
   connect: Mixins._connect
-  shadow: Connect._shadow
-  observe: Connect._observe
+
+  describe: Connect._describe
   event: Connect._event
+  observe: Connect._observe
+  shadow: Connect._shadow
 
 export {
   Metal

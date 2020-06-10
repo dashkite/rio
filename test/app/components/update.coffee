@@ -21,8 +21,7 @@ class extends Handle
     connect [
       shadow
       observe "data", [ peek render template ]
-      speek describe flow [
-        push description
+      describe [
         poke Greetings.get
         peek assign "data"
       ]

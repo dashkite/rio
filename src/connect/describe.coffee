@@ -1,11 +1,12 @@
-import {push} from "@dashkite/katana"
+import {speek, push} from "@dashkite/katana"
 import {curry, flow} from "@pandastrike/garden"
-import {readonly} from "../helpers"
 import {description} from "../actions/description"
 
-describe = curry (handler, handle) ->
+_describe = curry (handler, handle) ->
   observer = new MutationObserver -> handler [ handle ]
   observer.observe handle.dom, attributes: true
   handler [ handle ]
 
-export {describe}
+describe = (fx) -> speek _describe flow [ (push description), fx... ]
+
+export {describe, _describe}
