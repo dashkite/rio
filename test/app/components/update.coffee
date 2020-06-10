@@ -19,7 +19,7 @@ class extends Handle
     tag "x-update-greeting"
     diff
     connect [
-      speek shadow
+      shadow
       speek observe "data", flow [ peek render template ]
       speek describe flow [
         push description

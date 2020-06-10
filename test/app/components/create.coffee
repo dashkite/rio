@@ -20,7 +20,7 @@ class extends Handle
     tag "x-create-greeting"
     diff
     connect [
-      speek shadow
+      shadow
       speek render template
       speek event "submit", pipe [
         stest (matches "form"), pipe [

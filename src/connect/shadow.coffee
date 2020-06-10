@@ -1,7 +1,10 @@
+import {speek} from "@dashkite/katana"
 import {readonly} from "../helpers"
 
-shadow = (handle) ->
+_shadow = (handle) ->
   handle.dom.attachShadow mode: "open"
   readonly handle, shadow: -> @dom.shadowRoot
 
-export {shadow}
+shadow = speek _shadow
+
+export {shadow, _shadow}
