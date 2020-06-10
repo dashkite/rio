@@ -13,6 +13,7 @@ Metal =
   connect: Mixins._connect
   shadow: Connect._shadow
   observe: Connect._observe
+  event: Connect._event
 
 export {
   Metal

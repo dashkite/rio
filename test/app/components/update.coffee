@@ -26,7 +26,7 @@ class extends Handle
         poke Greetings.get
         peek assign "data"
       ]
-      speek event "submit", pipe [
+      event "submit", [
         stest (matches "form"), pipe [
           spop intercept
           flow [

@@ -22,7 +22,7 @@ class extends Handle
     connect [
       shadow
       speek render template
-      speek event "submit", pipe [
+      event "submit", [
         stest (matches "form"), pipe [
           spop intercept
           flow [
