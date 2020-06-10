@@ -1,8 +1,7 @@
-import {spoke as poke} from "@dashkite/katana"
+import {curry} from "@pandastrike/garden"
 
-matches = (selector) ->
-  poke (event, handle) ->
-    if (target = (event?.target?.closest? selector))?
-      event if handle.root.contains target
+matches = curry (selector, event, handle) ->
+  if (target = (event?.target?.closest? selector))?
+    event if handle.root.contains target
 
 export {matches}

@@ -17,7 +17,7 @@
     "test": "p9k npm:test"
   },
   "dependencies": {
-    "@dashkite/katana": "0.0.8",
+    "@dashkite/katana": "0.0.9",
     "@pandastrike/garden": "^6.0.1",
     "diffhtml": "^1.0.0-beta.17",
     "object-observer": "^3.0.0",

@@ -1,11 +1,9 @@
-import {poke, peek} from "@dashkite/katana"
+import {pipe, flow} from "@pandastrike/garden"
+import {pushn, spop as pop, peek, poke, stest as test} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, describe, description,
   observe, render, assign, bind, event, matches, intercept, discard,
   form } from "../../../src"
 import Greetings from "./greetings"
-
-swap = (stack) -> [ stack[1], stack[0], stack[2...]... ]
-swapr = (stack) -> [ stack[0], stack[2], stack[1], stack[3...]... ]
 
 template = ({data}) ->
   """
@@ -22,21 +20,18 @@ class extends Handle
     diff
     connect [
       shadow
-      observe "data", [ render template ]
+      observe "data", [ peek render template ]
       describe [
         poke Greetings.get
-        assign "data"
+        peek assign "data"
       ]
       event "submit", [
-        matches "form"
-        intercept
-        discard
-        form
-        swap
-        description
-        swapr
-        peek Greetings.put
-      ]
-
-    ]
-  ]
+        test (matches "form"), pipe [
+          pop intercept
+          flow [
+            pushn [
+              description
+              form
+            ]
+            peek Greetings.put
+          ] ] ] ] ]

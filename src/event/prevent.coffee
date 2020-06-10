@@ -1,5 +1,3 @@
-import {speek as peek} from "@dashkite/katana"
-
-prevent = peek (event) -> event.preventDefault()
+prevent = (event) -> event.preventDefault()
 
 export {prevent}

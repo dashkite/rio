@@ -1,6 +1,6 @@
-import {poke} from "@dashkite/katana"
+import {peek, poke} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, describe, observe, render,
-  assign, bind } from "../../../src"
+  assign } from "../../../src"
 
 import Greetings from "./greetings"
 
@@ -13,10 +13,10 @@ class extends Handle
     diff
     connect [
       shadow
-      observe "data", [ render template ]
+      observe "data", [ peek render template ]
       describe [
         poke Greetings.get
-        assign "data"
+        peek assign "data"
       ]
     ]
   ]

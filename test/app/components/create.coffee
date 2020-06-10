@@ -1,10 +1,9 @@
-import {push, peek, poke} from "@dashkite/katana"
+import {pipe, flow, curry} from "@pandastrike/garden"
+import {push, spop as pop, peek, poke, pushn, stest as test} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, render, bind, event,
   matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
-
-dup = (stack) -> [ stack[0], stack[0], stack[1...]... ]
-swap = (stack) -> [ stack[1], stack[0], stack[2...]... ]
+project = curry (ax, b) -> ax.reduce ((r, a) -> {r..., [a]: b[a]}), {}
 
 template = ->
   """
@@ -22,17 +21,15 @@ class extends Handle
     diff
     connect [
       shadow
-      render template
+      peek render template
       event "submit", [
-        matches "form"
-        intercept
-        discard
-        form
-        push ({name, salutation}) -> {name, salutation}
-        swap
-        poke ({key}) -> {key}
-        peek Greetings.put
-      ]
-
-    ]
-  ]
+        test (matches "form"), pipe [
+          pop intercept
+          flow [
+            push form
+            pushn [
+              project [ "key" ]
+              project [ "name", "salutation" ]
+            ]
+            peek Greetings.put
+          ] ] ] ] ]

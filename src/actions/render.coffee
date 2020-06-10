@@ -1,5 +1,5 @@
-import {peek} from "@dashkite/katana"
+import {curry} from "@pandastrike/garden"
 
-render = (template) -> peek (handle) -> handle.html = template handle
+render = curry (template, handle) -> handle.html = template handle
 
 export {render}
