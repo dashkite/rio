@@ -1,20 +1,9 @@
-import {
-  Handle
-  mixin
-  tag
-  diff
-  connect
-  shadow
-  render
-  bind
-  event
-  matches
-  intercept
-  discard
-  form
-} from "../../../src"
-
+import {peek} from "@dashkite/katana"
+import { Handle, mixin, tag, diff, connect, shadow, render, bind, event,
+  matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
+
+dup = (stack) -> [ stack[0], stack[0], stack[1...]... ]
 
 template = ->
   """
@@ -38,7 +27,8 @@ class extends Handle
         intercept
         discard
         form
-        bind (data) -> Greetings.put data.key, data
+        dup
+        peek Greetings.put
       ]
 
     ]

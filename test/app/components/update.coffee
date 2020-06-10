@@ -1,22 +1,11 @@
-import {
-  Handle
-  mixin
-  tag
-  diff
-  connect
-  shadow
-  describe
-  observe
-  render
-  bind
-  event
-  matches
-  intercept
-  discard
-  form
-} from "../../../src"
-
+import {poke, peek} from "@dashkite/katana"
+import { Handle, mixin, tag, diff, connect, shadow, describe, description,
+  observe, render, assign, bind, event, matches, intercept, discard,
+  form } from "../../../src"
 import Greetings from "./greetings"
+
+swap = (stack) -> [ stack[1], stack[0], stack[2...]... ]
+swapr = (stack) -> [ stack[0], stack[2], stack[1], stack[3...]... ]
 
 template = ({data}) ->
   """
@@ -33,16 +22,20 @@ class extends Handle
     diff
     connect [
       shadow
-      describe [
-        bind -> Object.assign @data, await Greetings.get @description.key
-      ]
       observe "data", [ render template ]
+      describe [
+        poke Greetings.get
+        assign "data"
+      ]
       event "submit", [
         matches "form"
         intercept
         discard
         form
-        bind (data) -> Greetings.put @description.key, data
+        swap
+        description
+        swapr
+        peek Greetings.put
       ]
 
     ]

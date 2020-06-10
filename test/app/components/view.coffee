@@ -1,15 +1,6 @@
-import {
-  Handle
-  mixin
-  tag
-  diff
-  connect
-  shadow
-  describe
-  observe
-  render
-  bind
-} from "../../../src"
+import {poke} from "@dashkite/katana"
+import { Handle, mixin, tag, diff, connect, shadow, describe, observe, render,
+  assign, bind } from "../../../src"
 
 import Greetings from "./greetings"
 
@@ -22,9 +13,10 @@ class extends Handle
     diff
     connect [
       shadow
-      describe [
-        bind -> Object.assign @data, await Greetings.get @description.key
-      ]
       observe "data", [ render template ]
+      describe [
+        poke Greetings.get
+        assign "data"
+      ]
     ]
   ]
