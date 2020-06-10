@@ -1,3 +1,7 @@
-description = (handle) -> Object.assign {}, handle.dom.dataset
+import {push} from "@dashkite/katana"
 
-export {description}
+_description = (handle) -> Object.assign {}, handle.dom.dataset
+
+description = push _description
+
+export {description, _description}

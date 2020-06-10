@@ -19,6 +19,9 @@ prepare = ({source, build})->
     browser()
   ]
 
+# coverage missing:
+# - bind
+
 do ({server, browser} = {})->
 
   [server, browser] = await prepare

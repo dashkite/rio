@@ -1,8 +1,8 @@
 import {pipe, flow} from "@pandastrike/garden"
 import {push, pushn, spop, peek, speek, poke, stest} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, connect, shadow, describe, description,
+import { Handle, mixin, tag, diff, connect, shadow, describe,
   observe, render, assign, bind, event, matches, intercept, discard,
-  form } from "../../../src"
+  form, Metal as $ } from "../../../src"
 import Greetings from "./greetings"
 
 template = ({data}) ->
@@ -30,7 +30,7 @@ class extends Handle
           spop intercept
           flow [
             pushn [
-              description
+              $.description
               form
             ]
             peek Greetings.put

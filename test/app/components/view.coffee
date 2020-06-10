@@ -1,6 +1,6 @@
 import {pipe, flow} from "@pandastrike/garden"
 import {push, peek, speek, poke} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, connect, shadow, describe, description,
+import { Handle, mixin, tag, diff, connect, shadow, describe,
   observe, render, assign } from "../../../src"
 
 import Greetings from "./greetings"

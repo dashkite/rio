@@ -7,6 +7,6 @@ _describe = curry (handler, handle) ->
   observer.observe handle.dom, attributes: true
   handler [ handle ]
 
-describe = (fx) -> speek _describe flow [ (push description), fx... ]
+describe = (fx) -> speek _describe flow [ description, fx... ]
 
 export {describe, _describe}
