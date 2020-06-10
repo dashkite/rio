@@ -1,5 +1,5 @@
 import {pipe, flow} from "@pandastrike/garden"
-import {pushn, spop as pop, peek, poke, stest as test} from "@dashkite/katana"
+import {pushn, spop, peek, poke, stest} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, connect, shadow, describe, description,
   observe, render, assign, bind, event, matches, intercept, discard,
   form } from "../../../src"
@@ -25,9 +25,9 @@ class extends Handle
         poke Greetings.get
         peek assign "data"
       ]
-      event "submit", [
-        test (matches "form"), pipe [
-          pop intercept
+      event "submit", pipe [
+        stest (matches "form"), pipe [
+          spop intercept
           flow [
             pushn [
               description
