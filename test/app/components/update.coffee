@@ -20,7 +20,7 @@ class extends Handle
     diff
     connect [
       shadow
-      observe "data", [ peek render template ]
+      observe "data", flow [ peek render template ]
       describe flow [
         push description
         poke Greetings.get
