@@ -12,6 +12,7 @@ import * as Connect from "./connect"
 Metal =
   connect: Mixins._connect
   shadow: Connect._shadow
+  observe: Connect._observe
 
 export {
   Metal
