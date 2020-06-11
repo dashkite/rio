@@ -21,7 +21,6 @@ class extends Handle
     diff
     connect [
       shadow
-      speek render template
       event "submit", [
         stest (matches "form"), pipe [
           spop intercept
@@ -32,4 +31,9 @@ class extends Handle
               project [ "name", "salutation" ]
             ]
             peek Greetings.put
-          ] ] ] ] ]
+          ]
+        ]
+      ]
+      render template
+    ]
+  ]
