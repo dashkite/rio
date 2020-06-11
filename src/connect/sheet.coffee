@@ -8,8 +8,8 @@ create = (generator) ->
     s
 
 _sheet = curry (generator, handle) ->
-  handle.constructor._stylesheet ?= do once create generator
-  handle.shadow.adoptedStyleSheets = [ handle.constructor._stylesheet ]
+  handle.constructor.stylesheet ?= do once create generator
+  handle.shadow.adoptedStyleSheets = [ handle.constructor.stylesheet ]
 
 sheet = (generator) -> speek _sheet generator
 

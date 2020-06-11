@@ -7,7 +7,7 @@ import * as Connect from "./connect"
 import * as Actions from "./actions"
 import * as Event from "./event"
 
-{connect, diff, tag} = Mixins
+{connect, diff, initialize, tag} = Mixins
 {describe, event, observe, ready, shadow, sheet} = Connect
 {assign, bind, description, discard, form, render} = Actions
 {intercept, matches, prevent, stop} = Event
@@ -15,6 +15,7 @@ import * as Event from "./event"
 Metal =
 
   connect: Mixins._connect
+  initialize: Mixins._initialize
 
   describe: Connect._describe
   event: Connect._event
@@ -36,6 +37,7 @@ export {
 
   connect
   diff
+  initialize
   tag
 
   describe

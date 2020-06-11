@@ -2,7 +2,7 @@ import {speek} from "@dashkite/katana"
 import {curry, pipe} from "@pandastrike/garden"
 
 _event = curry (name, handler, handle) ->
-  handle.root.addEventListener name, (event) -> handler [ event, handle ]
+  handle.on name, (event) -> handler [ event, @ ]
 
 event = (name, fx) -> speek _event name, pipe fx
 

@@ -6,7 +6,8 @@ tag = curry rtee (name, type) ->
     constructor: ->
       super()
       @handle = new type @
-    connectedCallback: -> @handle.connect()
+      @handle.initialize?()
+    connectedCallback: -> @handle.connect?()
 
   # allow other mixins to process before registering
   requestAnimationFrame -> customElements.define name, E

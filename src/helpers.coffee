@@ -8,4 +8,13 @@ readwrite = curry tee (target, descriptor) ->
   for name, definition of descriptor
     Object.defineProperty target, name, definition
 
-export {readonly, readwrite}
+dispatch = (target, name, detail) ->
+  target.dispatchEvent new CustomEvent name,
+    detail: detail
+    bubbles: false
+    cancelable: false
+    # don't allow to bubble up from shadow DOM
+    composed: false
+
+
+export {readonly, readwrite, dispatch}
