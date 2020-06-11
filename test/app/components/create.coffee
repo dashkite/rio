@@ -1,6 +1,6 @@
 import {pipe, flow, curry} from "@pandastrike/garden"
 import {push, spop, peek, speek, poke, pushn, stest} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, connect, shadow, render, ready, event,
+import { Handle, mixin, tag, diff, connect, shadow, sheet, render, ready, event,
   matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
 
@@ -22,6 +22,7 @@ class extends Handle
     diff
     connect [
       shadow
+      sheet -> "form { padding: 4rem; border: 1px solid blue; }"
       ready [ render template ]
       event "submit", [
         matches "form", [
