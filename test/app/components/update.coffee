@@ -27,7 +27,7 @@ class extends Handle
       ]
       event "submit", [
         stest (matches "form"), pipe [
-          spop intercept
+          intercept
           flow [
             pushn [
               $.description

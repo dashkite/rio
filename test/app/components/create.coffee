@@ -23,7 +23,7 @@ class extends Handle
       shadow
       event "submit", [
         stest (matches "form"), pipe [
-          spop intercept
+          intercept
           flow [
             form
             pushn [

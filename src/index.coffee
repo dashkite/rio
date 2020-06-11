@@ -5,10 +5,12 @@ export * from "./mixin"
 import * as Mixins from "./mixins"
 import * as Connect from "./connect"
 import * as Actions from "./actions"
+import * as Event from "./event"
 
 {connect, diff, tag} = Mixins
 {describe, event, observe, shadow} = Connect
 {assign, bind, description, discard, form, render} = Actions
+{intercept, matches, prevent, stop} = Event
 
 Metal =
 
@@ -23,6 +25,8 @@ Metal =
   bind: Actions._assign
   description: Actions._description
   form: Actions._form
+
+  intercept: Event._intercept
 
 export {
   Metal
@@ -39,4 +43,8 @@ export {
   discard
   form
   render
+  intercept
+  matches
+  prevent
+  stop
 }
