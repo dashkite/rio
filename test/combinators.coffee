@@ -1,4 +1,4 @@
-import {curry} from "@pandastrike/garden"
+import {arity, curry} from "@pandastrike/garden"
 import assert from "assert"
 
 page = curry (url, browser) ->
@@ -30,6 +30,8 @@ type = curry (text, node) -> node.type text
 submit = (form) -> form.evaluate (form) -> form.requestSubmit()
 
 evaluate = curry (f, node) -> node.evaluate f
+
+# evaluate = (f) -> (node) -> node.evaluate f
 
 equal = curry (expected, actual) -> assert.equal expected, actual
 

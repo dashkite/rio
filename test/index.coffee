@@ -50,6 +50,9 @@ do ({server, browser} = {})->
       peek render "<x-create-greeting/><x-create-greeting/>"
       push select "x-create-greeting"
       push shadow
+      peek pause
+      push evaluate (shadow) -> shadow.adoptedStyleSheets[0].cssRules[0].cssText
+      pop equal "form { color: blue; }"
       push select "input[name='key']"
       pop type "bob"
       push select "input[name='name']"

@@ -22,7 +22,7 @@ class extends Handle
     diff
     connect [
       shadow
-      sheet -> "form { padding: 4rem; border: 1px solid blue; }"
+      sheet -> "form {color: blue; }"
       ready [ render template ]
       event "submit", [
         matches "form", [
@@ -34,4 +34,4 @@ class extends Handle
               project [ "name", "salutation" ]
             ]
             peek Greetings.put
-          ] ] ] ] ]
+    ] ] ] ] ]
