@@ -47,7 +47,7 @@ do ({server, browser} = {})->
       wrap [ browser ]
       push page "http://localhost:3000"
       peek defined "x-create-greeting"
-      peek render "<x-create-greeting/>"
+      peek render "<x-create-greeting/><x-create-greeting/>"
       push select "x-create-greeting"
       push shadow
       push select "input[name='key']"
