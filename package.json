@@ -2,19 +2,19 @@
   "name": "@dashkite/carbon",
   "version": "2.0.3",
   "description": "A lightweight library for building Web Components",
-  "homepage": "https://play.pandastrike.com/",
+  "homepage": "https://github.com/dashkite/carbon#README",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pandastrike/panda-play.git"
+    "url": "git://github.com/dashkite/carbon.git"
   },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Dan Yoder",
-  "main": "build/web/src/index.js",
+  "main": "build/npm/src/index.js",
   "files": [
-    "build/web/src"
+    "build/npm/src"
   ],
   "scripts": {
-    "test": "p9k npm:test"
+    "test": "p9k test"
   },
   "dependencies": {
     "@dashkite/katana": "0.0.9",

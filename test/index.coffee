@@ -82,6 +82,7 @@ do ({server, browser} = {})->
       push evaluate -> window.db.greetings.alice.name
       peek equal "Ally"
     ]
+
   ]
 
   await browser.close()

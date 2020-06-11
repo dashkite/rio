@@ -16,5 +16,4 @@ class Handle
       # allow to bubble up from shadow DOM
       composed: true
 
-
 export {Handle}
