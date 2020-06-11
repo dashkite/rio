@@ -1,7 +1,10 @@
-import {curry} from "@pandastrike/garden"
+import {curry, pipe} from "@pandastrike/garden"
+import {stest} from "@dashkite/katana"
 
-matches = curry (selector, event, handle) ->
+_matches = curry (selector, event, handle) ->
   if (target = (event?.target?.closest? selector))?
     event if handle.root.contains target
 
-export {matches}
+matches = (selector, fx) -> stest (_matches selector), pipe fx
+
+export {matches, _matches}

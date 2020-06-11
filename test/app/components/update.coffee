@@ -26,7 +26,7 @@ class extends Handle
         assign "data"
       ]
       event "submit", [
-        stest (matches "form"), pipe [
+        matches "form", [
           intercept
           flow [
             pushn [

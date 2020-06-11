@@ -27,6 +27,7 @@ Metal =
   form: Actions._form
 
   intercept: Event._intercept
+  matches: Event._matches
 
 export {
   Metal

@@ -22,7 +22,7 @@ class extends Handle
     connect [
       shadow
       event "submit", [
-        stest (matches "form"), pipe [
+        matches "form", [
           intercept
           flow [
             form
