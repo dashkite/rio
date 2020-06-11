@@ -8,7 +8,7 @@ import * as Actions from "./actions"
 import * as Event from "./event"
 
 {connect, diff, tag} = Mixins
-{describe, event, observe, shadow} = Connect
+{describe, event, observe, ready, shadow} = Connect
 {assign, bind, description, discard, form, render} = Actions
 {intercept, matches, prevent, stop} = Event
 
@@ -38,6 +38,7 @@ export {
   event
   observe
   shadow
+  ready
   assign
   bind
   description

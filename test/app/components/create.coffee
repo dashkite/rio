@@ -1,8 +1,9 @@
 import {pipe, flow, curry} from "@pandastrike/garden"
 import {push, spop, peek, speek, poke, pushn, stest} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, connect, shadow, render, bind, event,
+import { Handle, mixin, tag, diff, connect, shadow, render, ready, event,
   matches, intercept, discard, form, description } from "../../../src"
 import Greetings from "./greetings"
+
 project = curry (ax, b) -> ax.reduce ((r, a) -> {r..., [a]: b[a]}), {}
 
 template = ->
@@ -21,6 +22,7 @@ class extends Handle
     diff
     connect [
       shadow
+      ready [ render template ]
       event "submit", [
         matches "form", [
           intercept
@@ -31,9 +33,4 @@ class extends Handle
               project [ "name", "salutation" ]
             ]
             peek Greetings.put
-          ]
-        ]
-      ]
-      render template
-    ]
-  ]
+          ] ] ] ] ]
