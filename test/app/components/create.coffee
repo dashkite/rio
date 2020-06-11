@@ -26,7 +26,7 @@ class extends Handle
         stest (matches "form"), pipe [
           spop intercept
           flow [
-            push form
+            form
             pushn [
               project [ "key" ]
               project [ "name", "salutation" ]

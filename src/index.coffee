@@ -22,6 +22,7 @@ Metal =
   assign: Actions._assign
   bind: Actions._assign
   description: Actions._description
+  form: Actions._form
 
 export {
   Metal

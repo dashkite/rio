@@ -31,7 +31,7 @@ class extends Handle
           flow [
             pushn [
               $.description
-              form
+              $.form
             ]
             peek Greetings.put
           ] ] ] ] ]
