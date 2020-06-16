@@ -1,8 +1,7 @@
 import {innerHTML} from "diffhtml"
-import {tee} from "@pandastrike/garden"
 import {readwrite} from "../helpers"
 
-diff = tee (type) ->
+diff = (type) ->
   readwrite type::,
     html:
       get: ->

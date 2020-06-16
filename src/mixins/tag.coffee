@@ -1,6 +1,6 @@
-import {rtee, curry} from "@pandastrike/garden"
+import {curry} from "@pandastrike/garden"
 
-tag = curry rtee (name, type) ->
+tag = curry (name, type) ->
 
   E = class extends HTMLElement
     constructor: ->
@@ -9,7 +9,6 @@ tag = curry rtee (name, type) ->
       @handle.initialize?()
     connectedCallback: -> @handle.connect?()
 
-  # allow other mixins to process before registering
-  requestAnimationFrame -> customElements.define name, E
+  customElements.define name, E
 
 export {tag}

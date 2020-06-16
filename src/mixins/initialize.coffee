@@ -1,6 +1,6 @@
-import {curry, rtee, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@pandastrike/garden"
 
-_initialize = curry rtee (f, type) ->
+_initialize = curry (f, type) ->
   type::initialize = -> f [ @ ]
 
 initialize = (fx) -> _initialize pipe fx

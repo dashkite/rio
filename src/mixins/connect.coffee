@@ -1,6 +1,6 @@
-import {curry, rtee, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@pandastrike/garden"
 
-_connect = curry rtee (f, type) ->
+_connect = curry (f, type) ->
   type::connect = ->
     f [ @ ]
     @dispatch "ready"

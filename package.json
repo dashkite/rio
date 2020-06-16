@@ -18,12 +18,9 @@
   },
   "dependencies": {
     "@dashkite/katana": "0.0.9",
-    "@pandastrike/garden": "^6.0.1",
+    "@pandastrike/garden": "^8.0.0-alpha.0",
     "diffhtml": "^1.0.0-beta.17",
-    "object-observer": "^3.0.0",
-    "panda-generics": "^6.0.2",
-    "panda-parchment": "^6.0.3",
-    "panda-river-esm": "^6.0.0"
+    "object-observer": "^3.0.0"
   },
   "devDependencies": {
     "amen": "^3.0.0",

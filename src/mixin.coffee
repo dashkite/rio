@@ -1,5 +1,5 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipeWith, rtee} from "@pandastrike/garden"
 
-mixin = curry (type, mixins) -> ((pipe mixins) type)
+mixin = curry (type, mixins) -> ((pipeWith rtee, mixins) type)
 
 export {mixin}
