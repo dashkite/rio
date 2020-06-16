@@ -1,4 +1,4 @@
-import {pipe, flow, curry} from "@pandastrike/garden"
+import {pipe, pipeWith, flow, curry} from "@pandastrike/garden"
 import {push, spop, peek, speek, poke, pushn, stest} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, initialize, connect,
   shadow, sheet, render, ready, event,
