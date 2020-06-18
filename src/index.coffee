@@ -9,7 +9,7 @@ import * as Event from "./event"
 
 {connect, diff, initialize, tag} = Mixins
 {describe, event, observe, ready, shadow, sheet} = Connect
-{assign, bind, description, discard, form, render} = Actions
+{assign, bind, description, discard, form, fields, render} = Actions
 {intercept, matches, prevent, stop} = Event
 
 Metal =
@@ -51,6 +51,7 @@ export {
   bind
   description
   form
+  fields
   render
 
   intercept

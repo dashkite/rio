@@ -3,9 +3,9 @@ import {curry, flow} from "@pandastrike/garden"
 import {description} from "../actions/description"
 
 _describe = curry (handler, handle) ->
-  observer = new MutationObserver -> handler [ handle ]
+  observer = new MutationObserver -> handler [ {handle} ]
   observer.observe handle.dom, attributes: true
-  handler [ handle ]
+  handler [ {handle} ]
 
 describe = (fx) -> speek _describe flow [ description, fx... ]
 

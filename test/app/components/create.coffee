@@ -1,11 +1,9 @@
-import {pipe, pipeWith, flow, curry} from "@pandastrike/garden"
-import {push, spop, peek, speek, poke, pushn, stest} from "@dashkite/katana"
+import {flow, curry} from "@pandastrike/garden"
+import {peek} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, initialize, connect,
   shadow, sheet, render, ready, event,
-  matches, intercept, discard, form, description } from "../../../src"
+  matches, intercept, discard, form, fields } from "../../../src"
 import Greetings from "./greetings"
-
-project = curry (ax, b) -> ax.reduce ((r, a) -> {r..., [a]: b[a]}), {}
 
 template = ->
   """
@@ -32,9 +30,7 @@ class extends Handle
           intercept
           flow [
             form
-            pushn [
-              project [ "key" ]
-              project [ "name", "salutation" ]
-            ]
+            fields [ "name", "salutation" ]
+            fields [ "key" ]
             peek Greetings.put
-  ] ] ] ] ]
+          ] ] ] ] ]

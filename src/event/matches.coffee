@@ -1,7 +1,7 @@
 import {curry, pipe} from "@pandastrike/garden"
 import {stest} from "@dashkite/katana"
 
-_matches = curry (selector, event, handle) ->
+_matches = curry (selector, event, {handle}) ->
   if (target = (event?.target?.closest? selector))?
     handle.root.contains target
 
