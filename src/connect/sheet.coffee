@@ -13,4 +13,6 @@ _sheet = curry (generator, handle) ->
 
 sheet = (generator) -> speek _sheet generator
 
-export {sheet, _sheet}
+sheet._ = _sheet
+
+export {sheet}

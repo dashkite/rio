@@ -1,12 +1,15 @@
 import {curry, flow} from "@pandastrike/garden"
-import {pop, read} from "@dashkite/katana"
+import {poke, read} from "@dashkite/katana"
 
 _assign = curry (name, handle, value) ->
+  handle[name] ?= {}
   Object.assign handle[name], value
 
 assign = (name) -> flow [
   read "handle"
-  pop _assign name
+  poke _assign name
 ]
 
-export {assign, _assign}
+assign._ = _assign
+
+export {assign}

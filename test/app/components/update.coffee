@@ -5,7 +5,7 @@ import { Handle, mixin, tag, diff, initialize, connect, shadow, describe,
   description, form} from "../../../src"
 import Greetings from "./greetings"
 
-template = ({data}) ->
+template = (data) ->
   """
     <form>
       <input name='salutation' type='text' value='#{data.salutation}'/>

@@ -5,7 +5,7 @@ import { Handle, mixin, tag, diff, initialize, connect, shadow, describe,
 
 import Greetings from "./greetings"
 
-template = ({data}) -> "<p>#{data.salutation}, #{data.name}!</p>"
+template = (data) -> "<p>#{data.salutation}, #{data.name}!</p>"
 
 class extends Handle
 

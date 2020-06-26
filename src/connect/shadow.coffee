@@ -7,4 +7,6 @@ _shadow = (handle) ->
 
 shadow = speek _shadow
 
-export {shadow, _shadow}
+shadow._ = _shadow
+
+export {shadow}

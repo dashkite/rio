@@ -7,8 +7,10 @@ _observe = curry (name, handler, handle) ->
   Object.defineProperty handle, name,
     value: wrapper
     writeable: false
-  wrapper.observe -> handler [ {handle} ]
+  wrapper.observe -> handler [ wrapper, {handle} ]
 
 observe = (name, fx) -> speek _observe name, flow fx
 
-export {observe, _observe}
+observe._ = _observe
+
+export {observe}

@@ -8,4 +8,6 @@ bind = (f) -> flow [
   pop _bind f
 ]
 
-export {bind, _bind}
+bind._ = _bind
+
+export {bind}

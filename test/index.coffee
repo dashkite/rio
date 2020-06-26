@@ -28,11 +28,12 @@ do ({server, browser} = {})->
     source: Path.resolve "test", "app"
     build: Path.resolve "test", "build"
 
+  {port} = server.address()
   print await test "Carbon",  [
 
     test description: "Scenario: view", wait: false, flow [
       wrap [ {browser} ]
-      page "http://localhost:3000"
+      page "http://localhost:#{port}"
       evaluate ->
         window.db.greetings.alice = salutation: "Hello", name: "Alice"
       defined "x-greeting"
@@ -45,7 +46,7 @@ do ({server, browser} = {})->
 
     test description: "Scenario: create", wait: false, flow [
       wrap [ {browser} ]
-      page "http://localhost:3000"
+      page "http://localhost:#{port}"
       defined "x-create-greeting"
       render "<x-create-greeting/><x-create-greeting/>"
       select "x-create-greeting"
@@ -66,7 +67,7 @@ do ({server, browser} = {})->
 
     test description: "Scenario: update", wait: false, flow [
       wrap [ {browser} ]
-      page "http://localhost:3000"
+      page "http://localhost:#{port}"
       evaluate -> window.db.greetings.alice = salutation: "Hello", name: "Alice"
       defined "x-update-greeting"
       render "<x-update-greeting data-key='alice'/>"

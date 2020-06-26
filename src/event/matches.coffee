@@ -7,4 +7,6 @@ _matches = curry (selector, event, {handle}) ->
 
 matches = (selector, fx) -> stest (_matches selector), pipe fx
 
-export {matches, _matches}
+matches._ = _matches
+
+export {matches}

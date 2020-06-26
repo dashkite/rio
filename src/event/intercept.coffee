@@ -10,4 +10,6 @@ _intercept = pipe [
 
 intercept = spop _intercept
 
-export {intercept, _intercept}
+intercept._ = _intercept
+
+export {intercept}

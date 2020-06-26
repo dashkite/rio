@@ -11,4 +11,6 @@ fields = (names) ->
     push _fields names
   ]
 
-export {fields, _fields}
+fields._ = _fields
+
+export {fields}

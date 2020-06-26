@@ -11,4 +11,6 @@ form = flow [
   write "form"
 ]
 
-export {form, _form}
+form._ = _form
+
+export {form}

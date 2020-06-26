@@ -8,4 +8,6 @@ description = flow [
   poke _description
 ]
 
-export {description, _description}
+description._ = _description
+
+export {description}

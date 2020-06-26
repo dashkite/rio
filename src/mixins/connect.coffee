@@ -7,4 +7,6 @@ _connect = curry (f, type) ->
 
 connect = (fx) -> _connect pipe fx
 
-export {connect, _connect}
+connect._ = _connect
+
+export {connect}

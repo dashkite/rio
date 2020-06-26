@@ -24,6 +24,7 @@
     "object-observer": "^3.0.0"
   },
   "devDependencies": {
+    "@dashkite/genie": "0.0.1",
     "amen": "^3.0.0",
     "coffee-loader": "^1.0.0",
     "coffeescript": "^2.5.1",

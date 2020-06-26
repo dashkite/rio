@@ -6,4 +6,6 @@ _event = curry (name, handler, handle) ->
 
 event = (name, fx) -> speek _event name, pipe fx
 
+event._ = _event
+
 export {event}

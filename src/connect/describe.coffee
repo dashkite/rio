@@ -9,4 +9,6 @@ _describe = curry (handler, handle) ->
 
 describe = (fx) -> speek _describe flow [ description, fx... ]
 
-export {describe, _describe}
+describe._ = _describe
+
+export {describe}

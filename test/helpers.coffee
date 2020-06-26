@@ -50,9 +50,9 @@ pug = (source, build) ->
   ]
 
 server = (root) ->
-  app = express()
+  express()
     .use files root
-    .listen 3000
+    .listen()
 
 browser = -> puppeteer.launch()
 

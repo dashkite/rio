@@ -5,4 +5,6 @@ _initialize = curry (f, type) ->
 
 initialize = (fx) -> _initialize pipe fx
 
-export {initialize, _initialize}
+initialize._ = _initialize
+
+export {initialize}
