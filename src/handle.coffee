@@ -1,10 +1,14 @@
-import {readonly} from "./helpers"
+import {readonly, readwrite} from "./helpers"
 
 class Handle
 
   constructor: (@dom) ->
 
   readonly @::, root: -> @shadow ? @dom
+  readwrite @::,
+    html:
+      get: -> @root.innerHTML
+      set: (html) -> @root.innerHTML = html
 
   on: (name, handler) -> @root.addEventListener name, handler.bind @
 

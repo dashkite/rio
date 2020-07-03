@@ -1,5 +1,5 @@
 import {flow} from "@pandastrike/garden"
-import {push, read, write} from "@dashkite/katana"
+import {poke, read, write} from "@dashkite/katana"
 
 # TODO this does not handle form inputs that have multiple values
 _form = (handle) ->
@@ -7,7 +7,7 @@ _form = (handle) ->
 
 form = flow [
   read "handle"
-  push _form
+  poke _form
   write "form"
 ]
 

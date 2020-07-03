@@ -1,15 +1,18 @@
-import {curry, once} from "@pandastrike/garden"
+import {curry} from "@pandastrike/garden"
 import {speek} from "@dashkite/katana"
 
-create = (generator) ->
-  ->
-    s = new CSSStyleSheet()
-    s.replaceSync generator()
-    s
-
 _sheet = curry (generator, handle) ->
-  handle.constructor.stylesheet ?= do once create generator
-  handle.shadow.adoptedStyleSheets = [ handle.constructor.stylesheet ]
+  css = await generator()
+  switch css.constructor
+    when String
+      sheet = new CSSStyleSheet()
+      sheet.replaceSync css
+    when CSSStyleSheet
+      sheet = css
+    else
+      sheet = new CSSStyleSheet()
+      sheet.replaceSync css.toString()
+  handle.shadow.adoptedStyleSheets = [ sheet ]
 
 sheet = (generator) -> speek _sheet generator
 
