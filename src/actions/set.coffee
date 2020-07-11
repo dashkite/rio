@@ -3,7 +3,7 @@ import {push, read} from "@dashkite/katana"
 
 _set = curry (name, handle, value) -> handle[name]  = value
 
-get = (name) ->
+set = (name) ->
   flow [
     read "handle"
     push _set name

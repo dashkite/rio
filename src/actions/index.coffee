@@ -1,5 +1,6 @@
 export * from "./bind"
 export * from "./get"
+export * from "./set"
 export * from "./render"
 export * from "./form"
 export * from "./fields"

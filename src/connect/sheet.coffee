@@ -1,20 +1,20 @@
-import {curry} from "@pandastrike/garden"
-import {speek} from "@dashkite/katana"
+import {curry, pipe} from "@pandastrike/garden"
+import {read, speek, spush} from "@dashkite/katana"
 
-_sheet = curry (generator, handle) ->
-  css = await generator()
-  switch css.constructor
-    when String
-      sheet = new CSSStyleSheet()
-      sheet.replaceSync css
-    when CSSStyleSheet
-      sheet = css
-    else
-      sheet = new CSSStyleSheet()
-      sheet.replaceSync css.toString()
-  handle.shadow.adoptedStyleSheets = [ sheet ]
+_bind = curry (css) ->
+  if css.constructor == CSSStyleSheet
+    css
+  else if css.apply?
+    _bind css()
+  else
+    r = new CSSStyleSheet()
+    r.replaceSync css.toString()
+    r
 
-sheet = (generator) -> speek _sheet generator
+_sheet = curry (value, handle) ->
+  handle.root.adoptedStyleSheets = [ _bind value ]
+
+sheet = (value) -> speek _sheet value
 
 sheet._ = _sheet
 
