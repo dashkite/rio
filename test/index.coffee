@@ -7,7 +7,7 @@ import {page, defined, render, select, shadow,
   pause, clear, type, submit, evaluate, equal} from "@dashkite/mimic"
 import {bundle, clean, pug, server, browser} from "./helpers"
 
-prepare = ({source, build})->
+prepare = ({source, build}) ->
 
   await clean build
   await Promise.all [

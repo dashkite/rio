@@ -12,20 +12,21 @@
   "main": "build/npm/src/index.js",
   "main:coffee": "src/index.coffee",
   "files": [
-    "build/npm/src"
+    "build/npm/src",
+    "src"
   ],
   "scripts": {
     "test": "p9k test"
   },
   "dependencies": {
     "@dashkite/katana": "^0.3.0",
-    "@dashkite/mimic": "file:../mimic",
     "@pandastrike/garden": "^8.0.0-alpha.1",
     "diffhtml": "^1.0.0-beta.17",
     "object-observer": "^3.0.0"
   },
   "devDependencies": {
     "@dashkite/genie": "0.0.1",
+    "@dashkite/mimic": "0.0.2",
     "amen": "^3.0.0",
     "coffee-loader": "^1.0.0",
     "coffeescript": "^2.5.1",
