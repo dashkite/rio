@@ -2,7 +2,7 @@ import {flow, curry} from "@pandastrike/garden"
 import {peek} from "@dashkite/katana"
 import { Handle, mixin, tag, diff, initialize, connect,
   shadow, sheet, render, ready, event,
-  matches, intercept, discard, form, fields } from "../../../src"
+  matches, intercept, discard, form } from "../../../src"
 import Greetings from "./greetings"
 
 template = ->
@@ -30,7 +30,5 @@ class extends Handle
           intercept
           flow [
             form
-            fields [ "name", "salutation" ]
-            fields [ "key" ]
             peek Greetings.put
           ] ] ] ] ]

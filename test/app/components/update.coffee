@@ -31,5 +31,5 @@ class extends Handle
           flow [
             form
             description
-            peek Greetings.put
+            peek ({key}, data) -> Greetings.put {key, data...}
   ] ] ] ] ]
