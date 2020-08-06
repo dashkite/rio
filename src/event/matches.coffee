@@ -7,7 +7,11 @@ import {stest} from "@dashkite/katana"
 
 _matches = curry (selector, event, {handle}) ->
   if (target = (event?.target?.closest? selector))?
-    handle.root.contains target
+    if handle.root.contains target
+      event._target = target
+      true
+    else
+      false
 
 matches = (selector, fx) -> stest (_matches selector), pipe fx
 
