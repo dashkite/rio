@@ -6,7 +6,7 @@ import {speek} from "@dashkite/katana"
 #      Object.assign will trigger N change events
 #      instead of batching them up
 _observe = curry (name, handler, handle) ->
-  wrapper = Observable.from handle[name] ? {}
+  wrapper = Observable.from (handle[name] ? {}), async: true
   Object.defineProperty handle, name,
     value: wrapper
     writeable: false

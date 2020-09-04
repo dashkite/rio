@@ -22,11 +22,11 @@
     "@dashkite/katana": "^0.3.1",
     "@pandastrike/garden": "^8.0.0-alpha.1",
     "diffhtml": "^1.0.0-beta.18",
-    "object-observer": "^3.0.3"
+    "object-observer": "^3.2.0"
   },
   "devDependencies": {
-    "@dashkite/genie": "0.0.1",
-    "@dashkite/mimic": "0.0.2",
+    "@dashkite/genie": "0.1.0",
+    "@dashkite/mimic": "0.1.0",
     "amen": "^3.0.0",
     "coffee-loader": "^1.0.0",
     "coffeescript": "^2.5.1",
@@ -37,7 +37,7 @@
     "panda-quill": "^5.0.0",
     "panda-river": "^6.0.0",
     "pug": "^3.0.0",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^5.2.1",
     "source-map-support": "^0.5.19",
     "webpack": "^4.44.1"
   }
