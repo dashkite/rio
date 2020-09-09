@@ -1,21 +1,12 @@
 import {curry, pipe} from "@pandastrike/garden"
 import {read, speek, spush} from "@dashkite/katana"
+import {sheets} from "@dashkite/stylist"
 
-_generate = (css) ->
-  # can't use constructor check because of polyfill
-  if css instanceof CSSStyleSheet
-    css
-  else if css.apply?
-    _generate css()
-  else
-    r = new CSSStyleSheet()
-    r.replaceSync css.toString()
-    r
+_sheet = curry (name, value, handle) ->
+  handle.sheets ?= sheets handle.root
+  handle.sheets.set name, value
 
-_sheet = curry (value, handle) ->
-  handle.root.adoptedStyleSheets = [ _generate value ]
-
-sheet = (value) -> speek _sheet value
+sheet = (name, value) -> speek _sheet name, value
 
 sheet._ = _sheet
 
