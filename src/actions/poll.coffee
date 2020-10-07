@@ -5,18 +5,24 @@ sleep = (interval) ->
   new Promise (resolve) ->
     setTimeout resolve, interval
 
+# start and stop are tedious because we want to be careful to have idempotent starts with only one loop. We also gracefully do nothing with undefined polls to avoid mystery bugs.
 _startPoll = curry (name, interval, handle) ->
-  if (f = handle.polls?[name]?.f)?
+  unless handle.polls?[name]?
+    console.warn "no poll #{name} is defined for this Carbon handle."
+    return
+
+  if !(handle.polls[name].active)?
+    handle.polls[name].active = true
+    do ->
+      loop
+        if handle.polls?[name]?.active == true
+          await handle.polls[name].f()
+        await sleep interval
+  else
     handle.polls[name].active = true
 
-    do g = ->
-      await f()
-      await sleep interval
-      if handle.polls[name]?.active == true
-        g()
-
 _stopPoll = curry (name, handle) ->
-  if handle.polls?[name]?
+  if handle.polls?[name]?.active?
     handle.polls[name].active = false
 
 
