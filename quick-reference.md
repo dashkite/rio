@@ -61,7 +61,7 @@ Initialize combinators can be used with the `initialize` or `connect` mixin comb
 | click      | selector, flow | Defines a handler for a click event targeting the given selector. Convenience combinator. |
 | deactivate | flow           | Defines a handler for deactivation, when the component is no longer visible in the viewport. |
 | describe   | flow           | Defines a handler for changes to the component's dataset. The component’s *description* (an object corresponding to the component’s dataset) is passed into the flow. |
-| event      | pipe           | Defines a handler for the given event, ex: `click`. Uses [event delegation](https://davidwalsh.name/event-delegate). |
+| event      | name, pipe     | Defines a handler for the named event, ex: `click`. Uses [event delegation](https://davidwalsh.name/event-delegate). |
 | observe    | name, flow     | Defines and [observes](https://github.com/gullerya/object-observer) the named property in the handle. Defines a handler for changes. |
 | shadow     | -              | Create a `shadowRoot` for the component, accessible via the handle `shadow` property. |
 | sheet      | name, css      | Applies the CSS or stylesheet to the component and associates it with the given name. (Named stylesheets allows you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
@@ -86,17 +86,18 @@ Event combinators are used to compose event handlers. A common pattern is to tes
 
 ```coffeescript
 c.event "click", [
-  c.matches "h1"
-  c.intercept
-  c.call ->
-    @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
+  c.within "h1", [
+	  c.intercept
+    c.call ->
+      @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
+  ]
 ]
 ```
 
 | Name      | Arguments      | Description                                                  |
 | --------- | -------------- | ------------------------------------------------------------ |
 | intercept | -              | Convenience combinator for  `prevent` and `stop`.            |
-| contains  | selector, flow | Invokes the given flow only if the event target contains the selector. |
+| within    | selector, pipe | Invokes the given flow only if an ancestor of the target matches the selector. |
 | prevent   | -              | Calls `preventDefault` on the input event.                   |
 | stop      | -              | Calls `stopPropagation` on the input event.                  |
 | target    | -              | Returns the event target.                                    |

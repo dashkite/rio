@@ -12,4 +12,6 @@ Combinators themselves often take functions as arguments.  These functions are t
 
 Carbon uses the Handle pattern to separate the state associated with the DOM element from the logical state of the component. Among other things, this avoids potential naming collisions. Typically, you define the Custom Element (using the `tag` mixin) to instantitate a handle during construction, defining a reference to the Custom Element from within the Handle (the `dom` property).
 
-## 
+## Mixins
+
+TBD

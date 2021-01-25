@@ -14,9 +14,7 @@ class extends Handle
     c.initialize [
       c.shadow
       c.sheet "main", "body { margin: 32px; } h1 { font-size: 48px; }"
-      c.event "click", [
-        c.matches "h1"
-        c.intercept
+      c.click "h1", [
         c.call ->
           @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
       ]
