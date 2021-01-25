@@ -17,4 +17,7 @@ matches = (selector, fx) -> stest (_matches selector), pipe fx
 
 matches._ = _matches
 
-export {matches}
+# migrate matches to use the matches DOM method
+contains = matches
+
+export {matches, contains}

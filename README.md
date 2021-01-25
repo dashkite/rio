@@ -1,27 +1,27 @@
 # Carbon
 
-Carbon is a lightweight library for building Web Components.
+Carbon is a lightweight library for building Web Components. Instead of relying on arcane hooks or other “magical” conventions, Carbon makes everything explicit. Carbon defines a variety of simple functions that can be composed together to provide the behavior you need for a given component. This works similarly to method chaining, except you can add your own functions.
+
+For example, here's a simple Hello, World variant. (Yes, the examples use CoffeeScript. We like CoffeeScript. You may feel differently. You can use Carbon with JavaScript or any other JavaScript-friendly language.) We define a common data flow pattern, where a change to the `greeting` property will re-render the component.
 
 ```coffeescript
-class Greeting extends Handle
-  constructor: (@dom) ->
-  mixin @, [
-    tag "x-greeting"
-    vdom
-    sheet select "h1", type "heading large"
-    connect [
-      shadow
-      event "click", [
-        matches "h1"
-        intercept
-        bind ->
-          if @value.greeting == "Hello"
-            @value.greeting = "Goodbye"
-          else
-            @value.greeting = "Hello"
+import c from "@dashkite/carbon"
+
+class extends Handle
+  c.mixin @, [
+    c.tag "x-greeting"
+    c.diff
+    c.initialize [
+      c.shadow
+      c.sheet "main", "body { margin: 32px; } h1 { font-size: 48px; }"
+      c.event "click", [
+        c.matches "h1"
+        c.intercept
+        c.call ->
+          @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
       ]
-      observe "value", [
-        render -> "<h1>#{@data.greeting}, world!</h1>"
+      c.observe "greeting", [
+        c.render ({greeting}) -> "<h1>#{greeting}, world!</h1>"
       ]
     ]
 ```
@@ -29,130 +29,23 @@ class Greeting extends Handle
 ## Features
 
 - Fully encapsulated native Web Components
+- Lightweight: 24kB minified/gzipped
 - Virtual DOM, with diff-based updates
 - Render with simple HTML
 - Parse CSS once and attach using CSSOM
 - Observable properties
-- Explicit ordering without hooks
-- Uses handle pattern to avoid naming conflicts
+- Explicit data flow without hooks or “magic”
 
 ## Install
 
-Bundle using your favorite bundler:
+Bundle using your favorite bundler (Webpack, Rollup, etc.):
 
 ```
 npm i @dashkite/carbon
 ```
 
-## API
+## Learn More
 
-### Class Mixins
-
-#### `tag`
-
-Define the tag for the Custom Element.
-
-```coffeescript
-tag "x-greeting"
-```
-
-#### `diff`
-
-Define `html` property that will update the DOM using a [diff algorithm](https://diffhtml.org/) instead of replacing it.
-
-#### `connect`
-
-Define the handler for the `connectedCallback`, in the form of an array of functions.
-
-### Connect Combinators
-
-#### `shadow`
-
-Define a `shadowRoot` for the component, accessible via the handle as `shadow`.
-
-#### `describe`
-
-Defines a `description` getter corresponding to the component’s `dataset` and listens for changes to it, calling the given handlers.
-
-```coffeescript
-describe [
-  render -> "<h1>Hello, #{@description.name}<h1>"
-]
-```
-
-#### `observe`
-
-Wraps the given property in a proxy that listens for changes to the object (or array). The property becomes readonly. This behavior is analogous to the way `describe` works with the component’s `dataset` property.
-
-For example, given the following handler:
-
-```coffeescript
-observe "value", [
-  render -> "<h1>Hello, #{@value.name}<h1>"
-]
-```
-
-updating properties of `value` will call it:
-
-```coffeescript
-handle.value.name = "Alice"
-```
-
-However, you cannot assign to `value`:
-
-```coffeescript
-# this is effectively a no-op
-handle.value = name: "Alice"
-```
-
-If the value is an object, you can use `Object.assign` to avoid nesting:
-
-```coffeescript
-Object.assign handle.value, name: "Alice"
-```
-
-If the property is undefined, it will be initialized as an empty object.
-
-#### `event`
-
-Register an event handler for the root of the component (which will either be the shadow root or the component itself) and define a handler in the form of an array of functions. Use `matches` to handle events for element within the component.
-
-### Event Combinators
-
-#### `matches`
-
-Checks to see if the event originates from within an element matching the given selector.
-
-> **Important ▸** Differs from the DOM API [`matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) which only checks the element itself.
-
-#### `stop`
-
-Stop event propagation (calls [`stopPropagation`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) on the event).
-
-#### `prevent`
-
-Prevents default action (calls [`preventDefault`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) on the event).
-
-#### `intercept`
-
-Combines `stop` and `prevent`.
-
-### Action Combinators
-
-#### `discard`
-
-Discard the top of the stack. Typically used to discard the event object for handlers that don’t need to reference it.
-
-#### `bind`
-
-Call a function bound to the object on the top of the stack, typically a handle.
-
-```coffeescript
-event "click", [
-  matches "button"
-  intercept
-  discard
-  bind -> @clicked = true
-]
-```
-
+- [Tutorial](./tutorial.md)
+- [Design Concepts](./design-concepts.md)
+- [Quick Reference](quick-reference.md)
