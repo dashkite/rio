@@ -1,10 +1,33 @@
 # Quick Reference
 
-Reminder: we refer to an array of synchronous functions as a *pipe*, while an array of (possibly) asynchronous functions is called a *flow*. 
+## Terminology
+
+| Term       | Meaning                                                      |
+| ---------- | ------------------------------------------------------------ |
+| combinator | A function intended to be combined with other functions via composition. |
+| pipe       | An array of synchronous functions (that will be composed using `pipe`). |
+| flow       | An array of (possibly) asynchronous functions (that will be composed using `flow`). |
+| input(s)   | A value (or values) passed into combinator.                  |
+| component  | A Web Component or Custom Element.                           |
+| handle     | An object that encapsulates a component.                     |
 
 ## Handle Class
 
-Carbon uses the Handle pattern to separate the state associated with the DOM element from the logical state of the component. Among other things, this avoids potential naming collisions. Typically, you define the Custom Element (using the `tag` mixin) to instantitate a handle during construction, defining a reference to the Custom Element from within the Handle (the `dom` property).
+### Properties
+
+| Name   | Description                                                  |
+| ------ | ------------------------------------------------------------ |
+| root   | If the component is a Web Component, refers to `shadow`, otherwise refers to `dom`. |
+| dom    | A reference to the component itself.                         |
+| shadow | A reference to the component’s shadow DOM, if applicable. May be defined using the `shadow` initialization combinator. |
+| html   | Reflects the component’s `innerHTML` property. The `diff` initialization combinator redefines this to perform a diff instead of setting `innerHTML` directly. |
+
+### Methods
+
+| Name     | Arguments     | Description                                                  |
+| -------- | ------------- | ------------------------------------------------------------ |
+| on       | name, handler | Define an event handler using `addEventListener` for the named event. |
+| dispatch | name, detail  | Dispatch the named event using `dispatchEvent` for the named event, with optional `detail` property. |
 
 ## Mixin Combinators
 
@@ -22,14 +45,15 @@ class extends Handle
 
 | Name       | Arguments | Description                                                  |
 | ---------- | --------- | ------------------------------------------------------------ |
-| connect    | pipe      | Define the handler for the `connectedCallback`.              |
+| connect    | pipe      | Define the handler for the [`connectedCallback`](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks). |
 | diff       | -         | Defines (or overrides) the `html` property that updates the DOM using a [diff algorithm](https://diffhtml.org/). |
-| initialize | pipe      | Defines the handler for the handle construction.             |
-| tag        | name      | Defines the Custom Element class and registers it with the tag name. |
+| disconnect | pipe      | Define the handler for the [`disconnectedCallback`](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks). [Not yet implemented.] |
+| initialize | pipe      | Defines the handler for the handle construction. Called once during the component lifecycle. |
+| tag        | name      | Defines the custom element class and registers it with the tag name. |
 
 ## Initialize Combinators
 
-These can be used with the `initialize` or `connect` mixin combinators.
+Initialize combinators can be used with the `initialize` or `connect` mixin combinators.
 
 | Name       | Arguments      | Description                                                  |
 | ---------- | -------------- | ------------------------------------------------------------ |
@@ -44,23 +68,35 @@ These can be used with the `initialize` or `connect` mixin combinators.
 
 ## Action Combinators
 
+Action combinators are typically used within flows in response to events.
+
 | Name | Arguments | Description |
 | ---- | --------- | ----------- |
-| assign | name | Assign (via [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)) the receved value to the named property. |
+| assign | name | Assign (via [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the input to the named property. |
 | call | function | Call the function, with `this` bound to the handle. |
-| description | - | Pass the component description (an object  corresponding to the component’s dataset) to the next function. |
-| form | - | Pass an object corresponding to the component FormData to the next function. |
-| get | name | Pass the value of the named property to the next function. |
+| description | - | Returns the component description (an object  corresponding to the component’s dataset). |
+| form | - | Returns an object corresponding to the component FormData. |
+| get | name | Returns the value of the named property. |
 | render     | template       | Render the element to the DOM using the given template. The template takes the handle instance and returns an HTML string. |
-| set        | name | Sets the named property to the received value. |
+| set        | name | Sets the named property to the input. |
 
 ## Event Combinators
+
+Event combinators are used to compose event handlers. A common pattern is to test if the event target is contained by an element with a given selector and run a flow.
+
+```coffeescript
+c.event "click", [
+  c.matches "h1"
+  c.intercept
+  c.call ->
+    @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
+]
+```
 
 | Name      | Arguments      | Description                                                  |
 | --------- | -------------- | ------------------------------------------------------------ |
 | intercept | -              | Convenience combinator for  `prevent` and `stop`.            |
 | contains  | selector, flow | Invokes the given flow only if the event target contains the selector. |
-| prevent   | -              | Calls `preventDefault` on the received event.                |
-| stop      | -              | Calls `stopPropagation` on the received event.               |
-| target    | -              | Passes the event target to the next function.                |
-
+| prevent   | -              | Calls `preventDefault` on the input event.                   |
+| stop      | -              | Calls `stopPropagation` on the input event.                  |
+| target    | -              | Returns the event target.                                    |
