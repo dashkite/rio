@@ -62,9 +62,9 @@ Initialize combinators can be used with the `initialize` or `connect` mixin comb
 | deactivate | flow           | Defines a handler for deactivation, when the component is no longer visible in the viewport. |
 | describe   | flow           | Defines a handler for changes to the component's dataset. The component’s *description* (an object corresponding to the component’s dataset) is passed into the flow. |
 | event      | name, pipe     | Defines a handler for the named event, ex: `click`. Uses [event delegation](https://davidwalsh.name/event-delegate). |
+| navigate   | name, flow     | Define a handler for window navigation (`popstate` events).  |
 | observe    | name, flow     | Defines and [observes](https://github.com/gullerya/object-observer) the named property in the handle. Defines a handler for changes. |
 | shadow     | -              | Create a `shadowRoot` for the component, accessible via the handle `shadow` property. |
-| sheet      | name, css      | Applies the CSS or stylesheet to the component and associates it with the given name. (Named stylesheets allows you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
 
 ## Action Combinators
 
@@ -79,6 +79,7 @@ Action combinators are typically used within flows in response to events.
 | get | name | Returns the value of the named property. |
 | render     | template       | Render the element to the DOM using the given template. The template takes the handle instance and returns an HTML string. |
 | set        | name | Sets the named property to the input. |
+| sheet      | name, css      | Applies the CSS or stylesheet to the component and associates it with the given name. (Named stylesheets allows you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
 
 ## Event Combinators
 
