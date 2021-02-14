@@ -1,4 +1,5 @@
 export * from "./matches"
+export * from "./within"
 export * from "./target"
 export * from "./prevent"
 export * from "./stop"
