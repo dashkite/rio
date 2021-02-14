@@ -1,5 +1,5 @@
 export * from "./actions"
-export * from "./connect"
+export * from "./initialize"
 export * from "./event"
 export * from "./mixins"
 
