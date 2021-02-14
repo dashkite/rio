@@ -128,7 +128,7 @@ class extends Handle
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.click "h1", [
-        c.call -> @rotate()
+        c.call @rotate
   ] ] ]
 ```
 
@@ -157,8 +157,7 @@ c.mixin(Greeting, [
       c.render(=> {greeting} `<h1>${greeting}, World!</h1>`)
     ]),
     c.click("h1", [
-      // we can't use => syntax here because call binds to the handle instance
-      c.call(function() { this.rotate(); })
+      c.call(Greeting.rotate)
     ])
   ])
 ]);
