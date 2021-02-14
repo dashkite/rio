@@ -1,8 +1,8 @@
 import {curry, pipe} from "@pandastrike/garden"
 import {event} from "./event"
-import {matches, intercept} from "../event"
+import {within, intercept} from "../event"
 
 click = curry (selector, fx) ->
-  event "click", [ matches selector, [ pipe fx ] ]
+  event "click", [ within selector, [ intercept, flow fx] ]
 
 export {click}
