@@ -65,6 +65,7 @@ Initialize combinators can be used with the `initialize` or `connect` mixin comb
 | navigate   | name, flow     | Define a handler for window navigation (`popstate` events).  |
 | observe    | name, flow     | Defines and [observes](https://github.com/gullerya/object-observer) the named property in the handle. Defines a handler for changes. |
 | shadow     | -              | Create a `shadowRoot` for the component, accessible via the handle `shadow` property. |
+| submit     | select, flow   |                                                              |
 
 ## Action Combinators
 
@@ -75,11 +76,13 @@ Action combinators are typically used within flows in response to events.
 | assign | name | Assign (via [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the input to the named property. |
 | call | function | Call the function, with `this` bound to the handle. |
 | description | - | Returns the component description (an object  corresponding to the component’s dataset). |
+| disable | - | Disable all enabled form inputs. |
+| enable | - | Enable all disabled form inputs. |
 | form | - | Returns an object corresponding to the component FormData. |
 | get | name | Returns the value of the named property. |
 | render     | template       | Render the element to the DOM using the given template. The template takes the handle instance and returns an HTML string. |
 | set        | name | Sets the named property to the input. |
-| sheet      | name, css      | Applies the CSS or stylesheet to the component and associates it with the given name. (Named stylesheets allows you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
+| sheet      | dictionary, css | Applies a dictionary of named stylesheets (CSS or Stylesheet objects) to the component. (Named stylesheets allow you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
 
 ## Event Combinators
 
