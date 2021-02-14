@@ -97,6 +97,7 @@ c.event "click", [
 | Name      | Arguments      | Description                                                  |
 | --------- | -------------- | ------------------------------------------------------------ |
 | intercept | -              | Convenience combinator for  `prevent` and `stop`.            |
+| matches   | selector, pipe | Invokes the given flow only if the target matches the selector. |
 | within    | selector, pipe | Invokes the given flow only if an ancestor of the target matches the selector. |
 | prevent   | -              | Calls `preventDefault` on the input event.                   |
 | stop      | -              | Calls `stopPropagation` on the input event.                  |

@@ -31,7 +31,7 @@ class extends Handle
   ]
 ```
 
-We use the `initialize` mixin instead of doing this in the constructor because that way we can use initializer combinators. But we *could* have simply defined a constructor or an initialize method. Behind the scenes, that’s how this is implemented. This approach allows us to encapsulate various initialization patterns into functions and easily reuse them.
+We use the `initialize` mixin instead of doing this in the constructor because that way we can use [initialize combinators][]. But we *could* have simply defined a constructor or an initialize method. Behind the scenes, that’s how this is implemented. This approach allows us to encapsulate various initialization patterns into functions and easily reuse them.
 
 We’ve got a Web Component now, but it still doesn’t do anything. Let’s render our greeting.
 
@@ -82,9 +82,9 @@ class extends Handle
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.event "click", [
-    		c.within "h1", [
+        c.within "h1", [
           c.intercept
-    			c.call -> @dom.dataset.greeting = "Hola"
+          c.call -> @dom.dataset.greeting = "Hola"
   ] ] ] ]
 ```
 
@@ -132,7 +132,7 @@ class extends Handle
   ] ] ]
 ```
 
-The handle is ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property and a `rotate` method.
+The handle is an ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property and a `rotate` method.
 
 In JavaScript, this is slightly more verbose because of the syntax and because we can't inline the call to `mixin`, but the code is semantically identical.
 
@@ -157,14 +157,16 @@ c.mixin(Greeting, [
       c.render(=> {greeting} `<h1>${greeting}, World!</h1>`)
     ]),
     c.click("h1", [
-      # we can't use => syntax here because call binds to the handle instance
+      // we can't use => syntax here because call binds to the handle instance
       c.call(function() { this.rotate(); })
     ])
   ])
 ]);
 ```
 
+If this were a more complex component, we might be concerned about re-rendering each time
 
 [handle]: ./design-concepts.md#handle
 [mixins]: ./design-concepts.md#mixins
+[initialize combinators]: ./quick-reference.md#initialize-combinators
 [event delegation]: https://davidwalsh.name/event-delegate
