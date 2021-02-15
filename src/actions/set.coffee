@@ -1,12 +1,12 @@
 import {curry, pipe} from "@pandastrike/garden"
-import {spush, read} from "@dashkite/katana"
+import {spoke, read} from "@dashkite/katana"
 
 _set = curry (name, handle, value) -> handle[name]  = value
 
 set = (name) ->
   pipe [
     read "handle"
-    spush _set name
+    spoke _set name
   ]
 
 set._ = _set

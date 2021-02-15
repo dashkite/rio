@@ -1,5 +1,5 @@
 import {curry, pipe} from "@pandastrike/garden"
-import {read, speek} from "@dashkite/katana"
+import {read, spop} from "@dashkite/katana"
 import {sheets} from "@dashkite/stylist"
 
 _sheet = curry (dictionary, handle) ->
@@ -10,7 +10,7 @@ _sheet = curry (dictionary, handle) ->
 
 sheet = (dictionary) -> pipe [
   read "handle"
-  speek _sheet dictionary
+  spop _sheet dictionary
 ]
 
 sheet._ = _sheet
