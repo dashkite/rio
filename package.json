@@ -19,6 +19,7 @@
     "test": "p9k test"
   },
   "dependencies": {
+    "@dashkite/brick": "^0.2.0",
     "@dashkite/katana": "^0.3.2",
     "@dashkite/stylist": "0.0.5",
     "@pandastrike/garden": "8.0.1",
@@ -26,20 +27,22 @@
     "object-observer": "^3.2.0"
   },
   "devDependencies": {
-    "@dashkite/genie": "0.1.0",
+    "@dashkite/genie": "^0.1.0",
     "@dashkite/mimic": "0.1.0",
+    "@dashkite/zenpack": "^0.3.2",
     "amen": "^3.0.0",
     "coffee-loader": "^1.0.0",
     "coffeescript": "^2.5.1",
     "express": "^4.17.1",
     "express-static": "^1.2.6",
-    "panda-9000": "^5.0.3",
-    "panda-builder": "4.0.13",
+    "js-yaml": "^4.0.0",
+    "marked": "^2.0.0",
     "panda-quill": "^5.0.0",
     "panda-river": "6.0.3",
     "pug": "^3.0.0",
     "puppeteer": "^5.2.1",
     "source-map-support": "^0.5.19",
+    "stylus": "^0.54.8",
     "webpack": "^4.44.1"
   }
 }
