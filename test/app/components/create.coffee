@@ -1,34 +1,26 @@
-import {flow, curry} from "@pandastrike/garden"
-import {peek} from "@dashkite/katana"
-import { Handle, mixin, tag, diff, initialize, connect,
-  shadow, sheet, render, ready, event,
-  matches, intercept, discard, form } from "../../../src"
+import * as k from "@dashkite/katana"
+import * as c from "../../../src"
 import Greetings from "./greetings"
 
-template = ->
-  """
-    <form>
-      <input name='key' type='text'/>
-      <input name='salutation' type='text'/>
-      <input name='name' type='text'/>
-    </form>
-  """
+class extends c.Handle
 
-class extends Handle
-
-  mixin @, [
-    tag "x-create-greeting"
-    diff
-    initialize [
-      shadow
-      sheet -> "form { color: blue; }"
+  c.mixin @, [
+    c.tag "x-create-greeting"
+    c.diff
+    c.initialize [
+      c.shadow
+      c.sheet main: "form { color: blue; }"
+      c.submit "form", [
+        k.peek Greetings.put
+      ]
+      c.activate [
+        c.render -> """
+          <form>
+            <input name='key' type='text'/>
+            <input name='salutation' type='text'/>
+            <input name='name' type='text'/>
+          </form>
+          """
+      ]
     ]
-    connect [
-      ready [ render template ]
-      event "submit", [
-        matches "form", [
-          intercept
-          flow [
-            form
-            peek Greetings.put
-          ] ] ] ] ]
+  ]

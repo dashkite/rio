@@ -1,26 +1,29 @@
 import "source-map-support/register"
 import Path from "path"
-import {print, test, success} from "amen"
-import {wrap, flow} from "@pandastrike/garden"
-import {push, pop, peek, log} from "@dashkite/katana"
-import {page, defined, render, select, shadow,
-  pause, clear, type, submit, evaluate, equal} from "@dashkite/mimic"
+import * as a from "amen"
+import * as g from "@pandastrike/garden"
+import * as k from "@dashkite/katana"
+import * as m from "@dashkite/mimic"
+import * as z from "@dashkite/zenpack"
+
 import {bundle, clean, pug, server, browser} from "./helpers"
 
 prepare = ({source, build}) ->
 
   await clean build
   await Promise.all [
-    bundle source, build
+    do g.pipe [
+      bundle source, build
+      z.mode "development"
+      z.sourcemaps
+      z.run
+    ]
     pug source, build
   ]
   Promise.all [
     server build
     browser()
   ]
-
-# coverage missing:
-# - bind
 
 do ({server, browser} = {})->
 
@@ -29,63 +32,72 @@ do ({server, browser} = {})->
     build: Path.resolve "test", "build"
 
   {port} = server.address()
-  print await test "Carbon",  [
 
-    test description: "Scenario: view", wait: false, flow [
-      wrap [ {browser} ]
-      page "http://localhost:#{port}"
-      evaluate ->
+  a.print await a.test "Carbon",  [
+
+    a.test description: "Scenario: view", wait: false, g.flow [
+      g.wrap [ {browser} ]
+      m.page
+      m.goto "http://localhost:#{port}"
+      m.evaluate ->
         window.db.greetings.alice = salutation: "Hello", name: "Alice"
-      defined "x-greeting"
-      render "<x-greeting data-key='alice'/>"
-      select "x-greeting"
-      shadow
-      evaluate (root) -> root.innerHTML
-      equal "<p>Hello, Alice!</p>"
+      m.defined "x-greeting"
+      m.render "<x-greeting data-key='alice'/>"
+      m.select "x-greeting"
+      m.shadow
+      m.evaluate (root) -> root.innerHTML
+      m.equal "<p>Hello, Alice!</p>"
     ]
 
-    test description: "Scenario: create", wait: false, flow [
-      wrap [ {browser} ]
-      page "http://localhost:#{port}"
-      defined "x-create-greeting"
-      render "<x-create-greeting/><x-create-greeting/>"
-      select "x-create-greeting"
-      shadow
-      pause
-      evaluate (shadow) -> shadow.adoptedStyleSheets[0].cssRules[0].cssText
-      equal "form { color: blue; }"
-      select "input[name='key']"
-      type "bob"
-      select "input[name='name']"
-      type "Bob"
-      select "form"
-      submit
-      pause
-      evaluate -> window.db.greetings.bob.name
-      equal "Bob"
+    a.test description: "Scenario: create", wait: false, g.flow [
+      g.wrap [ {browser} ]
+      m.page
+      m.goto "http://localhost:#{port}"
+      m.defined "x-create-greeting"
+      m.render "<x-create-greeting/><x-create-greeting/>"
+      m.select "x-create-greeting"
+      m.shadow
+      m.pause
+      # m.evaluate (shadow) -> shadow.adoptedStyleSheets[0].cssRules[0].cssText
+      # m.equal "form { color: blue; }"
+      m.select "input[name='key']"
+      m.type "bob"
+      k.discard
+      m.select "input[name='name']"
+      m.type "Bob"
+      k.discard
+      m.select "form"
+      m.submit
+      m.pause
+      m.evaluate -> window.db.greetings.bob.name
+      m.equal "Bob"
     ]
 
-    test description: "Scenario: update", wait: false, flow [
-      wrap [ {browser} ]
-      page "http://localhost:#{port}"
-      evaluate -> window.db.greetings.alice = salutation: "Hello", name: "Alice"
-      defined "x-update-greeting"
-      render "<x-update-greeting data-key='alice'/>"
-      select "x-update-greeting"
-      shadow
-      select "input[name='name']"
-      clear
-      type "Ally"
-      select "form"
-      submit
-      pause
-      evaluate -> window.db.greetings.alice.name
-      equal "Ally"
+    a.test description: "Scenario: update", wait: false, g.flow [
+      g.wrap [ {browser} ]
+      m.page
+      m.goto "http://localhost:#{port}"
+      m.evaluate ->
+        window.db.greetings.alice =
+          salutation: "Hello"
+          name: "Alice"
+      m.defined "x-update-greeting"
+      m.render "<x-update-greeting data-key='alice'/>"
+      m.select "x-update-greeting"
+      m.shadow
+      m.select "input[name='name']"
+      m.clear
+      m.type "Ally"
+      k.discard
+      m.select "form"
+      m.submit
+      m.pause
+      m.evaluate -> window.db.greetings.alice.name
+      m.equal "Ally"
     ]
-
   ]
 
   await browser.close()
   server.close()
 
-  process.exit if success then 0 else 1
+  process.exit if a.success then 0 else 1
