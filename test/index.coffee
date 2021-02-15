@@ -95,6 +95,23 @@ do ({server, browser} = {})->
       m.evaluate -> window.db.greetings.alice.name
       m.equal "Ally"
     ]
+
+    a.test description: "Scenario: tutorial", wait: false, g.flow [
+      g.wrap [ {browser} ]
+      m.page
+      m.goto "http://localhost:#{port}"
+      m.defined "x-world-greetings"
+      m.render "<x-world-greetings data-greeting='Hello'/>"
+      m.select "x-world-greetings"
+      m.shadow
+      m.select "h1"
+      m.click
+      m.pause
+      k.discard
+      m.select "h1"
+      k.poke (node) -> node.evaluateHandle (node) -> node.textContent
+      m.equal "Hola, World!"
+    ]
   ]
 
   await browser.close()
