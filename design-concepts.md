@@ -10,8 +10,11 @@ Combinators themselves often take functions as arguments.  These functions are t
 
 ## Handle Class
 
-Carbon uses the Handle pattern to separate the state associated with the DOM element from the logical state of the component. Among other things, this avoids potential naming collisions. Typically, you define the Custom Element (using the `tag` mixin) to instantitate a handle during construction, defining a reference to the Custom Element from within the Handle (the `dom` property).
+Carbon uses the [Handle pattern][handle] to separate the state associated with the DOM element from the logical state of the component. Among other things, this avoids potential naming collisions. Typically, you define the Custom Element (using the `tag` mixin) to instantitate a handle during construction, defining a reference to the Custom Element from within the Handle (the `dom` property).
 
 ## Mixins
 
-TBD
+[Mixins][mixin] are features that can be added to class without relying on inheritance. This is more flexible and allows for more fine-grained reuse. In Carbon, mixins are just functions that decorate a type. For example, the `initialize` mixin adds an `initialize` method to a class. This allows us to augment the constructor without worrying about calling `super`.
+
+[handle]: https://en.wikipedia.org/wiki/Handle_(computing)
+[mixin]: https://en.wikipedia.org/wiki/Mixin
