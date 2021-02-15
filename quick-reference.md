@@ -53,7 +53,7 @@ class extends Handle
 
 ## Initialize Combinators
 
-Initialize combinators can be used with the `initialize` or `connect` mixin combinators.
+Initialize combinators can be used with the `initialize` or `connect` mixin combinators. Iniitalize combinators are always synchronous.
 
 | Name       | Arguments      | Description                                                  |
 | ---------- | -------------- | ------------------------------------------------------------ |
@@ -64,25 +64,28 @@ Initialize combinators can be used with the `initialize` or `connect` mixin comb
 | event      | name, pipe     | Defines a handler for the named event, ex: `click`. Uses [event delegation](https://davidwalsh.name/event-delegate). |
 | navigate   | name, flow     | Define a handler for window navigation (`popstate` events).  |
 | observe    | name, flow     | Defines and [observes](https://github.com/gullerya/object-observer) the named property in the handle. Defines a handler for changes. |
+| ready      | -              | Defines a handler for when initialization is complete. Useful for adding asynchronous actions into initialization, such as `render`. |
 | shadow     | -              | Create a `shadowRoot` for the component, accessible via the handle `shadow` property. |
 | submit     | select, flow   |                                                              |
 
 ## Action Combinators
 
-Action combinators are typically used within flows in response to events.
+Action combinators are typically used within flows in response to events. Action combinators may be synchronous or asynchronous. The event loop yields after each action regardless. However, synchronous combinators may be used as initializers.
 
-| Name | Arguments | Description |
-| ---- | --------- | ----------- |
-| assign | name | Assign (via [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the input to the named property. |
-| call | function | Call the function, with `this` bound to the handle. |
-| description | - | Returns the component description (an object  corresponding to the component’s dataset). |
-| disable | - | Disable all enabled form inputs. |
-| enable | - | Enable all disabled form inputs. |
-| form | - | Returns an object corresponding to the component FormData. |
-| get | name | Returns the value of the named property. |
-| render     | template       | Render the element to the DOM using the given template. The template takes the handle instance and returns an HTML string. |
-| set        | name | Sets the named property to the input. |
-| sheet      | dictionary, css | Applies a dictionary of named stylesheets (CSS or Stylesheet objects) to the component. (Named stylesheets allow you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
+| Name | Arguments | Type | Description |
+| ---- | --------- | ----------- | ---- |
+| assign | name | sync | Assign (via [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) the input to the named property. |
+| call | function | async | Call the function, with `this` bound to the handle. |
+| description | - | sync | Returns the component description (an object  corresponding to the component’s dataset). |
+| disable | - | sync | Disable all enabled form inputs. |
+| dispatch | name | sync | Dispatch an event from the component. |
+| enable | - | sync | Enable all disabled form inputs. |
+| form | - | sync | Returns an object corresponding to the component FormData. |
+| get | name | async | Returns the value of the named property. |
+| render     | template       | async | Render the element to the DOM using the given template. The template takes the handle instance and returns an HTML string. |
+| reset | - | sync | Resets the component form inputs. |
+| set        | name | sync | Sets the named property to the input. |
+| sheet      | dictionary, css | sync | Applies a dictionary of named stylesheets (CSS or Stylesheet objects) to the component. (Named stylesheets allow you to [add and remove stylesheets](https://github.com/dashkite/stylist) in without recompling them.) |
 
 ## Event Combinators
 
