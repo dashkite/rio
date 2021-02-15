@@ -12,11 +12,11 @@
   "main": "build/npm/src/index.js",
   "main:coffee": "src/index.coffee",
   "files": [
-    "build/npm/src",
+    "build/src",
     "src"
   ],
   "scripts": {
-    "test": "p9k test"
+    "test": "genie test"
   },
   "dependencies": {
     "@dashkite/brick": "^0.2.0",
