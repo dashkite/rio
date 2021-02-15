@@ -1,22 +1,22 @@
-import {read, pop} from "@dashkite/katana"
-import {flow} from "@pandastrike/garden"
+import {read, spop} from "@dashkite/katana"
+import {pipe} from "@pandastrike/garden"
 
 _enable = (handle) ->
   for el in handle.root.querySelectorAll ":disabled"
     el.disabled = false
 
-enable = flow [
+enable = pipe [
   read "handle"
-  pop _enable
+  spop _enable
 ]
 
 _disable = (handle) ->
   for el in handle.root.querySelectorAll ":enabled"
     el.disabled = true
 
-disable = flow [
+disable = pipe [
   read "handle"
-  pop _disable
+  spop _disable
 ]
 
 enable._ = _enable

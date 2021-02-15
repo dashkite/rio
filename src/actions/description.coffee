@@ -1,11 +1,11 @@
-import {flow} from "@pandastrike/garden"
-import {poke, read} from "@dashkite/katana"
+import {pipe} from "@pandastrike/garden"
+import {spoke, read} from "@dashkite/katana"
 
 _description = (handle) -> Object.assign {}, handle.dom.dataset
 
-description = flow [
+description = pipe [
   read "handle"
-  poke _description
+  spoke _description
 ]
 
 description._ = _description

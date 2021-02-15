@@ -1,13 +1,13 @@
-import {curry, flow} from "@pandastrike/garden"
-import {poke, read} from "@dashkite/katana"
+import {curry, pipe} from "@pandastrike/garden"
+import {spoke, read} from "@dashkite/katana"
 
 _assign = curry (name, handle, value) ->
   handle[name] ?= {}
   Object.assign handle[name], value
 
-assign = (name) -> flow [
+assign = (name) -> pipe [
   read "handle"
-  poke _assign name
+  spoke _assign name
 ]
 
 assign._ = _assign
