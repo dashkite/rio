@@ -30,7 +30,7 @@ class extends c.Handle
 ## Features
 
 - Fully encapsulated native Web Components
-- Lightweight: 24kB minified/gzipped
+- Lightweight: 29.4kB minified/gzipped
 - Virtual DOM, with diff-based updates
 - Render with simple HTML
 - Parse CSS once and attach using CSSOM
