@@ -1,4 +1,3 @@
-import * as k from "@dashkite/katana"
 import * as c from "../../../src"
 import Greetings from "./greetings"
 
@@ -11,10 +10,10 @@ class extends c.Handle
       c.shadow
       c.submit "form", [
         c.description
-        k.peek ({key}, data) -> Greetings.put {key, data...}
+        c.call ({key}, data) -> Greetings.put {key, data...}
       ]
       c.describe [
-        k.poke Greetings.get
+        c.call Greetings.get
         c.render (data) ->
           """
           <form>

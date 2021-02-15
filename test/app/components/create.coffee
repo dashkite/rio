@@ -1,4 +1,3 @@
-import * as k from "@dashkite/katana"
 import * as c from "../../../src"
 import Greetings from "./greetings"
 
@@ -11,7 +10,7 @@ class extends c.Handle
       c.shadow
       c.sheet main: "form { color: blue; }"
       c.submit "form", [
-        k.peek Greetings.put
+        c.call Greetings.put
       ]
       c.activate [
         c.render -> """
