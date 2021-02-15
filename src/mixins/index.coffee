@@ -1,4 +1,5 @@
 export * from "./tag"
 export * from "./diff"
 export * from "./connect"
+export * from "./disconnect"
 export * from "./initialize"

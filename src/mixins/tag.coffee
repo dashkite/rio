@@ -7,6 +7,7 @@ define = curry (name, [ base, options ], type) ->
       @handle = new type @
       @handle.initialize?()
     connectedCallback: -> @handle.connect?()
+    disconnectedCallback: -> @handle.disconnect?()
 
   customElements.define name, E, options
 
