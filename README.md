@@ -7,21 +7,21 @@ For example, here's a simple Hello, World variant. (Yes, the examples use Coffee
 ```coffeescript
 import c from "@dashkite/carbon"
 
-class extends Handle
+greetings = [ "Hello", "Hola", "Bonjour", "Ciao", "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
+
+class extends c.Handle
+  current: 0
+  rotate: -> @dom.dataset.greeting = greetings[++@current % greetings.length]
   c.mixin @, [
     c.tag "x-greeting"
-    c.diff
     c.initialize [
       c.shadow
-      c.sheet "main", "body { margin: 32px; } h1 { font-size: 48px; }"
+      c.describe [
+        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+      ]
       c.click "h1", [
-        c.call ->
-          @greeting = if @greeting == "Hello" then "Goodbye" else "Hello"
-      ]
-      c.observe "greeting", [
-        c.render ({greeting}) -> "<h1>#{greeting}, world!</h1>"
-      ]
-    ]
+        c.call @rotate
+  ] ] ]
 ```
 
 ## Features
