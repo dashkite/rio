@@ -1,7 +1,7 @@
 import {curry, pipe} from "@pandastrike/garden"
 
 _initialize = curry (f, type) ->
-  type::initialize = -> f [ @ ]
+  type::initialize = -> f [ @, handle: @ ]
 
 initialize = (fx) -> _initialize pipe fx
 
