@@ -3,11 +3,11 @@
 Let’s start simple.
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-class extends Handle
+class extends c.Handle
   c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
   ]
 ```
 
@@ -20,13 +20,13 @@ This creates a custom element with the tag name `x-greeting`. It doesn’t do an
 Let’s make this a Web Component by giving it a shadow root.
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-class extends Handle
+class extends c.Handle
   c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
     c.initialize [
-    	c.shadow
+      c.shadow
     ]
   ]
 ```
@@ -36,18 +36,16 @@ We use the `initialize` mixin instead of doing this in the constructor because t
 We’ve got a Web Component now, but it still doesn’t do anything. Let’s render our greeting.
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-class extends Handle
+class extends c.Handle
   c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
     c.initialize [
-    	c.shadow
+      c.shadow
       c.describe [
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
-      ]
-    ]
-  ]
+] ] ]
 ```
 
 The render mixin just takes a function that returns an HTML string. We use the component description, which is an object reflecting it’s `dataset` property, to get the `greeting` property we use to generate our HTML. If we were to have a document that looked like this (using Pug to represent the HTML):
@@ -71,21 +69,22 @@ This is one style of a reactive component, but there are other patterns we could
 Let’s make it more interactive, so that we can change the greeting by clicking on it.
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-class extends Handle
+class extends c.Handle
   c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
     c.initialize [
-    	c.shadow
+      c.shadow
       c.describe [
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.event "click", [
         c.within "h1", [
           c.intercept
-          c.call -> @dom.dataset.greeting = "Hola"
-  ] ] ] ]
+          c.flow [
+            c.call -> @dom.dataset.greeting = "Hola"
+] ] ] ] ]
 ```
 
 We add an event handler with the `event` initalizer mixin. We rely on [event delegation][], which means the event has bubbled up to the component root element. We check to make sure the event originated from within the H1. In this simple example, the only possible source of the event is the H1, but we include the `within` combinator anyway. We intercept the event (calling `preventDefault` and `stopPropagation` on the event) and update the `greeting` property of the component’s dataset. The `call` combinator binds *this* to the handle before calling the function, so you can use instance variables freely.
@@ -95,72 +94,81 @@ We also adopt a convention here of closing out parenthesis once we get to more t
 Carbon provides convenience methods for common events, so we can rewrite this as:
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-class extends Handle
+class extends c.Handle
   c.mixin @, [
-    c.tag "x-greeting"
-    c.initialize [
-    	c.shadow
-      c.describe [
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
-      ]
-      c.click "h1", [
-    	  c.call -> @dom.dataset.greeting = "Hola"
-  ] ] ]
-```
-
-If we click on the greeting, it will change from _Hello_ to _Hola_. Let’s add more greetings. We’ll do this by adding some state to our handle to keep track of the current greeting.
-
-```coffeescript
-import c from "@dashkite/carbon"
-
-greetings = [ "Hello", "Hola", "Bonjour", "Ciao", "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
-
-class extends Handle
-  current: 0
-  rotate: -> @dom.dataset.greeting = greetings[++@current]
-  c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
     c.initialize [
       c.shadow
       c.describe [
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.click "h1", [
-        c.call @rotate
+        c.call -> @dom.dataset.greeting = "Hola"
+  ] ] ]
+```
+
+If we click on the greeting, it will change from _Hello_ to _Hola_. Let’s add more greetings. We’ll do this by adding some state to our handle to keep track of the current greeting.
+
+```coffeescript
+import * as c from "@dashkite/carbon"
+
+greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
+  "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
+
+class extends c.Handle
+  current: 0
+  rotate: ->
+    i = ++@current % greetings.length
+    @dom.dataset.greeting = greetings[i]
+  c.mixin @, [
+    c.tag "x-world-greetings"
+    c.initialize [
+      c.shadow
+      c.describe [
+        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+      ]
+      c.click "h1", [
+        c.call @::rotate
   ] ] ]
 ```
 
 The handle is an ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property and a `rotate` method.
 
-In JavaScript, this is slightly more verbose because of the syntax and because we can't inline the call to `mixin`, but the code is semantically identical.
+In JavaScript, this is slightly more verbose but the code is semantically identical.
 
 ```javascript
-import c from "@dashkite/carbon";
+import * as c from "@dashkite/carbon";
 
-const greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
+var greetings = ["Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo"];
 
-class Greeting extends Handle {
-  current = 0
+
+class WorldGreetings extends c.Handle {
+  constructor() {
+    this.current = 0;
+    super();
+  }
   rotate() {
-    return this.dom.dataset.greeting = greetings[++this.current];
+    let i = ++this.current % greetings.length
+    this.dom.dataset.greeting = greetings[ i ];
   }
 };
 
-c.mixin(Greeting, [
-  c.tag("x-greeting"),
+c.mixin(WorldGreetings, [
+  c.tag("x-world-greetings"),
   c.initialize([
     c.shadow,
     c.describe([
-      c.render(=> {greeting} `<h1>${greeting}, World!</h1>`)
+      c.render( {greeting} => `<h1>${greeting}, World!</h1>`; )
     ]),
     c.click("h1", [
-      c.call(Greeting.rotate)
+      c.call(_Class.prototype.rotate)
     ])
   ])
 ]);
+
 ```
 
 If this were a more complex component, we might be concerned about re-rendering each time

@@ -5,22 +5,25 @@ Carbon is a lightweight library for building Web Components. Instead of relying 
 For example, here's a simple Hello, World variant. (Yes, the examples use CoffeeScript. We like CoffeeScript. You may feel differently. You can use Carbon with JavaScript or any other JavaScript-friendly language.) We define a common data flow pattern, where a change to the `greeting` property will re-render the component.
 
 ```coffeescript
-import c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
 
-greetings = [ "Hello", "Hola", "Bonjour", "Ciao", "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
+greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
+  "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
 
 class extends c.Handle
   current: 0
-  rotate: -> @dom.dataset.greeting = greetings[++@current % greetings.length]
+  rotate: ->
+    i = ++@current % greetings.length
+    @dom.dataset.greeting = greetings[i]
   c.mixin @, [
-    c.tag "x-greeting"
+    c.tag "x-world-greetings"
     c.initialize [
       c.shadow
       c.describe [
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.click "h1", [
-        c.call @rotate
+        c.call @::rotate
   ] ] ]
 ```
 
