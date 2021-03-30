@@ -47,6 +47,6 @@ npm i @dashkite/carbon
 
 ## Learn More
 
-- [Tutorial](./tutorial.md)
-- [Design Concepts](./design-concepts.md)
-- [Quick Reference](quick-reference.md)
+- [Tutorial](./docs/tutorial.md)
+- [Design Concepts](./docs/design-concepts.md)
+- [Quick Reference](./docs/quick-reference.md)

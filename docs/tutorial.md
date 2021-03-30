@@ -1,4 +1,8 @@
-# Carbon Tutorial
+---
+title: Tutorial
+---
+
+# Tutorial
 
 Let’s start simple.
 

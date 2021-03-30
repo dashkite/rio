@@ -1,3 +1,6 @@
+---
+title: Quick Reference
+---
 # Quick Reference
 
 ## Terminology
