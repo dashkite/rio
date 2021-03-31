@@ -1,4 +1,4 @@
-import {curry, tee} from "@pandastrike/garden"
+import {curry, tee} from "@dashkite/joy/function"
 
 readonly = curry tee (target, descriptor) ->
   for name, f of descriptor

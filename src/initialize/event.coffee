@@ -1,5 +1,5 @@
 import {speek} from "@dashkite/katana"
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 
 _event = curry (name, handler, handle) ->
   handle.on name, (event) -> handler [ event, {handle} ]

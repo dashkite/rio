@@ -1,4 +1,4 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 
 _connect = curry (f, type) ->
   type::connect = ->

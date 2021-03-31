@@ -1,5 +1,5 @@
 import {read, spop} from "@dashkite/katana"
-import {pipe} from "@pandastrike/garden"
+import {pipe} from "@dashkite/joy/function"
 
 _enable = (handle) ->
   for el in handle.root.querySelectorAll ":disabled"

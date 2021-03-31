@@ -1,4 +1,4 @@
-import {flow, pipe} from "@pandastrike/garden"
+import {flow, pipe} from "@dashkite/joy/function"
 import {stest, spop} from "@dashkite/katana"
 import {event} from "./event"
 import {local, intercept} from "../event"

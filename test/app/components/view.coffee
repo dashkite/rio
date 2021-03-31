@@ -1,4 +1,4 @@
-import * as g from "@pandastrike/garden"
+import * as g from "@dashkite/joy"
 import * as k from "@dashkite/katana"
 import * as c from "../../../src"
 

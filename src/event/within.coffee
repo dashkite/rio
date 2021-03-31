@@ -1,4 +1,4 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 import {stest} from "@dashkite/katana"
 
 # TODO we may want to explore alternative implementations or even

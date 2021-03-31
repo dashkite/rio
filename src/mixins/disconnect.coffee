@@ -1,4 +1,4 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 
 _disconnect = curry (f, type) ->
   type::disconnect = ->

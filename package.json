@@ -19,9 +19,9 @@
     "test": "genie test"
   },
   "dependencies": {
+    "@dashkite/joy": "file:../joy",
     "@dashkite/katana": "^0.3.2",
     "@dashkite/stylist": "0.0.5",
-    "@pandastrike/garden": "8.0.1",
     "diffhtml": "^1.0.0-beta.18",
     "object-observer": "^3.2.0"
   },
@@ -35,6 +35,7 @@
     "coffeescript": "^2.5.1",
     "express": "^4.17.1",
     "express-static": "^1.2.6",
+    "importly": "*",
     "js-yaml": "^4.0.0",
     "marked": "^2.0.0",
     "panda-quill": "^5.0.0",
@@ -42,7 +43,6 @@
     "pug": "^3.0.0",
     "puppeteer": "^5.2.1",
     "source-map-support": "^0.5.19",
-    "stylus": "^0.54.8",
-    "webpack": "^4.44.1"
+    "stylus": "^0.54.8"
   }
 }

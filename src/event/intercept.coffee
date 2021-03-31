@@ -1,4 +1,4 @@
-import {tee, pipe} from "@pandastrike/garden"
+import {tee, pipe} from "@dashkite/joy/function"
 import {spop} from "@dashkite/katana"
 import {prevent} from "./prevent"
 import {stop} from "./stop"

@@ -1,5 +1,5 @@
 import {speek} from "@dashkite/katana"
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 
 _navigate = curry (handler, handle) ->
   window.addEventListener "popstate", -> handler [ {handle} ]

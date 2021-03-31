@@ -1,4 +1,4 @@
-import {curry} from "@pandastrike/garden"
+import {curry} from "@dashkite/joy/function"
 
 define = curry (name, [ base, options ], type) ->
   E = class extends base

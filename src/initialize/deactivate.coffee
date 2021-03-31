@@ -1,5 +1,5 @@
 import {speek, push} from "@dashkite/katana"
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 import {description} from "../actions/description"
 
 _deactivate = curry (handler, handle) ->

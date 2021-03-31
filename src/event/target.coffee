@@ -1,4 +1,4 @@
-import {curry} from "@pandastrike/garden"
+import {curry} from "@dashkite/joy/function"
 import * as k from "@dashkite/katana"
 
 # TODO we may want to explore alternative implementations or even

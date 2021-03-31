@@ -1,4 +1,4 @@
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 import {pop, read} from "@dashkite/katana"
 
 _render = curry (template, handle, data) -> handle.html = template data

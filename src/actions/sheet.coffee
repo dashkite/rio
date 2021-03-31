@@ -1,4 +1,4 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 import {read, spop} from "@dashkite/katana"
 import {sheets} from "@dashkite/stylist"
 

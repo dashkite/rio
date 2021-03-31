@@ -1,5 +1,5 @@
 import {Observable} from "object-observer"
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 import {speek} from "@dashkite/katana"
 
 _observe = curry (name, handler, handle) ->

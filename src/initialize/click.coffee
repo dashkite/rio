@@ -1,4 +1,4 @@
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 import {event} from "./event"
 import {within, intercept} from "../event"
 

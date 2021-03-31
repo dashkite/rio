@@ -1,4 +1,4 @@
-import {pipe} from "@pandastrike/garden"
+import {pipe} from "@dashkite/joy/function"
 import {spoke, read} from "@dashkite/katana"
 
 _description = (handle) -> Object.assign {}, handle.dom.dataset

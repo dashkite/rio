@@ -1,7 +1,7 @@
 import "source-map-support/register"
 import Path from "path"
 import * as a from "amen"
-import * as g from "@pandastrike/garden"
+import * as _ from "@dashkite/joy"
 import * as k from "@dashkite/katana"
 import * as m from "@dashkite/mimic"
 import * as z from "@dashkite/zenpack"
@@ -12,7 +12,7 @@ prepare = ({source, build}) ->
 
   await clean build
   await Promise.all [
-    do g.pipe [
+    do _.pipe [
       bundle source, build
       z.mode "development"
       z.sourcemaps
@@ -35,8 +35,8 @@ do ({server, browser} = {})->
 
   a.print await a.test "Carbon",  [
 
-    a.test description: "Scenario: view", wait: false, g.flow [
-      g.wrap [ {browser} ]
+    a.test description: "Scenario: view", wait: false, _.flow [
+      _.wrap [ {browser} ]
       m.page
       m.goto "http://localhost:#{port}"
       m.evaluate ->
@@ -49,8 +49,8 @@ do ({server, browser} = {})->
       m.equal "<p>Hello, Alice!</p>"
     ]
 
-    a.test description: "Scenario: create", wait: false, g.flow [
-      g.wrap [ {browser} ]
+    a.test description: "Scenario: create", wait: false, _.flow [
+      _.wrap [ {browser} ]
       m.page
       m.goto "http://localhost:#{port}"
       m.defined "x-create-greeting"
@@ -73,8 +73,8 @@ do ({server, browser} = {})->
       m.equal "Bob"
     ]
 
-    a.test description: "Scenario: update", wait: false, g.flow [
-      g.wrap [ {browser} ]
+    a.test description: "Scenario: update", wait: false, _.flow [
+      _.wrap [ {browser} ]
       m.page
       m.goto "http://localhost:#{port}"
       m.evaluate ->
@@ -94,10 +94,14 @@ do ({server, browser} = {})->
       m.pause
       m.evaluate -> window.db.greetings.alice.name
       m.equal "Ally"
+      _.flow [
+        k.read "page"
+        k.poke (page) -> page.content()
+      ]
     ]
 
-    a.test description: "Scenario: tutorial", wait: false, g.flow [
-      g.wrap [ {browser} ]
+    a.test description: "Scenario: tutorial", wait: false, _.flow [
+      _.wrap [ {browser} ]
       m.page
       m.goto "http://localhost:#{port}"
       m.defined "x-world-greetings"

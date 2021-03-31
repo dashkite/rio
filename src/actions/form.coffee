@@ -1,4 +1,4 @@
-import {pipe, tee} from "@pandastrike/garden"
+import {pipe, tee} from "@dashkite/joy/function"
 import {spoke, spop, read, write} from "@dashkite/katana"
 
 # TODO this does not handle form inputs that have multiple values

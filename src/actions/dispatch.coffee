@@ -1,4 +1,4 @@
-import {curry, pipe} from "@pandastrike/garden"
+import {curry, pipe} from "@dashkite/joy/function"
 import {spop, read} from "@dashkite/katana"
 
 _dispatch = curry (name, handle) -> handle.dispatch name

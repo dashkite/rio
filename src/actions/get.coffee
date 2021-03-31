@@ -1,4 +1,4 @@
-import {curry, flow} from "@pandastrike/garden"
+import {curry, flow} from "@dashkite/joy/function"
 import {poke, read} from "@dashkite/katana"
 
 _get = curry (name, handle) -> handle[name]
