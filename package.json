@@ -9,40 +9,36 @@
   },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Dan Yoder",
-  "main": "build/npm/src/index.js",
-  "main:coffee": "src/index.coffee",
+  "exports": {
+    ".": {
+      "import": "./build/import/src/index.js"
+    },
+    "./*": {
+      "import": "./build/import/src/*.js"
+    }
+  },
+  "main": "build/import/src/index.js",
   "files": [
-    "build/src",
-    "src"
+    "build/import/src",
+    "build/node/src"
   ],
   "scripts": {
     "test": "genie test"
   },
   "dependencies": {
-    "@dashkite/joy": "file:../joy",
-    "@dashkite/katana": "^0.3.2",
+    "@dashkite/joy": "^0.3.6",
+    "@dashkite/katana": "^0.4.7",
     "@dashkite/stylist": "0.0.5",
-    "diffhtml": "^1.0.0-beta.18",
-    "object-observer": "^3.2.0"
+    "diffhtml": "^1.0.0-beta.20",
+    "object-observer": "^4.3.0"
   },
   "devDependencies": {
-    "@dashkite/brick": "^0.2.0",
-    "@dashkite/genie": "^0.1.0",
-    "@dashkite/mimic": "0.1.0",
-    "@dashkite/zenpack": "^0.3.2",
-    "amen": "^3.0.0",
-    "coffee-loader": "^1.0.0",
-    "coffeescript": "^2.5.1",
-    "express": "^4.17.1",
-    "express-static": "^1.2.6",
-    "importly": "*",
-    "js-yaml": "^4.0.0",
-    "marked": "^2.0.0",
-    "panda-quill": "^5.0.0",
-    "panda-river": "6.0.3",
-    "pug": "^3.0.0",
-    "puppeteer": "^5.2.1",
-    "source-map-support": "^0.5.19",
-    "stylus": "^0.54.8"
+    "@dashkite/amen": "^0.1.2",
+    "@dashkite/amen-console": "^0.0.1",
+    "@dashkite/assert": "^0.1.0",
+    "@dashkite/genie": "^0.4.1",
+    "@dashkite/genie-presets": "^0.1.13",
+    "@dashkite/mimic": "0.2.1",
+    "coffeescript": "^2.5.1"
   }
 }
