@@ -1,5 +1,5 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {read, spop} from "@dashkite/katana"
+import {read, pop} from "@dashkite/katana/sync"
 import {sheets} from "@dashkite/stylist"
 
 _sheet = curry (dictionary, handle) ->
@@ -10,7 +10,7 @@ _sheet = curry (dictionary, handle) ->
 
 sheet = (dictionary) -> pipe [
   read "handle"
-  spop _sheet dictionary
+  pop _sheet dictionary
 ]
 
 sheet._ = _sheet

@@ -1,5 +1,5 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {stest} from "@dashkite/katana"
+import {test} from "@dashkite/katana/sync"
 
 # TODO we may want to explore alternative implementations or even
 #      additional combinators that use the composedPath method to
@@ -13,7 +13,7 @@ _within = curry (selector, event, {handle}) ->
     else
       false
 
-within = (selector, fx) -> stest (_within selector), pipe fx
+within = (selector, fx) -> test (_within selector), pipe fx
 
 within._ = _within
 

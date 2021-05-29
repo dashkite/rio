@@ -1,5 +1,5 @@
 import {tee, pipe} from "@dashkite/joy/function"
-import {spop} from "@dashkite/katana"
+import {pop} from "@dashkite/katana/sync"
 import {prevent} from "./prevent"
 import {stop} from "./stop"
 
@@ -8,7 +8,7 @@ _intercept = pipe [
   tee stop
 ]
 
-intercept = spop _intercept
+intercept = pop _intercept
 
 intercept._ = _intercept
 

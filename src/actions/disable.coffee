@@ -1,4 +1,4 @@
-import {read, spop} from "@dashkite/katana"
+import {read, pop} from "@dashkite/katana/sync"
 import {pipe} from "@dashkite/joy/function"
 
 _enable = (handle) ->
@@ -7,7 +7,7 @@ _enable = (handle) ->
 
 enable = pipe [
   read "handle"
-  spop _enable
+  pop _enable
 ]
 
 _disable = (handle) ->
@@ -16,7 +16,7 @@ _disable = (handle) ->
 
 disable = pipe [
   read "handle"
-  spop _disable
+  pop _disable
 ]
 
 enable._ = _enable

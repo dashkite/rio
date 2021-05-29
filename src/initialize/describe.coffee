@@ -1,4 +1,4 @@
-import {speek, push} from "@dashkite/katana"
+import {peek} from "@dashkite/katana/sync"
 import {curry, flow} from "@dashkite/joy/function"
 import {description} from "../actions/description"
 
@@ -10,7 +10,7 @@ _describe = curry (handler, handle) ->
   observer.observe handle.dom, attributes: true
   handler [ {handle} ]
 
-describe = (fx) -> speek _describe flow [ description, fx... ]
+describe = (fx) -> peek _describe flow [ description, fx... ]
 
 describe._ = _describe
 

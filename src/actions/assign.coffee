@@ -1,5 +1,5 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {spoke, read} from "@dashkite/katana"
+import {poke, read} from "@dashkite/katana/sync"
 
 _assign = curry (name, handle, value) ->
   handle[name] ?= {}
@@ -7,7 +7,7 @@ _assign = curry (name, handle, value) ->
 
 assign = (name) -> pipe [
   read "handle"
-  spoke _assign name
+  poke _assign name
 ]
 
 assign._ = _assign

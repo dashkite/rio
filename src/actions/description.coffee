@@ -1,11 +1,11 @@
 import {pipe} from "@dashkite/joy/function"
-import {spoke, read} from "@dashkite/katana"
+import {poke, read} from "@dashkite/katana/sync"
 
 _description = (handle) -> Object.assign {}, handle.dom.dataset
 
 description = pipe [
   read "handle"
-  spoke _description
+  poke _description
 ]
 
 description._ = _description

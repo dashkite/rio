@@ -1,5 +1,5 @@
 import {curry} from "@dashkite/joy/function"
-import * as k from "@dashkite/katana"
+import * as k from "@dashkite/katana/sync"
 
 # TODO we may want to explore alternative implementations or even
 #      additional combinators that use the composedPath method to
@@ -7,7 +7,7 @@ import * as k from "@dashkite/katana"
 
 _target = curry (event, {handle}) -> event._target ? event.target
 
-target = k.spush _target
+target = k.push _target
 
 target._ = _target
 

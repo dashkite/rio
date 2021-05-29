@@ -1,5 +1,5 @@
 import {pipe, tee} from "@dashkite/joy/function"
-import {spoke, spop, read, write} from "@dashkite/katana"
+import {poke, pop, read, write} from "@dashkite/katana/sync"
 
 # TODO this does not handle form inputs that have multiple values
 _form = (handle) ->
@@ -10,13 +10,13 @@ _reset = (handle) ->
 
 form = pipe [
   read "handle"
-  spoke _form
+  poke _form
   write "form"
 ]
 
 reset = pipe [
   read "handle"
-  spop _reset
+  pop _reset
 ]
 
 form._ = _form

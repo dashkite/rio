@@ -1,5 +1,5 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {stest} from "@dashkite/katana"
+import {test} from "@dashkite/katana/sync"
 
 _matches = curry (selector, event, {handle}) ->
   if (event?.target?.matches selector)?

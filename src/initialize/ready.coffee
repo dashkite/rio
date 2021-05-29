@@ -1,11 +1,11 @@
 import {flow, pipe} from "@dashkite/joy/function"
-import {stest, spop} from "@dashkite/katana"
+import {test, pop} from "@dashkite/katana/sync"
 import {event} from "./event"
 import {local, intercept} from "../event"
 
 ready = (fx) ->
   event "ready", [
-    stest local, pipe [
+    test local, pipe [
       intercept
       flow fx
   ] ]

@@ -1,12 +1,12 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {spoke, read} from "@dashkite/katana"
+import {poke, read} from "@dashkite/katana/sync"
 
 _set = curry (name, handle, value) -> handle[name]  = value
 
 set = (name) ->
   pipe [
     read "handle"
-    spoke _set name
+    poke _set name
   ]
 
 set._ = _set

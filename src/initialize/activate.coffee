@@ -1,4 +1,4 @@
-import {speek, push} from "@dashkite/katana"
+import {peek} from "@dashkite/katana/sync"
 import {curry, flow} from "@dashkite/joy/function"
 import {description} from "../actions/description"
 
@@ -8,7 +8,7 @@ _activate = curry (handler, handle) ->
   observer = new IntersectionObserver _handler, threshold: 0
   observer.observe handle.dom
 
-activate = (fx) -> speek _activate flow fx
+activate = (fx) -> peek _activate flow fx
 
 activate._ = _activate
 

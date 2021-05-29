@@ -1,6 +1,6 @@
 import {Observable} from "object-observer"
 import {curry, flow} from "@dashkite/joy/function"
-import {speek} from "@dashkite/katana"
+import {peek} from "@dashkite/katana/sync"
 
 _observe = curry (name, handler, handle) ->
   wrapper = Observable.from (handle[name] ? {}), async: true
@@ -9,7 +9,7 @@ _observe = curry (name, handler, handle) ->
     writeable: false
   wrapper.observe -> handler [ wrapper, {handle} ]
 
-observe = (name, fx) -> speek _observe name, flow fx
+observe = (name, fx) -> peek _observe name, flow fx
 
 observe._ = _observe
 

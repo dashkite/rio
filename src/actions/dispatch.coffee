@@ -1,12 +1,12 @@
 import {curry, pipe} from "@dashkite/joy/function"
-import {spop, read} from "@dashkite/katana"
+import {pop, read} from "@dashkite/katana/sync"
 
 _dispatch = curry (name, handle) -> handle.dispatch name
 
 dispatch = (name) ->
   pipe [
     read "handle"
-    spop _dispatch name
+    pop _dispatch name
   ]
 
 dispatch._ = _dispatch
