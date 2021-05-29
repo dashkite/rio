@@ -19,8 +19,7 @@
   },
   "main": "build/import/src/index.js",
   "files": [
-    "build/import/src",
-    "build/node/src"
+    "build/import/src"
   ],
   "scripts": {
     "test": "genie test"
@@ -37,7 +36,7 @@
     "@dashkite/amen-console": "^0.0.1",
     "@dashkite/assert": "^0.1.0",
     "@dashkite/genie": "^0.4.1",
-    "@dashkite/genie-presets": "^0.1.13",
+    "@dashkite/genie-presets": "file:../genie-presets",
     "@dashkite/mimic": "0.2.1",
     "coffeescript": "^2.5.1"
   }

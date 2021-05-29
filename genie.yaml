@@ -1,5 +1,12 @@
 presets:
-  coffeescript: ~
-  verify: ~
-  update: ~
-  release: ~
+  coffeescript:
+    targets:
+      - import
+  verify: null
+  update: null
+  release: null
+  esm: null
+  pug:
+    import-map:
+      "@dashkite/amen": latest
+      "@dashkite/assert": latest
