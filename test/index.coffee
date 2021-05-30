@@ -53,56 +53,53 @@ do ->
           m.assert "Bob"
       ]
 
+      test
+        description: "Scenario: update"
+        wait: false
+        m.launch browser, [
+          m.page
+          m.goto "http://localhost:#{port}"
+          m.evaluate ->
+            window.db.greetings.alice =
+              salutation: "Hello"
+              name: "Alice"
+          m.defined "x-update-greeting"
+          m.select "body"
+          m.render "<x-update-greeting data-key='alice'/>"
+          m.pause
+          m.select "x-update-greeting"
+          m.shadow
+          m.select "input[name='name']"
+          m.clear
+          m.type "Ally"
+          m.select "form"
+          m.submit
+          m.pause
+          m.evaluate -> window.db.greetings.alice.name
+          m.assert "Ally"
+        ]
+
+      test
+        description: "Scenario: tutorial"
+        wait: false
+        m.launch browser, [
+          m.page
+          m.goto "http://localhost:#{port}"
+          m.defined "x-world-greetings"
+          m.select "body"
+          m.render "<x-world-greetings data-greeting='Hello'/>"
+          m.pause
+          m.select "x-world-greetings"
+          m.shadow
+          m.select "h1"
+          m.click
+          m.pause
+          k.discard
+          m.select "h1"
+          m.text
+          m.assert "Hola, World!"
+        ]
+
     ]
 
     print results
-    #
-
-    #   a.test description: "Scenario: update", wait: false, _.flow [
-    #     _.wrap [ {browser} ]
-    #     m.page
-    #     m.goto "http://localhost:#{port}"
-    #     m.evaluate ->
-    #       window.db.greetings.alice =
-    #         salutation: "Hello"
-    #         name: "Alice"
-    #     m.defined "x-update-greeting"
-    #     m.render "<x-update-greeting data-key='alice'/>"
-    #     m.select "x-update-greeting"
-    #     m.shadow
-    #     m.select "input[name='name']"
-    #     m.clear
-    #     m.type "Ally"
-    #     k.discard
-    #     m.select "form"
-    #     m.submit
-    #     m.pause
-    #     m.evaluate -> window.db.greetings.alice.name
-    #     m.equal "Ally"
-    #     _.flow [
-    #       k.read "page"
-    #       k.poke (page) -> page.content()
-    #     ]
-    #   ]
-    #
-    #   a.test description: "Scenario: tutorial", wait: false, _.flow [
-    #     _.wrap [ {browser} ]
-    #     m.page
-    #     m.goto "http://localhost:#{port}"
-    #     m.defined "x-world-greetings"
-    #     m.render "<x-world-greetings data-greeting='Hello'/>"
-    #     m.select "x-world-greetings"
-    #     m.shadow
-    #     m.select "h1"
-    #     m.click
-    #     m.pause
-    #     k.discard
-    #     m.select "h1"
-    #     k.poke (node) -> node.evaluateHandle (node) -> node.textContent
-    #     m.equal "Hola, World!"
-    #   ]
-    # ]
-    #
-    # await browser.close()
-    # server.close()
-    #

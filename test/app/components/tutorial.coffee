@@ -11,10 +11,12 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
-      c.describe [
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
-      ]
       c.click "h1", [
         c.call @::rotate
+      ]
+      c.describe [
+        c.render ({greeting}) ->
+          console.log "rendering", "<h1>#{greeting}, World!</h1>"
+          "<h1>#{greeting}, World!</h1>"
       ]
   ] ]
