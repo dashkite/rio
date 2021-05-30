@@ -5,7 +5,7 @@ import {test} from "@dashkite/katana/sync"
 #      additional combinators that use the composedPath method to
 #      allow us to handle events originating from slotted DOM
 
-_within = curry (selector, event, {handle}) ->
+_within = (selector) -> (event, handle) ->
   if (target = (event?.target?.closest? selector))?
     if handle.root.contains target
       event._target = target

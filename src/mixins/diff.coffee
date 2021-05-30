@@ -1,5 +1,5 @@
 import {use, innerHTML} from "diffhtml"
-import {readwrite} from "../helpers"
+import {mixin, property} from "@dashkite/joy/metaclass"
 
 # This hook provides us a way to flag an element within a component to be exempt
 # from diffHTML's reconcilation cycle by convention.
@@ -37,11 +37,12 @@ use
       return newTree
 
 diff = (type) ->
-  readwrite type::,
-    html:
+  mixin type::, [
+    property "html",
       get: ->
         await @_tx if @_tx?
         @root.innerHTML
       set: (html) -> @_tx = innerHTML @root, html
+  ]
 
 export {diff}

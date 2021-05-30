@@ -5,10 +5,10 @@ import {description} from "../actions/description"
 _describe = curry (handler, handle) ->
   observer = new MutationObserver (list) ->
     if (list.find (record) -> /^data\-/.test record.attributeName)?
-      handler [ {handle} ]
+      handler { handle }
 
   observer.observe handle.dom, attributes: true
-  handler [ {handle} ]
+  handler { handle }
 
 describe = (fx) -> peek _describe flow [ description, fx... ]
 

@@ -37,7 +37,8 @@
     "@dashkite/assert": "^0.1.0",
     "@dashkite/genie": "^0.4.1",
     "@dashkite/genie-presets": "file:../genie-presets",
-    "@dashkite/mimic": "0.2.1",
+    "@dashkite/masonry": "^0.10.8",
+    "@dashkite/mimic": "file:../mimic",
     "coffeescript": "^2.5.1"
   }
 }

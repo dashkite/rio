@@ -2,7 +2,7 @@ import {curry, pipe} from "@dashkite/joy/function"
 
 _disconnect = curry (f, type) ->
   type::disconnect = ->
-    f [ @ ]
+    f [ @ ], handle: @
     @dispatch "ready"
 
 disconnect = (fx) -> _disconnect pipe fx

@@ -1,9 +1,10 @@
-import * as c from "../../../src"
+import * as _ from "@dashkite/joy"
+import * as c from "@dashkite/carbon"
 import Greetings from "./greetings"
 
 class extends c.Handle
 
-  c.mixin @, [
+  _.mixin @, [
     c.tag "x-update-greeting"
     c.diff
     c.initialize [

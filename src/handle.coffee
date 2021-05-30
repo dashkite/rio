@@ -1,14 +1,15 @@
-import {readonly, readwrite} from "./helpers"
+import {mixin, getter, property} from "@dashkite/joy/metaclass"
 
 class Handle
 
   constructor: (@dom) ->
 
-  readonly @::, root: -> @shadow ? @dom
-  readwrite @::,
-    html:
+  mixin @::, [
+    getter "root", -> @shadow ? @dom
+    property "html",
       get: -> @root.innerHTML
       set: (html) -> @root.innerHTML = html
+  ]
 
   on: (name, handler) -> @root.addEventListener name, handler.bind @
 
@@ -20,4 +21,4 @@ class Handle
       # allow to bubble up from shadow DOM
       composed: true
 
-export {Handle}
+export { Handle }

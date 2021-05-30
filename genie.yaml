@@ -10,3 +10,6 @@ presets:
     import-map:
       "@dashkite/amen": latest
       "@dashkite/assert": latest
+
+  browser:
+    logging: false

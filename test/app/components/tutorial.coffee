@@ -1,5 +1,5 @@
-# import * as c from "@dashkite/carbon"
-import * as c from "../../../src"
+import * as _ from "@dashkite/joy"
+import * as c from "@dashkite/carbon"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
@@ -7,7 +7,7 @@ greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
 class extends c.Handle
   current: 0
   rotate: -> @dom.dataset.greeting = greetings[++@current % greetings.length]
-  c.mixin @, [
+  _.mixin @, [
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow

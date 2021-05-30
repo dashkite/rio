@@ -1,9 +1,9 @@
 import {peek} from "@dashkite/katana/sync"
-import {readonly} from "../helpers"
+import {mixin, getter} from "@dashkite/joy/metaclass"
 
 _shadow = (handle) ->
   handle.dom.attachShadow mode: "open"
-  readonly handle, shadow: -> @dom.shadowRoot
+  mixin handle, [ getter "shadow", -> @dom.shadowRoot ]
 
 shadow = peek _shadow
 
