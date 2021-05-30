@@ -36,9 +36,9 @@
     "@dashkite/amen-console": "^0.0.1",
     "@dashkite/assert": "^0.1.0",
     "@dashkite/genie": "^0.4.1",
-    "@dashkite/genie-presets": "file:../genie-presets",
+    "@dashkite/genie-presets": "^0.1.15",
     "@dashkite/masonry": "^0.10.8",
-    "@dashkite/mimic": "file:../mimic",
+    "@dashkite/mimic": "^0.2.2",
     "coffeescript": "^2.5.1"
   }
 }
