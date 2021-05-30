@@ -1,6 +1,5 @@
 import * as _ from "@dashkite/joy"
 import * as c from "@dashkite/carbon"
-import * as k from "@dashkite/katana/sync"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
