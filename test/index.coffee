@@ -5,8 +5,6 @@ import * as k from "@dashkite/katana"
 import * as m from "@dashkite/mimic"
 import browse from "@dashkite/genie-presets/browse"
 
-log = _.curry (label, x) -> console.log "#{label}:", x
-
 do ->
 
   await do browse ({browser, port}) ->

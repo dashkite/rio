@@ -1,15 +1,24 @@
 presets:
-  coffeescript:
-    targets:
-      - import
   verify: null
   update: null
   release: null
   esm: null
+  coffeescript:
+    targets:
+      import:
+        - preset: import
+          glob: src/**/*.coffee
+        - preset: import
+          glob: test/client/**/*.coffee
+          options:
+            mode: debug
+        - preset: node
+          glob:
+            - test/**/*.coffee
+            - '!test/client/**/*.coffee'
   pug:
     import-map:
-      "@dashkite/amen": latest
-      "@dashkite/assert": latest
-
+      '@dashkite/amen': latest
+      '@dashkite/assert': latest
   browser:
     logging: false
