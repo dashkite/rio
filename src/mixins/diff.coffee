@@ -1,9 +1,8 @@
 import {use, innerHTML} from "diffhtml"
 import {mixin, property} from "@dashkite/joy/metaclass"
 
-# This hook provides us a way to flag an element within a component to be exempt
-# from diffHTML's reconcilation cycle by convention.
-# TODO: Upgrade this when diffHTML beta 19 is released, allowing us to target nodes on the newTree directly. Right now, this is limited to top level children, which will suffices, but is incomplete.
+# This hook provides us a way to flag an element within a component
+# to be exempt from diffHTML's reconcilation cycle by convention.
 use
   syncTreeHook: (oldTree, newTree) ->
     # Ignore style elements.
