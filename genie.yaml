@@ -5,11 +5,13 @@ presets:
   esm: null
   coffeescript:
     targets:
-      import:
-        - preset: import
-          glob: src/**/*.coffee
-        - preset: import
-          glob: test/client/**/*.coffee
+      browser:
+        - preset: browser
+          glob:
+            - src/**/*.coffee
+        - preset: browser
+          glob:
+            - test/client/**/*.coffee
           options:
             mode: debug
         - preset: node
@@ -22,3 +24,4 @@ presets:
       '@dashkite/assert': latest
   browser:
     logging: false
+  keywords: null

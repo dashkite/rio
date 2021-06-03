@@ -25,7 +25,6 @@
     }
   },
   "files": [
-    "build/import/src",
     "build/browser/src"
   ],
   "scripts": {
