@@ -2,6 +2,16 @@
   "name": "@dashkite/carbon",
   "version": "4.1.1-beta.0",
   "description": "A lightweight library for building Web Components",
+  "keywords": [
+    "coffeescript",
+    "native web components",
+    "explicit data flow",
+    "dashkite carbon",
+    "carbon",
+    "observable properties",
+    "lightweight",
+    "virtual dom"
+  ],
   "homepage": "https://github.com/dashkite/carbon#README",
   "repository": {
     "type": "git",
@@ -11,21 +21,18 @@
   "author": "Dan Yoder",
   "exports": {
     ".": {
-      "import": "./build/import/src/index.js"
-    },
-    "./*": {
-      "import": "./build/import/src/*.js"
+      "browser": "./build/browser/src/index.js"
     }
   },
-  "main": "build/import/src/index.js",
   "files": [
-    "build/import/src"
+    "build/import/src",
+    "build/browser/src"
   ],
   "scripts": {
     "test": "genie test"
   },
   "dependencies": {
-    "@dashkite/joy": "^0.3.6",
+    "@dashkite/joy": "^0.3.7",
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "^0.0.6",
     "diffhtml": "^1.0.0-beta.20",
@@ -34,10 +41,9 @@
   "devDependencies": {
     "@dashkite/amen": "^0.1.2",
     "@dashkite/amen-console": "^0.0.1",
-    "@dashkite/assert": "^0.1.0",
-    "@dashkite/genie": "^0.4.1",
-    "@dashkite/genie-presets": "file:../genie-presets",
-    "@dashkite/masonry": "^0.10.8",
+    "@dashkite/assert": "^0.1.2",
+    "@dashkite/genie": "^0.5.2",
+    "@dashkite/genie-presets": "^0.2.1",
     "@dashkite/mimic": "^0.2.2",
     "coffeescript": "^2.5.1"
   }
