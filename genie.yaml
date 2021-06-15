@@ -19,9 +19,16 @@ presets:
             - test/**/*.coffee
             - '!test/client/**/*.coffee'
   pug:
-    import-map:
-      '@dashkite/amen': latest
-      '@dashkite/assert': latest
+    targets:
+      test:
+        - preset: render
+          glob: test/client/index.pug
+          document: true
+          options:
+            import-map:
+              '@dashkite/amen': latest
+              '@dashkite/assert': latest
   browser:
+    fallback: ./build/browser/test/client/index.html
     logging: false
   keywords: null
