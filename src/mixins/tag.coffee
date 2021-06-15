@@ -9,7 +9,9 @@ define = curry (name, [ base, options ], type) ->
     connectedCallback: -> @handle.connect?()
     disconnectedCallback: -> @handle.disconnect?()
 
-  customElements.define name, E, options
+  # give the rest of the mixins a chance to load...
+  queueMicrotask ->
+    customElements.define name, E, options
 
 tag = curry (name, type) -> define name, [ HTMLElement ], type
 
