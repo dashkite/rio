@@ -35,7 +35,7 @@
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "^0.0.6",
     "diffhtml": "^1.0.0-beta.20",
-    "object-observer": "^4.3.0"
+    "object-observer": "^4.3.1"
   },
   "devDependencies": {
     "@dashkite/amen": "^0.1.2",
