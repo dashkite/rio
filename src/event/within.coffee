@@ -1,19 +1,17 @@
-import {curry, pipe} from "@dashkite/joy/function"
-import {test} from "@dashkite/katana/sync"
-
-# TODO we may want to explore alternative implementations or even
-#      additional combinators that use the composedPath method to
-#      allow us to handle events originating from slotted DOM
+import * as F from "@dashkite/joy/function"
+import * as T from "@dashkite/joy/type"
+import {push, test} from "@dashkite/katana/sync"
 
 _within = (selector) -> (event, handle) ->
   if (target = (event?.target?.closest? selector))?
     if handle.root.contains target
-      event._target = target
-      true
-    else
-      false
+      target
 
-within = (selector, fx) -> test (_within selector), pipe fx
+within = (selector, fx) ->
+  F.pipe [
+    push _within selector
+    test T.isDefined, F.pipe fx
+  ]
 
 within._ = _within
 

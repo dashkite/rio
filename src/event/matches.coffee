@@ -7,7 +7,7 @@ _matches = curry (selector, event, {handle}) ->
   else
     false
 
-matches = (selector, fx) -> stest (_matches selector), pipe fx
+matches = (selector, fx) -> test (_matches selector), pipe fx
 
 matches._ = _matches
 
