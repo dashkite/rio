@@ -9,6 +9,8 @@ do ->
 
   await do browser ({browser, port}) ->
 
+    await _.sleep 1000
+
     results = await test "Carbon", [
 
       test

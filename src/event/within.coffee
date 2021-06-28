@@ -2,10 +2,13 @@ import * as F from "@dashkite/joy/function"
 import * as T from "@dashkite/joy/type"
 import {push, test} from "@dashkite/katana/sync"
 
-_within = (selector) -> (event, handle) ->
-  if (target = (event?.target?.closest? selector))?
-    if handle.root.contains target
-      target
+_within = (selector) ->
+  (event, handle) ->
+    event.composedPath()
+      .find (el) ->
+        (el instanceof Node) &&
+          (handle.root.contains el) &&
+          (el.matches? selector)
 
 within = (selector, fx) ->
   F.pipe [

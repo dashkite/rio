@@ -1,7 +1,7 @@
 import {curry, pipe} from "@dashkite/joy/function"
 import {pop, read} from "@dashkite/katana/sync"
 
-_dispatch = curry (name, handle) -> handle.dispatch name
+_dispatch = curry (name, handle, detail) -> handle.dispatch name, detail
 
 dispatch = (name) ->
   pipe [

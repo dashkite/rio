@@ -1,6 +1,7 @@
 export * from "./call"
 export * from "./get"
 export * from "./set"
+export * from "./dispatch"
 export * from "./render"
 export * from "./form"
 export * from "./disable"
