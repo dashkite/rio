@@ -18,7 +18,6 @@ class Handle
       detail: detail ? @
       bubbles: true
       cancelable: false
-      # allow to bubble up from shadow DOM
       composed: true
 
 export { Handle }
