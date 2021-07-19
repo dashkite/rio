@@ -13,7 +13,8 @@ class extends c.Handle
         c.description
         c.call ({key}, data) -> Greetings.put {key, data...}
       ]
-      c.describe [
+      c.activate [
+        c.description
         c.call Greetings.get
         c.render (data) ->
           """

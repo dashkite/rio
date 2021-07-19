@@ -50,12 +50,13 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
-      c.describe [
+      c.activate [
+        c.description
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 ] ] ]
 ```
 
-The render mixin just takes a function that returns an HTML string. We use the component description, which is an object reflecting it’s `dataset` property, to get the `greeting` property we use to generate our HTML. If we were to have a document that looked like this (using Pug to represent the HTML):
+The render mixin just takes a function that returns an HTML string when our component is activated, meaning it's visible in the viewport. We use the component description, which is an object reflecting it’s `dataset` property, to get the `greeting` property we use to generate our HTML. If we were to have a document that looked like this (using Pug to represent the HTML):
 
 ```pug
 html
@@ -66,12 +67,6 @@ html
 we'd get a document that rendered like this:
 
 > ### Hello, World!
-
-The `describe` mixin also observes the data attributes of the component. If we were to change the `data-greeting` property from _Hello_ to _Hola_, the component would re-render the HTML and we’d get:
-
-> ### Hola, World!
-
-This is one style of a reactive component, but there are other patterns we could implement by using different combinators. That’s the advantage of using combinators: instead of a one-size-fits-all data flow, we can tailor it for each type of component.
 
 Let’s make it more interactive, so that we can change the greeting by clicking on it.
 
@@ -84,7 +79,8 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
-      c.describe [
+      c.activate [
+        c.description
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.event "click", [
@@ -110,7 +106,8 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
-      c.describe [
+      c.activate [
+        c.description
         c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.click "h1", [
@@ -118,11 +115,45 @@ class extends c.Handle
   ] ] ]
 ```
 
+The only problem is that we need to re-render now when we change the greeting. So let's take care of that as well:
+
+```coffeescript
+import * as c from "@dashkite/carbon"
+import * as c from "@dashkite/carbon"
+
+template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+
+class extends c.Handle
+  _.mixin @, [
+    c.tag "x-world-greetings"
+    c.initialize [
+      c.shadow
+      c.activate [
+        c.description
+        c.render template
+      ]
+      c.describe [
+        c.render template
+      ]
+      c.click "h1", [
+        c.call -> @dom.dataset.greeting = "Hola"
+  ] ] ]
+```
+
+The `describe` mixin observes the data attributes of the component. When we change the `data-greeting` property from _Hello_ to _Hola_, the component re-renders the HTML and we get:
+
+> ### Hola, World!
+
+This is one style of a reactive component, but there are other patterns we could implement by using different combinators. That’s the advantage of using combinators: instead of a one-size-fits-all data flow, we can tailor it for each type of component.
+
+
 If we click on the greeting, it will change from _Hello_ to _Hola_. Let’s add more greetings. We’ll do this by adding some state to our handle to keep track of the current greeting.
 
 ```coffeescript
 import * as c from "@dashkite/carbon"
 import * as c from "@dashkite/carbon"
+
+template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
@@ -136,51 +167,21 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
+      c.activate [
+        c.description
+        c.render template
+      ]
       c.describe [
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+        c.render template
       ]
       c.click "h1", [
-        c.call @::rotate
+        c.call -> @dom.dataset.greeting = "Hola"
   ] ] ]
 ```
 
 The handle is an ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property and a `rotate` method.
 
 In JavaScript, this is slightly more verbose but the code is semantically identical.
-
-```javascript
-import * as c from "@dashkite/carbon";
-import * as c from "@dashkite/carbon";
-
-var greetings = ["Hello", "Hola", "Bonjour", "Ciao",
-  "Nǐ hǎo", "Konnichiwa", "Mahalo"];
-
-
-class WorldGreetings extends c.Handle {
-  constructor() {
-    this.current = 0;
-    super();
-  }
-  rotate() {
-    let i = ++this.current % greetings.length
-    this.dom.dataset.greeting = greetings[ i ];
-  }
-};
-
-_.mixin(WorldGreetings, [
-  c.tag("x-world-greetings"),
-  c.initialize([
-    c.shadow,
-    c.describe([
-      c.render( {greeting} => `<h1>${greeting}, World!</h1>`; )
-    ]),
-    c.click("h1", [
-      c.call(WorldGreetings.prototype.rotate)
-    ])
-  ])
-]);
-
-```
 
 If this were a more complex component, we might be concerned about re-rendering each time, in which case we'd use the `diff` combinator. You can learn more about `diff` and the various other combinators Carbon provides in the [Quick Reference][].
 
