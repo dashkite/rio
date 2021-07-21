@@ -14,10 +14,6 @@ class extends c.Handle
     c.tag "x-world-greetings"
     c.initialize [
       c.shadow
-      c.activate [
-        c.description
-        c.render template
-      ]
       c.describe [
         c.render template
       ]

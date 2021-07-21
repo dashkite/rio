@@ -11,8 +11,7 @@ class extends c.Handle
     c.diff
     c.initialize [
       c.shadow
-      c.activate [
-        c.description
+      c.describe [
         k.poke Greetings.get
         c.render (data) -> "<p>#{data.salutation}, #{data.name}!</p>"
   ] ] ]

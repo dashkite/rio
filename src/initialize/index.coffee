@@ -1,5 +1,7 @@
 export * from "./shadow"
+export * from "./modify"
 export * from "./describe"
+export * from "./mutate"
 export * from "./observe"
 export * from "./navigate"
 export * from "./event"

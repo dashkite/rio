@@ -1,7 +1,7 @@
 import {pipe} from "@dashkite/joy/function"
 import {poke, read} from "@dashkite/katana/sync"
 
-_description = (handle) -> Object.assign {}, handle.dom.dataset
+_description = (handle) -> { handle.dom.dataset... }
 
 description = pipe [
   read "handle"
