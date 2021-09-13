@@ -31,4 +31,8 @@ presets:
   browser:
     fallback: ./build/browser/test/client/index.html
     logging: false
+    esm:
+      directories:
+        - .
+        - ..
   keywords: null
