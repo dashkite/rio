@@ -31,20 +31,20 @@
     "test": "genie test"
   },
   "dependencies": {
-    "@dashkite/joy": "^0.3.11",
+    "@dashkite/joy": "^0.3.16",
     "@dashkite/katana": "^0.4.8",
+    "@dashkite/sky-presets": "link:../sky-presets",
     "@dashkite/stylist": "^0.0.6",
     "diffhtml": "^1.0.0-beta.20",
-    "object-observer": "^4.3.2"
+    "object-observer": "^5.1.6"
   },
   "devDependencies": {
-    "@dashkite/amen": "^0.1.2",
-    "@dashkite/amen-console": "^0.0.1",
-    "@dashkite/assert": "^0.1.3",
-    "@dashkite/genie": "^0.5.4",
-    "@dashkite/genie-presets": "^0.5.1",
+    "@dashkite/amen": "^0.2.0",
+    "@dashkite/amen-console": "^0.0.2",
+    "@dashkite/assert": "^0.1.4",
+    "@dashkite/genie": "^0.5.11",
+    "@dashkite/genie-presets": "^0.6.0",
     "@dashkite/mimic": "^0.2.4",
-    "@dashkite/sky-presets": "file:../sky-presets",
-    "coffeescript": "^2.5.1"
+    "coffeescript": "^2.7.0"
   }
 }
