@@ -33,7 +33,6 @@
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
     "@dashkite/katana": "^0.4.8",
-    "@dashkite/sky-presets": "link:../sky-presets",
     "@dashkite/stylist": "^0.0.6",
     "diffhtml": "^1.0.0-beta.20",
     "object-observer": "^5.1.6"
@@ -43,7 +42,7 @@
     "@dashkite/amen-console": "^0.0.2",
     "@dashkite/assert": "^0.1.4",
     "@dashkite/genie": "^0.5.11",
-    "@dashkite/genie-presets": "^0.6.0",
+    "@dashkite/genie-presets": "^0.6.2",
     "@dashkite/mimic": "^0.2.4",
     "coffeescript": "^2.7.0"
   }
