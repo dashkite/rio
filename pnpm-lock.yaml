@@ -10,7 +10,6 @@ specifiers:
   '@dashkite/joy': ^0.3.16
   '@dashkite/katana': ^0.4.8
   '@dashkite/mimic': ^0.2.4
-  '@dashkite/sky-presets': link:../sky-presets
   '@dashkite/stylist': ^0.0.6
   coffeescript: ^2.7.0
   diffhtml: ^1.0.0-beta.20
@@ -19,7 +18,6 @@ specifiers:
 dependencies:
   '@dashkite/joy': 0.3.16
   '@dashkite/katana': 0.4.8
-  '@dashkite/sky-presets': link:../sky-presets
   '@dashkite/stylist': 0.0.6
   diffhtml: 1.0.0-beta.29
   object-observer: 5.1.6
