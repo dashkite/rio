@@ -28,7 +28,8 @@
     "build/browser/src"
   ],
   "scripts": {
-    "test": "genie test"
+    "test": "genie test",
+    "build": "genie build"
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
