@@ -10,12 +10,12 @@ debounce = ( ms, f ) ->
         f args...
 
 _activate = curry (handler, handle) ->
-  _handler = ([..., {intersectionRatio}]) ->
+  _handler = debounce 500, ([..., {intersectionRatio}]) ->
     if intersectionRatio > 0 then handler { handle }
   observer = new IntersectionObserver _handler, threshold: 0
   observer.observe handle.dom
 
-activate = (fx) -> peek _activate ( debounce 500, ( flow fx ) )
+activate = (fx) -> peek _activate flow fx
 
 activate._ = _activate
 
