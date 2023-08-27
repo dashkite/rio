@@ -17,3 +17,6 @@ npm-debug.log*
 .DS_Store
 
 .atlas
+
+.genie
+
