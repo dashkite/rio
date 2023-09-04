@@ -32,13 +32,13 @@ devDependencies:
     specifier: ^0.1.4
     version: 0.1.4
   '@dashkite/genie':
-    specifier: ^0.5.11
+    specifier: link:../genie
     version: 0.5.11
   '@dashkite/genie-modules':
     specifier: link:../genie-modules
     version: link:../genie-modules
   '@dashkite/genie-presets':
-    specifier: ^0.7.0
+    specifier: link:../genie-presets
     version: 0.7.0
   '@dashkite/mimic':
     specifier: ^0.2.4
