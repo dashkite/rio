@@ -16,15 +16,15 @@ dependencies:
     version: 0.0.6
   diffhtml:
     specifier: ^1.0.0-beta.20
-    version: 1.0.0-beta.29
+    version: 1.0.0-beta.30
   object-observer:
     specifier: ^5.1.6
-    version: 5.1.6
+    version: 5.2.0
 
 devDependencies:
   '@dashkite/amen':
     specifier: ^0.2.0
-    version: 0.2.0
+    version: 0.2.2
   '@dashkite/amen-console':
     specifier: ^0.0.2
     version: 0.0.2
@@ -34,15 +34,12 @@ devDependencies:
   '@dashkite/genie':
     specifier: link:../genie
     version: link:../genie
-  '@dashkite/genie-modules':
-    specifier: link:../genie-modules
-    version: link:../genie-modules
+  '@dashkite/genie-coffee':
+    specifier: link:../genie-coffee
+    version: link:../genie-coffee
   '@dashkite/mimic':
     specifier: ^0.2.4
     version: 0.2.4
-  coffeescript:
-    specifier: ^2.7.0
-    version: 2.7.0
 
 packages:
 
@@ -52,8 +49,8 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@dashkite/amen@0.2.0:
-    resolution: {integrity: sha512-64cI0qvcLXFhfuvNGI/ebUgbs7Rx+45K1EjqsdLVYjEALeAPGqViujiSWVky9KHw1F93FVpJx1/B6mlZJLf2Tg==}
+  /@dashkite/amen@0.2.2:
+    resolution: {integrity: sha512-bJBbRiIcQaKBT2A+EOltZaZMqGCptPw7rfSnTsu1AiicYWrXwe41zwo2W0a079OpJTLsH9v2vnU20xMCP9mQqA==}
     dev: true
 
   /@dashkite/assert@0.1.4:
@@ -88,8 +85,8 @@ packages:
       '@dashkite/joy': 0.3.16
     dev: false
 
-  /@types/node@18.11.18:
-    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+  /@types/node@20.5.9:
+    resolution: {integrity: sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==}
     requiresBuild: true
     dev: true
     optional: true
@@ -98,7 +95,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 20.5.9
     dev: true
     optional: true
 
@@ -131,7 +128,7 @@ packages:
     dependencies:
       buffer: 5.7.1
       inherits: 2.0.4
-      readable-stream: 3.6.0
+      readable-stream: 3.6.2
     dev: true
 
   /brace-expansion@1.1.11:
@@ -162,12 +159,6 @@ packages:
 
   /chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
-    dev: true
-
-  /coffeescript@2.7.0:
-    resolution: {integrity: sha512-hzWp6TUE2d/jCcN67LrW1eh5b/rSDKQK6oD6VMLlggYVUUFexgTH9z3dNYihzX4RMhze5FTUsUmOXViJKFQR/A==}
-    engines: {node: '>=6'}
-    hasBin: true
     dev: true
 
   /color-convert@2.0.1:
@@ -201,8 +192,8 @@ packages:
     resolution: {integrity: sha512-4INMPwNm9XRpBukhNbF7OB6fNTTCaI8pzy/fXg0xQzAy5h3zL1P8xT3QazgKqBrb/hAYwIBizqDBZ7GtJE74QQ==}
     dev: true
 
-  /diffhtml@1.0.0-beta.29:
-    resolution: {integrity: sha512-X3ZBa5FOBIBBgMo/MHqQFZTQhOgbJmET6JS5CRrJBKVkmdWF7AemldX2lzF2+c6arFykQ6SOI1SDlY6r2+2z5g==}
+  /diffhtml@1.0.0-beta.30:
+    resolution: {integrity: sha512-yrBteaq309reltj+kAnGqsnpJyQSqmCkd5LAJNAcWNmlgvu+PbiUm9bNxdRYi21BQsQsljTxrjs+AWeeHHghWA==}
     dev: false
 
   /end-of-stream@1.4.4:
@@ -321,15 +312,15 @@ packages:
       brace-expansion: 1.1.11
     dev: true
 
-  /minimist@1.2.7:
-    resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+  /minimist@1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
 
   /mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
     dependencies:
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /ms@2.1.2:
@@ -341,8 +332,8 @@ packages:
     engines: {node: 4.x || >=6.0.0}
     dev: true
 
-  /object-observer@5.1.6:
-    resolution: {integrity: sha512-3Lcp1Q9BW0ELoObPTCx6qOJlqpHo1d1TZHugoY50RjQRMLBOcGa9Dwy7FQtMYALmb/zo3GjEWjV09FJ4Ss/lQg==}
+  /object-observer@5.2.0:
+    resolution: {integrity: sha512-bu6s/wn8USDCF8AKY1CJEAx5xAKHQiS9ADbQiUv65XcPintiE6jvpxA40RAAZDx/k1ImDxF9yvTHLUPJb3agRg==}
     dev: false
 
   /once@1.4.0:
@@ -410,7 +401,7 @@ packages:
   /puppeteer@10.4.0:
     resolution: {integrity: sha512-2cP8mBoqnu5gzAVpbZ0fRaobBWZM8GEUF4I1F6WbgHrKV/rz7SX8PG2wMymZgD0wo0UBlg2FBPNxlF/xlqW6+w==}
     engines: {node: '>=10.18.1'}
-    deprecated: < 18.1.0 is no longer supported
+    deprecated: < 19.4.0 is no longer supported
     requiresBuild: true
     dependencies:
       debug: 4.3.1
@@ -435,8 +426,8 @@ packages:
     resolution: {integrity: sha512-aPVvlovU79BlPPgEiroL5XO57lZy1WrnyypfpGy25O+VQBbjOgr4XZYL/JVPuYN1zQO0oEH3bd1ZPRPO/nqZ5A==}
     dev: true
 
-  /readable-stream@3.6.0:
-    resolution: {integrity: sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==}
+  /readable-stream@3.6.2:
+    resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
     dependencies:
       inherits: 2.0.4
@@ -485,7 +476,7 @@ packages:
       end-of-stream: 1.4.4
       fs-constants: 1.0.0
       inherits: 2.0.4
-      readable-stream: 3.6.0
+      readable-stream: 3.6.2
     dev: true
 
   /through@2.3.8:
