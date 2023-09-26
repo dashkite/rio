@@ -21,7 +21,7 @@
   "author": "Dan Yoder",
   "exports": {
     ".": {
-      "browser": "./build/browser/src/index.js"
+      "import": "./build/browser/src/index.js"
     }
   },
   "files": [
