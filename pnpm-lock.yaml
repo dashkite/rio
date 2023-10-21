@@ -37,6 +37,9 @@ devDependencies:
   '@dashkite/genie-coffee':
     specifier: link:../genie-coffee
     version: link:../genie-coffee
+  '@dashkite/genie-coffee-watch':
+    specifier: link:../genie-coffee-watch
+    version: link:../genie-coffee-watch
   '@dashkite/genie-modules':
     specifier: link:../genie-modules
     version: link:../genie-modules
