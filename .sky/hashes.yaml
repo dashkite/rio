@@ -1,9 +1,8 @@
 build/browser/src/handle.js: V85o6bvd
 build/browser/src/index.js: fUmzKXRH
-build/browser/test/index.js: Nw7wVnN1gLytWbjAzP4pm5GCEcvzN7JMPwwM8QO7bZk
 build/browser/src/actions/assign.js: SAESgYAF
 build/browser/src/actions/attributes.js: rGsUG16e
-build/browser/src/actions/call.js: oL1IzcYA
+build/browser/src/actions/call.js: DQCEz7Av
 build/browser/src/actions/description.js: qcsODKWQ
 build/browser/src/actions/disable.js: e4YfbANN
 build/browser/src/actions/dispatch.js: zrJj4EIW
@@ -22,7 +21,7 @@ build/browser/src/event/prevent.js: Tb34ViLI
 build/browser/src/event/stop.js: 1875w93C
 build/browser/src/event/target.js: ydp4n79n
 build/browser/src/event/within.js: Wls2iYjQ
-build/browser/src/initialize/activate.js: Fcf-1gMG
+build/browser/src/initialize/activate.js: JoGGBA2F
 build/browser/src/initialize/capture.js: uZhLLa-O
 build/browser/src/initialize/click.js: vgOijyPy
 build/browser/src/initialize/deactivate.js: UjB5vU_9
@@ -44,10 +43,3 @@ build/browser/src/mixins/disconnect.js: 7zwbGxQU
 build/browser/src/mixins/index.js: iHVTe9sc
 build/browser/src/mixins/initialize.js: ptwDTueH
 build/browser/src/mixins/tag.js: BHkglL7h
-build/browser/test/client/index.js: yccqz90fqYs0g3eISp-5GHBdG9sPZ58LBEgYT6124IY
-build/browser/test/client/components/create.js: WSpsNSJ8hvj3wRpyjyuEXhhQQ63EiqmoyR0hZyUBqV4
-build/browser/test/client/components/greetings.js: Uyho3mV8zpworHunTLryfgL5qo3x4VkjHdYXHFbZlEM
-build/browser/test/client/components/index.js: TIMCg5io2ofPCad8OR1mgbepU_0U4rfqkSAknQ8Ulfs
-build/browser/test/client/components/tutorial.js: oFzc0q1rvDeYuxcR52Hwp3dUBsl2OGdN3nnBDzdKS5A
-build/browser/test/client/components/update.js: CtWiaL1MzsgMT2rnYZRYS4VetS5sPR2n6ch1_jDJ1iQ
-build/browser/test/client/components/view.js: aVjc0I0vu-C-crIysZJPPluERLsZFl1ByXIeiEtXHc4
