@@ -40,6 +40,9 @@ devDependencies:
   '@dashkite/genie-modules':
     specifier: link:../genie-modules
     version: link:../genie-modules
+  '@dashkite/genie-release':
+    specifier: link:../genie-release
+    version: link:../genie-release
   '@dashkite/mimic':
     specifier: ^0.2.4
     version: 0.2.4
@@ -256,6 +259,7 @@ packages:
 
   /@types/node@20.10.5:
     resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
+    requiresBuild: true
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -799,6 +803,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    requiresBuild: true
     dev: true
     optional: true
 
