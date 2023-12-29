@@ -1,20 +1,20 @@
 import * as _ from "@dashkite/joy"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
 import Greetings from "./greetings"
 
-class extends c.Handle
+class extends R.Handle
 
   _.mixin @, [
-    c.tag "x-create-greeting"
-    c.diff
-    c.initialize [
-      c.shadow
-      c.sheets main: "form { color: blue; }"
-      c.submit "form", [
-        c.call Greetings.put
+    R.tag "x-create-greeting"
+    R.diff
+    R.initialize [
+      R.shadow
+      R.sheets main: "form { color: blue; }"
+      R.submit "form", [
+        R.call Greetings.put
       ]
-      c.activate [
-        c.render ->
+      R.activate [
+        R.render ->
           """
           <form>
             <input name='key' type='text'/>

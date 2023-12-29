@@ -38,8 +38,8 @@ Mixin combinators are “top-level” combinators that “mixin” features into
 
 ```coffeescript
 class extends Handle
-  c.mixin @, [
-    c.tag "x-greeting"
+  mixin @, [
+    tag "x-greeting"
     # ... more mixins ...
   ]
 ```

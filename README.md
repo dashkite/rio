@@ -1,30 +1,32 @@
-# Carbon
+# Rio
 
-Carbon is a lightweight library for building Web Components. Instead of relying on arcane hooks or other “magical” conventions, Carbon makes everything explicit. Carbon defines a variety of simple functions that can be composed together to provide the behavior you need for a given component. This works similarly to method chaining, except you can add your own functions.
+Rio is a lightweight library for building reactive Web Components. Instead of relying on hooks, Rio makes everything explicit. Rio defines a variety of simple functions that can be composed together to provide the behavior you need for a given component. This works similarly to method chaining, except you can add your own functions.
 
-For example, here's a simple Hello, World variant. (Yes, the examples use CoffeeScript. We like CoffeeScript. You may feel differently. You can use Carbon with JavaScript or any other JavaScript-friendly language.) We define a common data flow pattern, where a change to the `greeting` property will re-render the component.
+For example, here's a simple Hello, World variant in CoffeeScript. (Yes, we use CoffeeScript. We like CoffeeScript. You may feel differently. You can use Rio with JavaScript or any other JavaScript-friendly language.) We define a common data flow pattern, where a change to the `greeting` property will re-render the component.
 
 ```coffeescript
-import * as _ from "@dashkite/joy"
-import * as c from "@dashkite/carbon"
+import * as Meta from "@dashkite/joy/metaclass"
+import * as R from "@dashkite/rio"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
 
-class extends c.Handle
+class extends R.Handle
   current: 0
-  rotate: -> @dom.dataset.greeting = greetings[++@current % greetings.length]
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.describe [
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.describe [
+        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
       c.click "h1", [
-        c.call @::rotate
+        c.call -> 
+    			@current = ++@current % greetings.length
+    			@dom.dataset.greeting = greetings[ @current ]
       ]
-  ] ]
+    ]
+  ]
 ```
 
 ## Features
@@ -35,14 +37,14 @@ class extends c.Handle
 - Render with simple HTML
 - Parse CSS once and attach using CSSOM
 - Observable properties
-- Explicit data flow without hooks or “magic”
+- Explicit, reactive data flow without hooks
 
 ## Install
 
-Bundle using your favorite bundler (Webpack, Rollup, etc.):
+Install with your favorite package manger:
 
 ```
-npm i @dashkite/carbon
+pnpm i @dashkite/rio
 ```
 
 ## Learn More

@@ -1,23 +1,23 @@
 import * as _ from "@dashkite/joy"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
 
 template =  ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 
-class extends c.Handle
+class extends R.Handle
   current: 0
   rotate: ->
     @dom.dataset.greeting = greetings[++@current % greetings.length]
   _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.describe [
-        c.render template
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.describe [
+        R.render template
       ]
-      c.click "h1", [
-        c.call @::rotate
+      R.click "h1", [
+        R.call @::rotate
       ]
   ] ]

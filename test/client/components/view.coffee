@@ -1,17 +1,17 @@
 import * as _ from "@dashkite/joy"
 import * as k from "@dashkite/katana"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
 
 import Greetings from "./greetings"
 
-class extends c.Handle
+class extends R.Handle
 
   _.mixin @, [
-    c.tag "x-greeting"
-    c.diff
-    c.initialize [
-      c.shadow
-      c.describe [
+    R.tag "x-greeting"
+    R.diff
+    R.initialize [
+      R.shadow
+      R.describe [
         k.poke Greetings.get
-        c.render (data) -> "<p>#{data.salutation}, #{data.name}!</p>"
+        R.render (data) -> "<p>#{data.salutation}, #{data.name}!</p>"
   ] ] ]

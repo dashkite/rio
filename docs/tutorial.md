@@ -7,31 +7,31 @@ title: Tutorial
 Let’s start simple.
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
   ]
 ```
 
-This creates a custom element with the tag name `x-greeting`. It doesn’t do anything interesting yet, but we’re already using some of the key features of Carbon:
+This creates a custom element with the tag name `x-greeting`. It doesn’t do anything interesting yet, but we’re already using some of the key features of Rio:
 
 - We extend the `Handle` class because we interact with the custom element through its [handle][].
 - We declare it as an anonymous class because it will be instantiated by the `x-greeting` custom element.
-- We use [mixins][] instead of inheritance because it’s more flexible and extensible.
+- We use [mixins][] to add features because it’s more flexible and extensible than doing everything with inheritance.
 
 Let’s make this a Web Component by giving it a shadow root.
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
       c.shadow
     ]
   ]
@@ -42,17 +42,17 @@ We use the `initialize` mixin instead of doing this in the constructor because t
 We’ve got a Web Component now, but it still doesn’t do anything. Let’s render our greeting.
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.activate [
-        c.description
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.activate [
+        R.description
+        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 ] ] ]
 ```
 
@@ -71,72 +71,71 @@ we'd get a document that rendered like this:
 Let’s make it more interactive, so that we can change the greeting by clicking on it.
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.activate [
-        c.description
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.activate [
+        R.description
+        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
-      c.event "click", [
-        c.within "h1", [
-          c.intercept
-          c.flow [
-            c.call -> @dom.dataset.greeting = "Hola"
-] ] ] ] ]
+      R.event "click", [
+        R.within "h1", [
+          R.intercept
+          R.call -> @dom.dataset.greeting = "Hola"
+] ] ] ]
 ```
 
 We add an event handler with the `event` initalizer mixin. We rely on [event delegation][], which means the event has bubbled up to the component root element. We check to make sure the event originated from within the H1. In this simple example, the only possible source of the event is the H1, but we include the `within` combinator anyway. We intercept the event (calling `preventDefault` and `stopPropagation` on the event) and update the `greeting` property of the component’s dataset. The `call` combinator binds *this* to the handle before calling the function, so you can use instance variables freely.
 
 We also adopt a convention here of closing out brackets once we get to more than 2 or 3 layers of nesting.
 
-Carbon provides convenience methods for common events, so we can rewrite this as:
+Rio provides convenience methods for common events, so we can rewrite this as:
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.activate [
-        c.description
-        c.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.activate [
+        R.description
+        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
       ]
-      c.click "h1", [
-        c.call -> @dom.dataset.greeting = "Hola"
+      R.click "h1", [
+        R.call -> @dom.dataset.greeting = "Hola"
   ] ] ]
 ```
 
 The only problem is that we need to re-render now when we change the greeting. So let's take care of that as well:
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
 template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 
-class extends c.Handle
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.activate [
-        c.description
-        c.render template
+class extends R.Handle
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.activate [
+        R.description
+        R.render template
       ]
-      c.describe [
-        c.render template
+      R.describe [
+        R.render template
       ]
-      c.click "h1", [
-        c.call -> @dom.dataset.greeting = "Hola"
+      R.click "h1", [
+        R.call -> @dom.dataset.greeting = "Hola"
   ] ] ]
 ```
 
@@ -150,40 +149,39 @@ This is one style of a reactive component, but there are other patterns we could
 If we click on the greeting, it will change from _Hello_ to _Hola_. Let’s add more greetings. We’ll do this by adding some state to our handle to keep track of the current greeting.
 
 ```coffeescript
-import * as c from "@dashkite/carbon"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
+import * as Meta from "@dashkite/joy/metaclass"
 
 template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
 
-class extends c.Handle
+class extends R.Handle
   current: 0
-  rotate: ->
-    i = ++@current % greetings.length
-    @dom.dataset.greeting = greetings[i]
-  _.mixin @, [
-    c.tag "x-world-greetings"
-    c.initialize [
-      c.shadow
-      c.activate [
-        c.description
-        c.render template
+  Meta.mixin @, [
+    R.tag "x-world-greetings"
+    R.initialize [
+      R.shadow
+      R.activate [
+        R.description
+        R.render template
       ]
-      c.describe [
-        c.render template
+      R.describe [
+        R.render template
       ]
-      c.click "h1", [
-        c.call -> @dom.dataset.greeting = "Hola"
+      R.click "h1", [
+        R.call ->
+          @current = ++@current % greetings.length
+          @dom.dataset.greeting = greetings[@current]
   ] ] ]
 ```
 
-The handle is an ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property and a `rotate` method.
+The handle is an ordinary class and so it can have properties and methods like any other class. In this case, we’ve added the `current` property.
 
 In JavaScript, this is slightly more verbose but the code is semantically identical.
 
-If this were a more complex component, we might be concerned about re-rendering each time, in which case we'd use the `diff` combinator. You can learn more about `diff` and the various other combinators Carbon provides in the [Quick Reference][].
+If this were a more complex component, we might be concerned about re-rendering each time, in which case we'd use the `diff` combinator. You can learn more about `diff` and the various other combinators Rio provides in the [Quick Reference][].
 
 [handle]: ./design-concepts.md#handle
 [mixins]: ./design-concepts.md#mixins

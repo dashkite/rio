@@ -1,5 +1,5 @@
 import * as _ from "@dashkite/joy"
-import * as c from "@dashkite/carbon"
+import * as R from "@dashkite/rio"
 import Greetings from "./greetings"
 
 html = (data) ->
@@ -10,19 +10,19 @@ html = (data) ->
   </form>
   """
 
-class extends c.Handle
+class extends R.Handle
 
   _.mixin @, [
-    c.tag "x-update-greeting"
-    c.diff
-    c.initialize [
-      c.shadow
-      c.describe [
-        c.call Greetings.get
-        c.render html
+    R.tag "x-update-greeting"
+    R.diff
+    R.initialize [
+      R.shadow
+      R.describe [
+        R.call Greetings.get
+        R.render html
       ]
-      c.submit "form", [
-        c.description
-        c.call ({key}, data) -> Greetings.put {key, data...}
+      R.submit "form", [
+        R.description
+        R.call ({key}, data) -> Greetings.put {key, data...}
       ]
 ] ]
