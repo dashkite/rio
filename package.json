@@ -32,7 +32,7 @@
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
     "@dashkite/katana": "^0.4.8",
-    "@dashkite/stylist": "^0.0.6",
+    "@dashkite/stylist": "link:../stylist",
     "diffhtml": "^1.0.0-beta.20",
     "object-observer": "^5.1.6"
   },

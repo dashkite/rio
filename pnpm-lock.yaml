@@ -12,8 +12,8 @@ dependencies:
     specifier: ^0.4.8
     version: 0.4.8
   '@dashkite/stylist':
-    specifier: ^0.0.6
-    version: 0.0.6
+    specifier: link:../stylist
+    version: link:../stylist
   diffhtml:
     specifier: ^1.0.0-beta.20
     version: 1.0.0-beta.20
@@ -106,12 +106,6 @@ packages:
       - supports-color
       - utf-8-validate
     dev: true
-
-  /@dashkite/stylist@0.0.6:
-    resolution: {integrity: sha512-UCAMArtPJjvRuNcugpWm587VqO28Ll9f1LvlDIHBHJJbJqc2+Grp/8SIV7kuge99Lc+VuAl97NE4kZ/Nh/XBgA==}
-    dependencies:
-      '@dashkite/joy': 0.3.16
-    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -259,6 +253,7 @@ packages:
 
   /@types/node@20.10.5:
     resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
+    requiresBuild: true
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -802,6 +797,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    requiresBuild: true
     dev: true
     optional: true
 
