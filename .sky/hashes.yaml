@@ -9,10 +9,10 @@ build/browser/src/actions/dispatch.js: zrJj4EIW
 build/browser/src/actions/focus.js: UT0vgPbV
 build/browser/src/actions/form.js: flBe7TGW
 build/browser/src/actions/get.js: 21bxqhRf
-build/browser/src/actions/index.js: yy5KebXi
+build/browser/src/actions/index.js: oBdU4QSu
 build/browser/src/actions/render.js: R_6yZaL9
 build/browser/src/actions/set.js: chyuqt7Q
-build/browser/src/actions/sheets.js: XVi_puuK
+build/browser/src/actions/sheets.js: XbrlkqDy
 build/browser/src/event/index.js: oarM2DWy
 build/browser/src/event/intercept.js: Yip_Eewr
 build/browser/src/event/local.js: sc1J3FW6
@@ -43,3 +43,4 @@ build/browser/src/mixins/disconnect.js: 7zwbGxQU
 build/browser/src/mixins/index.js: iHVTe9sc
 build/browser/src/mixins/initialize.js: ptwDTueH
 build/browser/src/mixins/tag.js: BHkglL7h
+build/browser/src/actions/validate.js: G_zbCB84
