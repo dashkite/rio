@@ -1,14 +1,6 @@
-import {curry, flow} from "@dashkite/joy/function"
-import {poke, read} from "@dashkite/katana"
-
-_get = curry (name, handle) -> handle[name]
+import { poke } from "@dashkite/katana"
 
 get = (name) ->
-  flow [
-    read "handle"
-    poke _get name
-  ]
+  push ( object ) -> object[ name ]
 
-get._ = _get
-
-export {get}
+export { get }
