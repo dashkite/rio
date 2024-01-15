@@ -1,9 +1,9 @@
-import {flow, pipe} from "@dashkite/joy/function"
-import {read, peek} from "@dashkite/katana/sync"
-import {event} from "./event"
-import {intercept} from "../event"
+import { flow, pipe } from "@dashkite/joy/function"
+import { read, peek } from "@dashkite/katana/sync"
+import { form } from "./form"
+import { intercept } from "../event"
 
-invalid = (fx) ->
+invalid = ( fx ) ->
   pipe [
     read "handle"
     peek ( handle ) ->
@@ -12,8 +12,9 @@ invalid = (fx) ->
           ( event ) -> { handle, event }
           read "event"
           intercept
-          flow fx
+          # TODO filter out the valid elements?
+          flow [ form, fx... ]
         ]
   ]
 
-export {invalid}
+export { invalid }

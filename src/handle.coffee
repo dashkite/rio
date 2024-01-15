@@ -1,4 +1,4 @@
-import {mixin, getter, property} from "@dashkite/joy/metaclass"
+import { mixin, getter, property } from "@dashkite/joy/metaclass"
 
 class Handle
 
@@ -8,12 +8,12 @@ class Handle
     getter "root", -> @shadow ? @dom
     property "html",
       get: -> @root.innerHTML
-      set: (html) -> @root.innerHTML = html
+      set: ( html ) -> @root.innerHTML = html
   ]
 
-  on: (name, handler) -> @root.addEventListener name, handler.bind @
+  on: ( name, handler ) -> @root.addEventListener name, handler.bind @
 
-  dispatch: (name, detail) ->
+  dispatch: ( name, detail ) ->
     @dom.dispatchEvent new CustomEvent name,
       detail: detail ? @
       bubbles: true

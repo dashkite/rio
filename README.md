@@ -18,7 +18,7 @@ class extends R.Handle
     R.initialize [
       R.shadow
       R.describe [
-        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+        R.render ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
       ]
       c.click "h1", [
         c.call -> 

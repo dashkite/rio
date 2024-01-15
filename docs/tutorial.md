@@ -52,7 +52,7 @@ class extends R.Handle
       R.shadow
       R.activate [
         R.description
-        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+        R.render ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
 ] ] ]
 ```
 
@@ -81,7 +81,7 @@ class extends R.Handle
       R.shadow
       R.activate [
         R.description
-        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+        R.render ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
       ]
       R.event "click", [
         R.within "h1", [
@@ -107,7 +107,7 @@ class extends R.Handle
       R.shadow
       R.activate [
         R.description
-        R.render ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+        R.render ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
       ]
       R.click "h1", [
         R.call -> @dom.dataset.greeting = "Hola"
@@ -120,7 +120,7 @@ The only problem is that we need to re-render now when we change the greeting. S
 import * as R from "@dashkite/rio"
 import * as Meta from "@dashkite/joy/metaclass"
 
-template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+template = ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
 
 class extends R.Handle
   Meta.mixin @, [
@@ -152,7 +152,7 @@ If we click on the greeting, it will change from _Hello_ to _Hola_. Let’s add 
 import * as R from "@dashkite/rio"
 import * as Meta from "@dashkite/joy/metaclass"
 
-template = ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+template = ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
 
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]

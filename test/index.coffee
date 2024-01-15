@@ -7,7 +7,7 @@ import browser from "@dashkite/genie-presets/browser"
 
 do ->
 
-  await do browser ({browser, port}) ->
+  await do browser ({ browser, port }) ->
 
     await _.sleep 1000
 
@@ -18,7 +18,7 @@ do ->
         wait: false
         m.launch browser, [
           m.page
-          m.goto "http://localhost:#{port}/"
+          m.goto "http://localhost:#{ port }/"
           m.evaluate ->
             window.db.greetings.alice = salutation: "Hello", name: "Alice"
           m.defined "x-greeting"
@@ -35,7 +35,7 @@ do ->
         wait: false
         m.launch browser, [
           m.page
-          m.goto "http://localhost:#{port}"
+          m.goto "http://localhost:#{ port }"
           m.defined "x-create-greeting"
           m.select "body"
           m.render "<x-create-greeting></x-create-greeting>"
@@ -58,7 +58,7 @@ do ->
         wait: false
         m.launch browser, [
           m.page
-          m.goto "http://localhost:#{port}"
+          m.goto "http://localhost:#{ port }"
           m.evaluate ->
             window.db.greetings.alice =
               salutation: "Hello"
@@ -84,7 +84,7 @@ do ->
         wait: false
         m.launch browser, [
           m.page
-          m.goto "http://localhost:#{port}"
+          m.goto "http://localhost:#{ port }"
           m.defined "x-world-greetings"
           m.select "body"
           m.render "<x-world-greetings data-greeting='Hello'/>"

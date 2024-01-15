@@ -4,7 +4,7 @@ import * as R from "@dashkite/rio"
 greetings = [ "Hello", "Hola", "Bonjour", "Ciao",
   "Nǐ hǎo", "Konnichiwa", "Mahalo" ]
 
-template =  ({greeting}) -> "<h1>#{greeting}, World!</h1>"
+template =  ({ greeting }) -> "<h1>#{ greeting }, World!</h1>"
 
 class extends R.Handle
   current: 0

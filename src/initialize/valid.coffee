@@ -1,9 +1,9 @@
-import {flow, pipe} from "@dashkite/joy/function"
-import {read, peek} from "@dashkite/katana/sync"
-import {event} from "./event"
-import {intercept} from "../event"
+import { flow, pipe } from "@dashkite/joy/function"
+import { read, peek } from "@dashkite/katana/sync"
+import { intercept } from "../event"
+import { form } from "../actions"
 
-valid = (fx) ->
+valid = ( fx ) ->
   pipe [
     read "handle"
     peek ( handle ) ->
@@ -12,8 +12,8 @@ valid = (fx) ->
           ( event ) -> { handle, event }
           read "event"
           intercept
-          flow fx
+          flow [ form, fx... ]
         ]
   ]
 
-export {valid}
+export { valid }

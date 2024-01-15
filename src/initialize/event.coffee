@@ -1,10 +1,10 @@
-import {read, peek} from "@dashkite/katana/sync"
-import {curry, pipe} from "@dashkite/joy/function"
+import { read, peek } from "@dashkite/katana/sync"
+import { curry, pipe } from "@dashkite/joy/function"
 
-_event = curry (name, handler, handle) ->
-  handle.on name, (event) -> handler { handle, event }
+_event = curry ( name, handler, handle ) ->
+  handle.on name, ( event ) -> handler { handle, event }
 
-event = (name, fx) ->
+event = ( name, fx ) ->
   peek _event name, pipe [
     read "handle"
     read "event"
@@ -13,4 +13,4 @@ event = (name, fx) ->
 
 event._ = _event
 
-export {event}
+export { event }

@@ -1,10 +1,10 @@
-import {curry} from "@dashkite/joy/function"
+import { curry } from "@dashkite/joy/function"
 
-define = curry (name, [ base, options ], type) ->
+define = curry ( name, [ base, options ], Type ) ->
   E = class extends base
     constructor: ->
       super()
-      @handle = new type @
+      @handle = new Type @
       @handle.initialize?()
     connectedCallback: -> @handle.connect?()
     disconnectedCallback: -> @handle.disconnect?()
@@ -13,6 +13,6 @@ define = curry (name, [ base, options ], type) ->
   queueMicrotask ->
     customElements.define name, E, options
 
-tag = curry (name, type) -> define name, [ HTMLElement ], type
+tag = curry ( name, Type ) -> define name, [ HTMLElement ], Type
 
-export {define, tag}
+export { define, tag }

@@ -1,47 +1,57 @@
-import {use, innerHTML} from "diffhtml"
-import {mixin, property} from "@dashkite/joy/metaclass"
+import { innerHTML } from "diffhtml"
+import { mixin, property } from "@dashkite/joy/metaclass"
 
 # This hook provides us a way to flag an element within a component
 # to be exempt from diffHTML's reconcilation cycle by convention.
-use
-  syncTreeHook: (oldTree, newTree) ->
-    # Ignore style elements.
-    if oldTree.nodeName == "#document-fragment"
 
-      append = []
-      prepend = []
-      anchored = []
+# TODO remove or replace this?
+#
+# we originally needed it because we were injecting style elements
+# into the DOM html but we aren't doing that any longer
+#
+# in addition, this may have been incorporated into diffhtml by now
+#
+# import { use } from "diffhtml"
+#
+# use
+#   syncTreeHook: ( oldTree, newTree ) ->
+#     # Ignore style elements.
+#     if oldTree.nodeName == "#document-fragment"
 
-      # Scan for carbonSkip
-      for child in oldTree.childNodes
-        if child.attributes["data-carbon-skip"]?
-          if child.attributes["data-carbon-skip"] == "prepend"
-            prepend.push child
-          else if child.attributes["data-carbon-skip"] == "append"
-            append.push child
-          else
-            anchored.push child
+#       append = []
+#       prepend = []
+#       anchored = []
 
-      # prepend and append are easy and already in their order
-      newTree.childNodes.unshift prepend...
-      newTree.childNodes.push append...
+#       # Scan for carbonSkip
+#       for child in oldTree.childNodes
+#         if child.attributes["data-carbon-skip"]?
+#           if child.attributes["data-carbon-skip"] == "prepend"
+#             prepend.push child
+#           else if child.attributes["data-carbon-skip"] == "append"
+#             append.push child
+#           else
+#             anchored.push child
 
-      # Anchors prepend to target, so reverse to pick up chained inert nodes.
-      for child in anchored.reverse()
-        for el, index in newTree.childNodes
-          if el.attributes.key == child.attributes["data-carbon-skip"]
-            newTree.childNodes.splice index, 0, child
-            break
+#       # prepend and append are easy and already in their order
+#       newTree.childNodes.unshift prepend...
+#       newTree.childNodes.push append...
 
-      return newTree
+#       # Anchors prepend to target, so reverse to pick up chained inert nodes.
+#       for child in anchored.reverse()
+#         for el, index in newTree.childNodes
+#           if el.attributes.key == child.attributes["data-carbon-skip"]
+#             newTree.childNodes.splice index, 0, child
+#             break
 
-diff = (type) ->
+#       return newTree
+
+diff = ( type ) ->
   mixin type::, [
     property "html",
       get: ->
         await @_tx if @_tx?
         @root.innerHTML
-      set: (html) -> @_tx = innerHTML @root, html
+      set: ( html ) -> @_tx = innerHTML @root, html
   ]
 
-export {diff}
+export { diff }

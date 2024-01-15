@@ -1,7 +1,7 @@
-import {pipe} from "@dashkite/joy/function"
-import {read, pop} from "@dashkite/katana/sync"
+import { pipe } from "@dashkite/joy/function"
+import { read, pop } from "@dashkite/katana/sync"
 
-_prevent = (event) -> event.preventDefault()
+_prevent = ( event ) -> event.preventDefault()
 
 prevent = pipe [
   read "event"
@@ -10,4 +10,4 @@ prevent = pipe [
 
 prevent._ = _prevent
 
-export {prevent}
+export { prevent }

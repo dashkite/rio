@@ -1,8 +1,8 @@
-import {curry, flow} from "@dashkite/joy/function"
-import {event} from "./event"
-import {within, intercept} from "../event"
+import { curry, flow } from "@dashkite/joy/function"
+import { event } from "./event"
+import { within, intercept } from "../event"
 
-click = curry (selector, fx) ->
+click = curry ( selector, fx ) ->
   event "click", [
     within selector, [
       intercept,
@@ -10,4 +10,4 @@ click = curry (selector, fx) ->
     ]
   ]
 
-export {click}
+export { click }

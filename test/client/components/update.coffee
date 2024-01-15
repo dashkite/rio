@@ -23,6 +23,6 @@ class extends R.Handle
       ]
       R.submit "form", [
         R.description
-        R.call ({key}, data) -> Greetings.put {key, data...}
+        R.call ({ key }, data) -> Greetings.put {key, data...}
       ]
 ] ]

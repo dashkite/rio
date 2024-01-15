@@ -1,7 +1,7 @@
-import {pipe} from "@dashkite/joy/function"
-import {read, pop} from "@dashkite/katana/sync"
+import { pipe } from "@dashkite/joy/function"
+import { read, pop } from "@dashkite/katana/sync"
 
-_stop = (event) -> event.stopPropagation()
+_stop = ( event ) -> event.stopPropagation()
 
 stop = pipe [
   read "event"
@@ -10,4 +10,4 @@ stop = pipe [
 
 stop._ = _stop
 
-export {stop}
+export { stop }
