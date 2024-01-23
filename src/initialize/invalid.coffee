@@ -1,6 +1,6 @@
 import { flow, pipe } from "@dashkite/joy/function"
 import { read, peek } from "@dashkite/katana/sync"
-import { form } from "./form"
+import { form } from "../actions/form"
 import { intercept } from "../event"
 
 invalid = ( fx ) ->
