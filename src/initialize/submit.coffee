@@ -7,10 +7,8 @@ submit = curry ( selector, fx ) ->
   event "submit", [
     within selector, [
       intercept
-      flow [
-        form
-        fx...
-      ]
+      form
+      flow fx 
     ]
   ]
 
