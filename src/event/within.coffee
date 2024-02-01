@@ -1,4 +1,4 @@
-import * as F from "@dashkite/joy/function"
+import * as Fn from "@dashkite/joy/function"
 import * as K from "@dashkite/katana/sync"
 
 _within = ( selector ) ->
