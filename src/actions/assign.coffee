@@ -1,6 +1,12 @@
-import { mpop } from "@dashkite/katana/sync"
+import * as Fn from "@dashkite/joy/function"
+import * as K from "@dashkite/katana/sync"
 
-assign = mpop ( source, target ) ->
-  Object.assign target, source
+assign = ( name ) ->
+  Fn.pipe [
+    K.read "handle"
+    K.peek ( handle, value ) -> 
+      handle[ name ] ?= {}
+      Object.assign handle[ name ], value
+  ]
 
 export { assign }

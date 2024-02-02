@@ -1,6 +1,6 @@
 build/browser/src/handle.js: t02gKJgp
 build/browser/src/index.js: fUmzKXRH
-build/browser/src/actions/assign.js: gejtXpdo
+build/browser/src/actions/assign.js: ig0apD4s
 build/browser/src/actions/attribute.js: nwctNFBL
 build/browser/src/actions/attributes.js: emxfET-9
 build/browser/src/actions/call.js: au3yM07k
@@ -11,10 +11,10 @@ build/browser/src/actions/disable.js: Z6YwVMg2
 build/browser/src/actions/dispatch.js: YAe0lyDL
 build/browser/src/actions/focus.js: 9g5CPNdd
 build/browser/src/actions/form.js: Nea6nbwp
-build/browser/src/actions/get.js: JY5XHqXG
+build/browser/src/actions/get.js: SMZlUUXu
 build/browser/src/actions/index.js: iDgRL_Gn
 build/browser/src/actions/render.js: MmCsrAV-
-build/browser/src/actions/set.js: vjzs3KfF
+build/browser/src/actions/set.js: Q7Pi4po-
 build/browser/src/actions/sheets.js: anVES-4m
 build/browser/src/event/index.js: xgpC0Whl
 build/browser/src/event/intercept.js: LP4d6KOn
@@ -27,7 +27,7 @@ build/browser/src/initialize/activate.js: vyvf3coX
 build/browser/src/initialize/capture.js: xjseDzc3
 build/browser/src/initialize/click.js: bTVZI4VN
 build/browser/src/initialize/deactivate.js: nzOC-Wq8
-build/browser/src/initialize/describe.js: 2PHIInZR
+build/browser/src/initialize/describe.js: Btphz2eI
 build/browser/src/initialize/event.js: pKN7Oabw
 build/browser/src/initialize/index.js: _ReA-XAu
 build/browser/src/initialize/invalid.js: JkzZahN2
@@ -38,7 +38,7 @@ build/browser/src/initialize/observe.js: yUl-x9ao
 build/browser/src/initialize/poll.js: sUern8Rt
 build/browser/src/initialize/ready.js: qYOC-hjA
 build/browser/src/initialize/shadow.js: QOpIe2Yt
-build/browser/src/initialize/submit.js: NfMIYrvn
+build/browser/src/initialize/submit.js: TH3pqJ-D
 build/browser/src/mixins/connect.js: 18hKe1nO
 build/browser/src/mixins/diff.js: N8j_dELZ
 build/browser/src/mixins/disconnect.js: IjTOXpjw
