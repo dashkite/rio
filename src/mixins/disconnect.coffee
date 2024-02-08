@@ -1,12 +1,9 @@
-import { curry, pipe } from "@dashkite/joy/function"
+import { curry, pipe, rtee } from "@dashkite/joy/function"
 
-_disconnect = curry ( f, type ) ->
+disconnect = curry rtee ( fx, type ) ->
+  f = pipe fx
   type::disconnect = ->
     f handle: @
     @dispatch "ready"
-
-disconnect = ( fx ) -> _disconnect pipe fx
-
-disconnect._ = _disconnect
 
 export { disconnect }

@@ -1,17 +1,13 @@
-import { curry, pipe } from "@dashkite/joy/function"
+import { curry, pipe, rtee } from "@dashkite/joy/function"
 import { read } from "@dashkite/katana/sync"
 
-_initialize = curry ( f, type ) ->
-  type::initialize = ->
-    f handle: @
-    @dispatch "ready"
-
-initialize = ( fx ) ->
-  _initialize pipe [
+initialize = curry rtee ( fx, type ) ->
+  f = pipe [
     read "handle"
     fx...
   ]
-
-initialize._ = _initialize
+  type::initialize = ->
+    f handle: @
+    @dispatch "ready"
 
 export { initialize }

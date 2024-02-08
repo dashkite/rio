@@ -1,10 +1,9 @@
 import { pipe } from "@dashkite/joy/function"
-import { read } from "@dashkite/katana/sync"
-import { data } from "./data"
+import { poke, read } from "@dashkite/katana/sync"
 
 description = pipe [
   read "handle"
-  data
+  poke ( handle ) -> { handle.dom.dataset... }
 ]
 
 export { description }

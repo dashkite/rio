@@ -1,4 +1,5 @@
 import { innerHTML } from "diffhtml"
+import { tee } from "@dashkite/joy/function"
 import { mixin, property } from "@dashkite/joy/metaclass"
 
 # This hook provides us a way to flag an element within a component
@@ -45,7 +46,7 @@ import { mixin, property } from "@dashkite/joy/metaclass"
 
 #       return newTree
 
-diff = ( type ) ->
+diff = tee ( type ) ->
   mixin type::, [
     property "html",
       get: ->

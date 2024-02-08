@@ -1,7 +1,7 @@
-import { curry } from "@dashkite/joy/function"
+import { curry, rtee } from "@dashkite/joy/function"
 
-define = curry ( name, [ base, options ], Type ) ->
-  E = class extends base
+component = curry rtee ( name, Base, Type ) ->
+  Type.Element = class extends Base
     constructor: ->
       super()
       @handle = new Type @
@@ -9,10 +9,10 @@ define = curry ( name, [ base, options ], Type ) ->
     connectedCallback: -> @handle.connect?()
     disconnectedCallback: -> @handle.disconnect?()
 
+tag = curry rtee ( name, Type ) ->
+  component name, HTMLElement, Type
   # give the rest of the mixins a chance to load...
   queueMicrotask ->
-    customElements.define name, E, options
+    customElements.define name, Type.Element
 
-tag = curry ( name, Type ) -> define name, [ HTMLElement ], Type
-
-export { define, tag }
+export { component, tag }
