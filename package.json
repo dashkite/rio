@@ -30,6 +30,7 @@
     "build": "genie build"
   },
   "dependencies": {
+    "@dashkite/genie-module": "link:../genie-module",
     "@dashkite/joy": "^0.3.16",
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "link:../stylist",
