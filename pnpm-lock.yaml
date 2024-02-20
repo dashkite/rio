@@ -34,6 +34,9 @@ devDependencies:
   '@dashkite/genie':
     specifier: ^0.7.3
     version: 0.7.3
+  '@dashkite/genie-clean':
+    specifier: link:../genie-clean
+    version: link:../genie-clean
   '@dashkite/genie-coffee':
     specifier: link:../genie-coffee
     version: link:../genie-coffee
