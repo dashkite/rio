@@ -32,8 +32,8 @@ devDependencies:
     specifier: ^0.1.4
     version: 0.1.4
   '@dashkite/genie':
-    specifier: ^0.7.3
-    version: 0.7.3
+    specifier: ^0.8.1
+    version: 0.8.1
   '@dashkite/genie-clean':
     specifier: link:../genie-clean
     version: link:../genie-clean
@@ -68,12 +68,13 @@ packages:
       '@dashkite/joy': 0.3.16
     dev: true
 
-  /@dashkite/genie@0.7.3:
-    resolution: {integrity: sha512-4V+CnHDQRAnmEXjtQRYVYly8GEgpfr/tZYjlC7eLig/u9lbNe9B2X6Kx6TRO7tgA1Am77Mz2uKunFupNVdNkrQ==}
+  /@dashkite/genie@0.8.1:
+    resolution: {integrity: sha512-qlZ2VYO0PGx1Bj6l9E44kWxWJ+WwfmjSMpCORJeruCfjEfkXQ00nxgRtv1vgJNvRUZGsE5hfQIdpBwBpK1JNcQ==}
+    engines: {node: '>=20.0.0'}
     hasBin: true
     dependencies:
       '@dashkite/joy': 0.3.16
-      '@dashkite/kaiko': 0.3.1
+      '@dashkite/kaiko': 0.3.3
       '@swc/core': 1.3.101
       chalk: 4.1.2
       coffeescript: 2.7.0
@@ -89,8 +90,8 @@ packages:
   /@dashkite/joy@0.3.16:
     resolution: {integrity: sha512-dsU0us4j1Pb+zceoBvLbnZ2PbmULkJUtM2vtWLxKmoc1DE4w9SVTiPTe6JWvF0A0vk90ldv+Lc9qEA5x3O+DtQ==}
 
-  /@dashkite/kaiko@0.3.1:
-    resolution: {integrity: sha512-KuTY4YXS1O3MlMcmDU3oozyxbAsydAEJ4rP+C7UIXBPPBVWuhYQ5tS1htZX37woWfMcq9FLM2eTh/QCkCYEMtg==}
+  /@dashkite/kaiko@0.3.3:
+    resolution: {integrity: sha512-XnAvVr9y2MsDqMLr4A24vkLF7Iuq3E8RjHEEpqhe29P5NevVX9jXKcXUStNMp9MSJbjHd2pqUNiM5Vvdja9ggg==}
     dev: true
 
   /@dashkite/katana@0.4.8:
