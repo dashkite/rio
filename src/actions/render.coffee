@@ -5,7 +5,11 @@ render = ( template ) ->
   flow [
     read "handle"
     pop ( handle, data ) ->
-      handle.html = template data
+      result = template data
+      if result.then?
+        result.then ( html ) -> handle.html = html
+      else
+        handle.html = template data
   ]
 
 export { render }
