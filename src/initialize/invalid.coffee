@@ -2,7 +2,8 @@ import * as k from "@dashkite/katana/sync"
 import { flow, pipe } from "@dashkite/joy/function"
 import { read, peek } from "@dashkite/katana/sync"
 import { form } from "../actions/form"
-import { prevent } from "../event"
+import { target, prevent } from "../event"
+import { capture } from "./capture"
 
 invalid = ( fx ) ->
   pipe [
