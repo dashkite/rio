@@ -46,6 +46,9 @@ devDependencies:
   '@dashkite/genie-release':
     specifier: link:../genie-release
     version: link:../genie-release
+  '@dashkite/genie-watch':
+    specifier: link:../genie-watch
+    version: link:../genie-watch
   '@dashkite/mimic':
     specifier: ^0.2.4
     version: 0.2.4

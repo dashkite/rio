@@ -10,7 +10,7 @@ build/browser/src/actions/description.js: Oismn_71
 build/browser/src/actions/disable.js: V5ZzLfZ4
 build/browser/src/actions/dispatch.js: 9PQlNFRQ
 build/browser/src/actions/focus.js: MKZfip6B
-build/browser/src/actions/form.js: sv9MFUQo
+build/browser/src/actions/form.js: DjfDh7rq
 build/browser/src/actions/get.js: 3nqLvgGN
 build/browser/src/actions/index.js: cj7rcaX2
 build/browser/src/actions/render.js: vrLuslLz
@@ -38,7 +38,7 @@ build/browser/src/initialize/observe.js: DV3erhA7
 build/browser/src/initialize/poll.js: 1-tXRIMV
 build/browser/src/initialize/ready.js: qMPhVk_D
 build/browser/src/initialize/shadow.js: tzIBQnjk
-build/browser/src/initialize/submit.js: YoaPM8AW
+build/browser/src/initialize/submit.js: rDZ4PR_A
 build/browser/src/mixins/connect.js: dK9xzk0y
 build/browser/src/mixins/diff.js: SzuzlUaS
 build/browser/src/mixins/disconnect.js: JWFDYtsX

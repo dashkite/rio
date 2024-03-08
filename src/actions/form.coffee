@@ -1,4 +1,4 @@
-import { pipe } from "@dashkite/joy/function"
+import { pipe, tee } from "@dashkite/joy/function"
 import { poke, pop, read, write } from "@dashkite/katana/sync"
 
 # TODO this does not handle form inputs that have multiple values

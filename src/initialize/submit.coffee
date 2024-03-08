@@ -1,4 +1,4 @@
-import { flow } from "@dashkite/joy/function"
+import { tee, flow } from "@dashkite/joy/function"
 import { event } from "./event"
 import { within, intercept } from "../event"
 import { form } from "../actions"
