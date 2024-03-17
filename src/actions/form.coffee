@@ -3,7 +3,10 @@ import { poke, pop, read, write } from "@dashkite/katana/sync"
 
 # TODO this does not handle form inputs that have multiple values
 _form = ( handle ) ->
-  Object.fromEntries ( new FormData handle.root.querySelector "form" )
+  
+  if ( form = handle.root.querySelector "form" )?
+    Object.fromEntries ( new FormData form )
+  else {}
 
 _reset = ( handle ) ->
   handle.root.querySelector( "form" ).reset()
@@ -11,7 +14,6 @@ _reset = ( handle ) ->
 form = pipe [
   read "handle"
   poke _form
-  write "form"
 ]
 
 reset = pipe [

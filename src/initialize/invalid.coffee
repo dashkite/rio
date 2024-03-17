@@ -14,7 +14,7 @@ invalid = ( fx ) ->
         name: target.name
         message: target.validationMessage
         target: target
-      k.peek flow fx
+      flow fx
     ]
   ]
 
