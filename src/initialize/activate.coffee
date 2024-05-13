@@ -5,10 +5,11 @@ import { curry, flow } from "@dashkite/joy/function"
 tolerance = 500 #ms
 
 debounce = ( ms, f ) ->
-  do ( last = 0 ) ->
+  # ensure the first time always fires
+  do ( last = -ms ) ->
     ( args... ) ->
       current = performance.now()
-      if current > ( last + ms )
+      if ms <= ( current - last )
         last = current
         f args...
 
@@ -17,7 +18,7 @@ _activate = curry ( handler, handle ) ->
     handler Daisho.create { handle }
   _callback = ( events ) ->
     for event in events  
-      if event.intersectionRatio > 0
+      if event.isIntersecting
         do _handler
         return
   observer = new IntersectionObserver _callback
