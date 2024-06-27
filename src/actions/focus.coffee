@@ -2,7 +2,9 @@ import * as F from "@dashkite/joy/function"
 import * as K from "@dashkite/katana"
 
 _focus = F.curry ( selector, handle ) ->
-  handle.root.querySelector selector
+  handle
+    .root
+    .querySelector selector
     ?.focus()
 
 focus = ( selector ) ->
