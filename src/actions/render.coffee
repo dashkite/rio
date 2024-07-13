@@ -9,7 +9,7 @@ render = ( template ) ->
       if result.then?
         result.then ( html ) -> handle.html = html
       else
-        handle.html = template data
+        handle.html = result
   ]
 
 export { render }
