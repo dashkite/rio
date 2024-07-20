@@ -2,7 +2,7 @@ build/browser/src/index.js: U0oJiHyT
 build/browser/src/event/intercept.js: MuBF__6E
 build/browser/src/actions/render.js: Szx7R_rR
 build/browser/src/initialize/activate.js: KdWjRjeB
-build/browser/src/initialize/index.js: DxlEOsIj
+build/browser/src/initialize/index.js: XTYgh41t
 build/browser/src/actions/dispatch.js: 7m_jmjjC
 build/browser/src/actions/description.js: Oismn_71
 build/browser/src/event/prevent.js: CWgiJR6N
@@ -51,3 +51,6 @@ build/browser/src/actions/name.js: gECmlspw
 build/browser/src/actions/closest.js: dLDEVgvB
 build/browser/src/actions/parent.js: 16aLJNPF
 build/browser/src/initialize/toggle.js: QF26-Pec
+build/browser/src/initialize/keypress.js: WS1-EdE6
+build/browser/src/initialize/keyboard.js: sXvdw--o
+build/browser/src/initialize/input.js: qZ1G5aUN
