@@ -1,4 +1,4 @@
-import { Observable } from "object-observer"
+import { Observable } from "@gullerya/object-observer"
 import { curry, flow } from "@dashkite/joy/function"
 import { read  } from "@dashkite/katana/async"
 import { peek } from "@dashkite/katana/sync"
@@ -12,6 +12,7 @@ _observe = curry ( name, handler, handle ) ->
 
 observe = ( name, fx ) ->
   peek _observe name, flow [
+    read "handle"
     read "data"
     flow fx
   ]

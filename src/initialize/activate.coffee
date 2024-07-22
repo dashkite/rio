@@ -1,4 +1,4 @@
-import { Daisho } from "@dashkite/katana"
+import { read } from "@dashkite/katana/async"
 import { peek } from "@dashkite/katana/sync"
 import { curry, flow } from "@dashkite/joy/function"
 
@@ -13,17 +13,14 @@ debounce = ( ms, f ) ->
         last = current
         f args...
 
-_activate = curry ( handler, handle ) ->
-  _handler = debounce tolerance, ->
-    handler Daisho.create { handle }
-  _callback = ( events ) ->
-    for event in events  
-      if event.isIntersecting
-        do _handler
-        return
-  observer = new IntersectionObserver _callback
-  observer.observe handle.dom
+intersects = ( event ) -> event.isIntersecting
 
-activate = ( fx ) -> peek _activate flow fx
+activate = ( fx ) ->
+  f = flow [( read "handle"), fx... ]
+  peek ( handle ) ->
+    handler = debounce tolerance, -> f { handle }
+    observer = new IntersectionObserver ( events ) ->
+      do handler if ( events.find intersects )?        
+    observer.observe handle.dom
 
 export { activate }

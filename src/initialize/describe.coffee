@@ -5,16 +5,14 @@ import { isEmpty } from "@dashkite/joy/value"
 
 updates = ( record ) -> /^data\-/.test record.attributeName
 
-_describe = curry ( handler, handle ) ->
-  _handler = ->
-    description = { handle.dom.dataset... }
-    handler Daisho.create [ description ], { handle }
-  observer = new MutationObserver ( list ) ->
-    do _handler if ( list.find updates )?
-  observer.observe handle.dom, attributes: true
-  do _handler
-  return
+prepare = ( handle ) -> 
+  Daisho.create [{ handle.dom.dataset... }, handle ], { handle }
 
-describe = ( fx ) -> peek _describe flow fx
+describe = ( fx ) ->
+  handler = flow fx
+  peek ( handle ) ->
+    observer = new MutationObserver ( list ) -> 
+      ( handler prepare handle ) if ( list.find updates )?
+    observer.observe handle.dom, attributes: true
 
 export { describe }
