@@ -2,7 +2,7 @@ build/browser/src/index.js: U0oJiHyT
 build/browser/src/event/intercept.js: MuBF__6E
 build/browser/src/actions/render.js: Szx7R_rR
 build/browser/src/initialize/activate.js: CxVbS6Ga
-build/browser/src/initialize/index.js: cdIjiDug
+build/browser/src/initialize/index.js: cGK3YyJR
 build/browser/src/actions/dispatch.js: 7m_jmjjC
 build/browser/src/actions/description.js: Oismn_71
 build/browser/src/event/prevent.js: CWgiJR6N
@@ -31,13 +31,13 @@ build/browser/src/initialize/capture.js: zG-n_Cae
 build/browser/src/initialize/event.js: i31kv17E
 build/browser/src/initialize/navigate.js: CFFnvESG
 build/browser/src/actions/assign.js: P-oHxL5g
-build/browser/src/event/target.js: mZiEUFVj
+build/browser/src/event/target.js: yYFPvxiv
 build/browser/src/event/index.js: 65z7qK9d
 build/browser/src/actions/copy.js: pXvYs9TV
 build/browser/src/actions/data.js: GJflDgpr
 build/browser/src/actions/attributes.js: lxbrx7lf
 build/browser/src/actions/get.js: 3nqLvgGN
-build/browser/src/actions/index.js: bU55_au8
+build/browser/src/actions/index.js: LM0tl9fr
 build/browser/src/actions/disable.js: V5ZzLfZ4
 build/browser/src/actions/attribute.js: ffWsJOzL
 build/browser/src/actions/form.js: 8OprY6cv
@@ -55,3 +55,7 @@ build/browser/src/initialize/keypress.js: WS1-EdE6
 build/browser/src/initialize/keyboard.js: sXvdw--o
 build/browser/src/initialize/input.js: qZ1G5aUN
 build/browser/src/initialize/sheets.js: tMWCVmlv
+build/browser/src/initialize/dragstart.js: FV-gPFlV
+build/browser/src/initialize/drop.js: NFollY6H
+build/browser/src/initialize/dragover.js: JgOdH1Q-
+build/browser/src/actions/debounce.js: x66E59Vb
