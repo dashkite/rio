@@ -52,7 +52,8 @@ diff = tee ( type ) ->
       get: ->
         await @_tx if @_tx?
         @root.innerHTML
-      set: ( html ) -> @_tx = innerHTML @root, html
+      set: ( html ) -> 
+        @_tx = innerHTML @root, html
   ]
 
 export { diff }

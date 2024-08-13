@@ -2,7 +2,7 @@ build/browser/src/index.js: U0oJiHyT
 build/browser/src/event/intercept.js: MuBF__6E
 build/browser/src/actions/render.js: Szx7R_rR
 build/browser/src/initialize/activate.js: CxVbS6Ga
-build/browser/src/initialize/index.js: jHFXeYd0
+build/browser/src/initialize/index.js: uPrtrANV
 build/browser/src/actions/dispatch.js: 7m_jmjjC
 build/browser/src/actions/description.js: Oismn_71
 build/browser/src/event/prevent.js: CWgiJR6N
@@ -16,17 +16,17 @@ build/browser/src/initialize/observe.js: AhW-30Bj
 build/browser/src/initialize/click.js: 6GTGspIi
 build/browser/src/event/within.js: zNW3F7tK
 build/browser/src/initialize/deactivate.js: BZa3-He0
-build/browser/src/mixins/index.js: Hmk0o43B
+build/browser/src/mixins/index.js: mmsNZXEy
 build/browser/src/mixins/disconnect.js: lSEpub1b
 build/browser/src/handle.js: MYwkh0Tm
 build/browser/src/mixins/tag.js: PCezUeEy
 build/browser/src/initialize/shadow.js: BObsVkt4
 build/browser/src/initialize/invalid.js: _bEqOJTO
-build/browser/src/mixins/initialize.js: DSFdqmO6
+build/browser/src/mixins/initialize.js: KyaP0IuV
 build/browser/src/initialize/modify.js: '-XY25LfG'
 build/browser/src/initialize/mutate.js: oPrxRPs7
 build/browser/src/mixins/connect.js: dK9xzk0y
-build/browser/src/mixins/diff.js: SzuzlUaS
+build/browser/src/mixins/diff.js: 6fAvTzEz
 build/browser/src/initialize/capture.js: zG-n_Cae
 build/browser/src/initialize/event.js: i31kv17E
 build/browser/src/initialize/navigate.js: CFFnvESG
@@ -60,3 +60,6 @@ build/browser/src/initialize/drop.js: NFollY6H
 build/browser/src/initialize/dragover.js: JgOdH1Q-
 build/browser/src/actions/debounce.js: x66E59Vb
 build/browser/src/initialize/dragleave.js: OyRykJfE
+build/browser/src/mixins/field.js: fqRaKRCB
+build/browser/src/initialize/focus.js: xQO-LqSP
+build/browser/src/initialize/focused.js: 6Rk1zwLd
