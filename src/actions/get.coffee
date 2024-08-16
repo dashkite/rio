@@ -7,4 +7,7 @@ get = ( name ) ->
     K.poke ( handle ) -> handle[ name ]
   ]
 
-export { get }
+root = get "root"
+dom = get "dom"
+
+export { get, root, dom }

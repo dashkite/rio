@@ -10,9 +10,9 @@ import { keyup } from "../initialize/input"
 
 properties = Meta.properties 
   value:
-    get: -> ( @shadowRoot.querySelector "input" ).value
+    get: -> ( @shadowRoot.querySelector "input" )?.value
     set: ( value ) ->
-      ( @shadowRoot.querySelector "input" ).value = value
+      ( @shadowRoot.querySelector "input" )?.value = value
       @handle.internals.setFormValue value
   form:
     get: -> @handle.internals.form

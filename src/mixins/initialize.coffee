@@ -13,7 +13,6 @@ initialize = curry rtee ( fx, Type ) ->
   Type::initialize ?= ->
     for handler in Type.initializers
       handler handle: @
-    @dispatch "ready"
 
 
 
