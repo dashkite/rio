@@ -10,4 +10,12 @@ focusin = curry ( selector, fx ) ->
     ]
   ]
 
-export { focusin }
+focusout = curry ( selector, fx ) ->
+  event "focusout", [
+    within selector, [
+      intercept,
+      flow fx
+    ]
+  ]
+
+export { focusin, focusout }
