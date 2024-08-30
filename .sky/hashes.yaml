@@ -23,7 +23,7 @@ build/browser/src/mixins/tag.js: PCezUeEy
 build/browser/src/initialize/shadow.js: 8J8SNtNc
 build/browser/src/initialize/invalid.js: _bEqOJTO
 build/browser/src/mixins/initialize.js: 3lXJ3Feq
-build/browser/src/initialize/modify.js: aMS7MlPZ
+build/browser/src/initialize/modify.js: p8WoFj60
 build/browser/src/initialize/mutate.js: oPrxRPs7
 build/browser/src/mixins/connect.js: dK9xzk0y
 build/browser/src/mixins/diff.js: 6fAvTzEz
@@ -37,7 +37,7 @@ build/browser/src/actions/copy.js: pXvYs9TV
 build/browser/src/actions/data.js: GJflDgpr
 build/browser/src/actions/attributes.js: lxbrx7lf
 build/browser/src/actions/get.js: vgL7TUZ_
-build/browser/src/actions/index.js: zxgG0yz-
+build/browser/src/actions/index.js: N2dbfRxc
 build/browser/src/actions/disable.js: V5ZzLfZ4
 build/browser/src/actions/attribute.js: ffWsJOzL
 build/browser/src/actions/form.js: 8OprY6cv
@@ -66,3 +66,4 @@ build/browser/src/initialize/focused.js: 6Rk1zwLd
 build/browser/src/initialize/focusin.js: a4DspTDK
 build/browser/src/actions/tag.js: qP75u4kB
 build/browser/src/actions/select.js: PESzaxkq
+build/browser/src/actions/element.js: YfcR775_

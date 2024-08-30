@@ -1,4 +1,5 @@
 import { peek } from "@dashkite/katana/sync"
+import { read } from "@dashkite/katana/async"
 import { curry, flow } from "@dashkite/joy/function"
 
 import { attributes } from "../actions/attributes"
@@ -14,6 +15,12 @@ _modify = curry ( names, handler, handle ) ->
   undefined
 
 modify = ( names, fx ) -> 
-  peek _modify names, flow [ dom, attributes, fx... ]
+  peek _modify names, 
+    flow [
+      read "handle"
+      dom
+      attributes, 
+      fx... 
+    ]
 
 export { modify }
