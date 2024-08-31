@@ -1,10 +1,8 @@
 import * as Fn from "@dashkite/joy/function"
 import * as Meta from "@dashkite/joy/metaclass"
 import * as Ks from "@dashkite/katana/sync"
-import * as K from "@dashkite/katana/async"
 
 import { initialize } from "./initialize"
-import { keyup } from "../initialize/input"
 
 field = do ->
 
