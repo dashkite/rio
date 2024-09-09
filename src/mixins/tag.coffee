@@ -3,6 +3,7 @@ import { curry, rtee } from "@dashkite/joy/function"
 component = curry rtee ( name, Base, Type ) ->
   Type.Element = class extends Base
     constructor: ->
+      console.log "creating new instance of #{ name }"
       super()
       @handle = new Type @
       @handle.initialize?()
