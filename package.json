@@ -30,7 +30,7 @@
     "build": "genie build"
   },
   "dependencies": {
-    "@dashkite/joy": "^0.3.16",
+    "@dashkite/joy": "link:../joy",
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "link:../stylist",
     "@gullerya/object-observer": "^6.1.3",
