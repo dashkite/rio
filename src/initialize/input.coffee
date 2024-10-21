@@ -14,5 +14,7 @@ make = ( name ) ->
 keyup = make "keyup"
 keydown = make "keydown"
 input = make "input"
+mouseup = make "mouseup"
+mousedown = make "mousedown"
 
-export { keyup, keydown, input }
+export { keyup, keydown, input, mouseup, mousedown }
