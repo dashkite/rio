@@ -30,6 +30,7 @@
     "build": "genie build"
   },
   "dependencies": {
+    "@dashkite/dominator": "link:../dominator",
     "@dashkite/joy": "link:../joy",
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "link:../stylist",

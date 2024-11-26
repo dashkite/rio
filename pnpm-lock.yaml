@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@dashkite/dominator':
+        specifier: link:../dominator
+        version: link:../dominator
       '@dashkite/joy':
         specifier: link:../joy
         version: link:../joy
