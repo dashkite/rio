@@ -14,6 +14,4 @@ initialize = curry rtee ( fx, Type ) ->
     for handler in Type.initializers
       handler handle: @
 
-
-
 export { initialize }
