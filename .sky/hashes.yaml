@@ -14,14 +14,14 @@ build/browser/src/event/stop.js: UJsZuiDz
 build/browser/src/initialize/dragstart.js: FV-gPFlV
 build/browser/src/initialize/dblclick.js: 46ooSfHt
 build/browser/src/initialize/dragleave.js: OyRykJfE
-build/browser/src/actions/set.js: oBayaVHl
+build/browser/src/actions/set.js: 2KMcZ3hC
 build/browser/src/initialize/navigate.js: CFFnvESG
 build/browser/src/actions/copy.js: pXvYs9TV
 build/browser/src/actions/element.js: YfcR775_
 build/browser/src/handle.js: MYwkh0Tm
 build/browser/src/actions/index.js: buQrh1Bq
 build/browser/src/initialize/describe.js: SceP7UEj
-build/browser/src/initialize/index.js: tEBgMdLu
+build/browser/src/initialize/index.js: aebCYDt3
 build/browser/src/initialize/input.js: 2C3GLWoK
 build/browser/src/initialize/modify.js: p8WoFj60
 build/browser/src/actions/attributes.js: lxbrx7lf
@@ -48,7 +48,7 @@ build/browser/src/mixins/connect.js: wEBwP-zF
 build/browser/src/actions/disable.js: V5ZzLfZ4
 build/browser/src/mixins/tag.js: PCezUeEy
 build/browser/src/actions/dispatch.js: 7m_jmjjC
-build/browser/src/index.js: U0oJiHyT
+build/browser/src/index.js: RQ4WRc1Q
 build/browser/src/mixins/index.js: mmsNZXEy
 build/browser/src/actions/form.js: 8OprY6cv
 build/browser/src/mixins/initialize.js: YAIRNkAa
@@ -61,3 +61,5 @@ build/browser/src/event/intercept.js: MuBF__6E
 build/browser/src/actions/attribute.js: ffWsJOzL
 build/browser/src/actions/assign.js: P-oHxL5g
 build/browser/src/actions/reflect.js: I9XQBj7l
+build/browser/src/dataset.js: QbZ1i9Ej
+build/browser/src/modify.js: W1GYOsTw
