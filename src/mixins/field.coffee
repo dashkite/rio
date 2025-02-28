@@ -26,6 +26,7 @@ field = do ->
       get: -> @handle.internals.willValidate
 
   methods = Meta.methods
+    setValidity: ( args...) -> @handle.internals.setValidity args...
     checkValidity: -> do @handle.internals.checkValidity
     reportValidity: -> do @handle.internals.reportValidity
 
