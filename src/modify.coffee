@@ -1,6 +1,6 @@
 import * as K from "@dashkite/katana/sync"
 import * as Fn from "@dashkite/joy/function"
-import DOM from "@dashkite/dominator"
+import * as DOM from "@dashkite/dominator"
 
 _modify = ( attributes, handler ) ->
   ( handle ) ->
@@ -11,6 +11,10 @@ _modify = ( attributes, handler ) ->
     undefined    
 
 modify = ( attributes, fx ) ->
-  K.peek _modify attributes, Fn.flow fx
+  K.peek _modify attributes, Fn.pipe [
+    K.read "handle"
+    K.push ( handle ) -> handle.dom
+    fx...
+  ]
 
 export { modify }
