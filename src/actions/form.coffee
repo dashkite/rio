@@ -1,7 +1,6 @@
 import { pipe, tee } from "@dashkite/joy/function"
 import { poke, pop, read, write } from "@dashkite/katana/sync"
 
-# TODO this does not handle form inputs that have multiple values
 _form = ( handle ) ->
   
   if ( form = handle.root.querySelector "form" )?

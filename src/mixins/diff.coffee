@@ -5,19 +5,6 @@ import { mixin, property } from "@dashkite/joy/metaclass"
 # This hook provides us a way to flag an element within a component
 # to be exempt from diffHTML's reconcilation cycle by convention.
 
-# TODO remove or replace this?
-#
-# we originally needed it because we were injecting style elements
-# into the DOM html but we aren't doing that any longer
-#
-# in addition, this may have been incorporated into diffhtml by now
-#
-# import { use } from "diffhtml"
-#
-# use
-#   syncTreeHook: ( oldTree, newTree ) ->
-#     # Ignore style elements.
-#     if oldTree.nodeName == "#document-fragment"
 
 #       append = []
 #       prepend = []
