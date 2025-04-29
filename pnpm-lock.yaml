@@ -57,6 +57,9 @@ importers:
       '@dashkite/mimic':
         specifier: ^0.2.4
         version: 0.2.4
+      '@dashkite/vista':
+        specifier: link:../vista
+        version: link:../vista
 
 packages:
 

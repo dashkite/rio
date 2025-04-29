@@ -47,6 +47,7 @@
     "@dashkite/genie-module": "link:../genie-module",
     "@dashkite/genie-release": "link:../genie-release",
     "@dashkite/genie-watch": "link:../genie-watch",
-    "@dashkite/mimic": "^0.2.4"
+    "@dashkite/mimic": "^0.2.4",
+    "@dashkite/vista": "link:../vista"
   }
 }
