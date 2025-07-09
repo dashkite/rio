@@ -49,17 +49,14 @@ importers:
         specifier: link:../genie-module
         version: link:../genie-module
       '@dashkite/genie-release':
-        specifier: link:../genie-release
-        version: link:../genie-release
+        specifier: ^0.2.0
+        version: 0.2.0
       '@dashkite/genie-watch':
         specifier: link:../genie-watch
         version: link:../genie-watch
       '@dashkite/mimic':
         specifier: ^0.2.4
         version: 0.2.4
-      '@dashkite/vista':
-        specifier: link:../vista
-        version: link:../vista
 
 packages:
 
@@ -71,6 +68,9 @@ packages:
 
   '@dashkite/assert@0.1.4':
     resolution: {integrity: sha512-OLOzI/lA+EwCh6znSexGAG1V4bkaT5gU04xl6ApEluv5jICnHhinZ707MObu+jhVVJ9uHDDlG85O+Afn1aTQoQ==}
+
+  '@dashkite/genie-release@0.2.0':
+    resolution: {integrity: sha512-ySaAzJw7FfpF+lIomBjQm1s8rcrCDl29h6p0Wyaa6Br/FdIFyDbc8CRJKS8BnxMqN5sEN3J/qE/t7QNk7mZMKw==}
 
   '@dashkite/genie@0.8.4':
     resolution: {integrity: sha512-f4c84JoTaIoEvSwwre9lOD4V1/AHMp9prIeiJrD4/hRWiGcO+HYqjzjK7mNA2kfq68K/I3y9F5QYhlaG8QpCYA==}
@@ -88,6 +88,9 @@ packages:
 
   '@dashkite/mimic@0.2.4':
     resolution: {integrity: sha512-qwe8E5DtqrcO1LY1tqpSl4QjvycpAblI6oIpFXRNZu2pAGGPKIrYwTZoil9boT8iUzE1GwGgt7tTnMY91AHksg==}
+
+  '@dashkite/zephyr@0.2.0':
+    resolution: {integrity: sha512-l3Fm9nyOIp1yBnv4IzGOKVgo1/UucU5WLvsqAfcP2jEVlE4AgpPkODssyloxTyC3N+bhcz1DXqC/7KokI1eVjA==}
 
   '@gullerya/object-observer@6.1.3':
     resolution: {integrity: sha512-omJ9YpdZf/QhrzPDGV+75Gbu1Aw3Q6wP8aqNqg1Hvr3BYFh22I43Pf3MOmQHG9qayDZYFiyhZs1LJbUaO1A/YA==}
@@ -509,6 +512,11 @@ packages:
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
 
+  zx@8.6.1:
+    resolution: {integrity: sha512-ig4Gn2e3L9QaQq3OsyDyGKvXFiq7wYvLCPmFJgcneHsr5vTeJefe0SXtDE7qaur9ysv7giAc0CmEtQcS71UA5Q==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+
 snapshots:
 
   '@dashkite/amen-console@0.0.2':
@@ -520,6 +528,11 @@ snapshots:
   '@dashkite/assert@0.1.4':
     dependencies:
       '@dashkite/joy': 0.3.16
+
+  '@dashkite/genie-release@0.2.0':
+    dependencies:
+      '@dashkite/zephyr': 0.2.0
+      zx: 8.6.1
 
   '@dashkite/genie@0.8.4':
     dependencies:
@@ -553,6 +566,11 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@dashkite/zephyr@0.2.0':
+    dependencies:
+      '@dashkite/joy': 0.3.16
+      js-yaml: 4.1.0
 
   '@gullerya/object-observer@6.1.3': {}
 
@@ -954,3 +972,5 @@ snapshots:
     dependencies:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
+
+  zx@8.6.1: {}
