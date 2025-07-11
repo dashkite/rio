@@ -49,8 +49,8 @@ importers:
         specifier: link:../genie-module
         version: link:../genie-module
       '@dashkite/genie-release':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.2.2
+        version: 0.2.2
       '@dashkite/genie-watch':
         specifier: link:../genie-watch
         version: link:../genie-watch
@@ -69,8 +69,8 @@ packages:
   '@dashkite/assert@0.1.4':
     resolution: {integrity: sha512-OLOzI/lA+EwCh6znSexGAG1V4bkaT5gU04xl6ApEluv5jICnHhinZ707MObu+jhVVJ9uHDDlG85O+Afn1aTQoQ==}
 
-  '@dashkite/genie-release@0.2.1':
-    resolution: {integrity: sha512-j4U8WyInBX82JunZPWy6kAFrrY9pd7GnsJbJpEuh/6w8HnHniEa5gRVDALOo9OD+eRclFYcrNFzXiHu54MZs8g==}
+  '@dashkite/genie-release@0.2.2':
+    resolution: {integrity: sha512-4ylNzhFZbqQe1wghFwv3byh2ooBIv0uK/DlXQXvKbGOwVdAYVqCHy0pIQH2eWjc43tclwAVIq/CMKLZDsctlvA==}
 
   '@dashkite/genie@0.8.4':
     resolution: {integrity: sha512-f4c84JoTaIoEvSwwre9lOD4V1/AHMp9prIeiJrD4/hRWiGcO+HYqjzjK7mNA2kfq68K/I3y9F5QYhlaG8QpCYA==}
@@ -529,7 +529,7 @@ snapshots:
     dependencies:
       '@dashkite/joy': 0.3.16
 
-  '@dashkite/genie-release@0.2.1':
+  '@dashkite/genie-release@0.2.2':
     dependencies:
       '@dashkite/zephyr': 0.2.0
       zx: 8.6.1
