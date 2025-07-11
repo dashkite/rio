@@ -27,7 +27,8 @@
   ],
   "scripts": {
     "test": "genie test",
-    "build": "genie build"
+    "build": "genie build",
+    "release": "genie release"
   },
   "dependencies": {
     "@dashkite/dominator": "link:../dominator",
