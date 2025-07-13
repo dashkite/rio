@@ -47,7 +47,7 @@
     "@dashkite/genie-coffee": "0.2.0",
     "@dashkite/genie-module": "link:../genie-module",
     "@dashkite/genie-release": "^0.2.8",
-    "@dashkite/genie-watch": "link:../genie-watch",
+    "@dashkite/genie-watch": "0.2.0",
     "@dashkite/mimic": "^0.2.4"
   }
 }
