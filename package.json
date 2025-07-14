@@ -23,7 +23,8 @@
     }
   },
   "files": [
-    "build/browser/src"
+    "build/browser/src",
+    "build/node/src"
   ],
   "scripts": {
     "test": "genie test",
