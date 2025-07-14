@@ -34,7 +34,7 @@
     "@dashkite/dominator": "link:../dominator",
     "@dashkite/joy": "link:../joy",
     "@dashkite/katana": "^0.4.8",
-    "@dashkite/stylist": "link:../stylist",
+    "@dashkite/stylist": "0.1.0",
     "@gullerya/object-observer": "^6.1.3",
     "diffhtml": "^1.0.0-beta.20"
   },
