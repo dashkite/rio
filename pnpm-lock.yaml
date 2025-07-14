@@ -46,8 +46,8 @@ importers:
         specifier: 0.2.0
         version: 0.2.0
       '@dashkite/genie-release':
-        specifier: ^0.2.9
-        version: 0.2.9
+        specifier: ^0.2.10
+        version: 0.2.10
       '@dashkite/genie-watch':
         specifier: 0.2.0
         version: 0.2.0(@aws-sdk/credential-provider-node@3.529.0)
@@ -873,8 +873,8 @@ packages:
   '@dashkite/genie-coffee@0.2.0':
     resolution: {integrity: sha512-mZBmTYbCkjHUSNGDg6aeGn5aOCJwYJlfh3+NjsycE+q4WBzZHa8tWwODlNQdnRxUT9j3yhvW7aTVWf2xI14DGw==}
 
-  '@dashkite/genie-release@0.2.9':
-    resolution: {integrity: sha512-19tTp419unkzcXsAB1/z7TsqPKQpQB0p7tyYvpyXw51nz+EYxRpo2l+dv2sKsmIH1d3ovu7UFehhW8lJUlZ5CQ==}
+  '@dashkite/genie-release@0.2.10':
+    resolution: {integrity: sha512-8pczG/SY+Nbstl+cIc9s0+tsNewNTyNfi60g7RHvpzxe6Qd2/WUCIfmFqcF39CAUVlAq94+6M29vhDOwPlLk/Q==}
 
   '@dashkite/genie-watch@0.2.0':
     resolution: {integrity: sha512-pBVO5FYJcL4UaTD9ZG4eHaII/sbg6GMt0RCp8HOGwkjI4K8Lu5EZ9YQhe9nkyyUFsvTwnXWNFBlSsOWbEhEeow==}
@@ -4089,7 +4089,7 @@ snapshots:
       - '@swc/helpers'
       - supports-color
 
-  '@dashkite/genie-release@0.2.9':
+  '@dashkite/genie-release@0.2.10':
     dependencies:
       '@dashkite/zephyr': 0.2.0
       zx: 8.6.1
