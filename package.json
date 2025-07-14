@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@dashkite/dominator": "link:../dominator",
-    "@dashkite/joy": "link:../joy",
+    "@dashkite/joy": "0.5.0",
     "@dashkite/katana": "^0.4.8",
     "@dashkite/stylist": "0.1.0",
     "@gullerya/object-observer": "^6.1.3",

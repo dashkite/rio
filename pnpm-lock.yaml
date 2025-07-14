@@ -12,8 +12,8 @@ importers:
         specifier: link:../dominator
         version: link:../dominator
       '@dashkite/joy':
-        specifier: link:../joy
-        version: link:../joy
+        specifier: 0.5.0
+        version: 0.5.0
       '@dashkite/katana':
         specifier: ^0.4.8
         version: 0.4.8
@@ -886,6 +886,9 @@ packages:
 
   '@dashkite/joy@0.3.16':
     resolution: {integrity: sha512-dsU0us4j1Pb+zceoBvLbnZ2PbmULkJUtM2vtWLxKmoc1DE4w9SVTiPTe6JWvF0A0vk90ldv+Lc9qEA5x3O+DtQ==}
+
+  '@dashkite/joy@0.5.0':
+    resolution: {integrity: sha512-kaDNKKS6v5r3vukOkh54aarrhiTHwbcKZZW8eDav5FhT6u8RRrmSaFeAbwLzGntdPScaEhqg/PLrvtPHOy9OlQ==}
 
   '@dashkite/kaiko@0.3.3':
     resolution: {integrity: sha512-XnAvVr9y2MsDqMLr4A24vkLF7Iuq3E8RjHEEpqhe29P5NevVX9jXKcXUStNMp9MSJbjHd2pqUNiM5Vvdja9ggg==}
@@ -4117,6 +4120,8 @@ snapshots:
       - '@swc/helpers'
 
   '@dashkite/joy@0.3.16': {}
+
+  '@dashkite/joy@0.5.0': {}
 
   '@dashkite/kaiko@0.3.3': {}
 
