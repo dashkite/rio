@@ -33,21 +33,21 @@
   },
   "dependencies": {
     "@dashkite/dominator": "link:../dominator",
-    "@dashkite/joy": "0.5.0",
+    "@dashkite/joy": "0.7.0",
     "@dashkite/katana": "^0.4.8",
-    "@dashkite/stylist": "0.1.0",
+    "@dashkite/stylist": "0.3.0",
     "@gullerya/object-observer": "^6.1.3",
     "diffhtml": "^1.0.0-beta.20"
   },
   "devDependencies": {
-    "@dashkite/amen": "^0.2.0",
-    "@dashkite/amen-console": "^0.0.2",
-    "@dashkite/assert": "^0.1.4",
-    "@dashkite/genie": "^0.8.4",
-    "@dashkite/genie-clean": "0.2.0",
-    "@dashkite/genie-coffee": "0.2.0",
+    "@dashkite/amen": "^0.5.0",
+    "@dashkite/amen-console": "^0.4.0",
+    "@dashkite/assert": "^0.3.0",
+    "@dashkite/genie": "^0.16.0",
+    "@dashkite/genie-clean": "0.9.0",
+    "@dashkite/genie-coffee": "0.9.0",
     "@dashkite/genie-release": "^0.2.10",
-    "@dashkite/genie-watch": "0.2.0",
+    "@dashkite/genie-watch": "0.5.0",
     "@dashkite/mimic": "^0.2.4"
   }
 }
