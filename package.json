@@ -43,9 +43,10 @@
     "@dashkite/amen": "^0.2.0",
     "@dashkite/amen-console": "^0.0.2",
     "@dashkite/assert": "^0.1.4",
-    "@dashkite/genie": "^0.5.11",
+    "@dashkite/genie": "^0.20.0",
+    "@dashkite/genie-clean": "^0.13.0",
+    "@dashkite/genie-coffee": "^0.13.0",
     "@dashkite/genie-module": "^0.5.0",
-    "@dashkite/genie-presets": "^0.6.2",
     "@dashkite/genie-release": "^0.2.14",
     "@dashkite/mimic": "^0.2.4",
     "coffeescript": "^2.7.0"
