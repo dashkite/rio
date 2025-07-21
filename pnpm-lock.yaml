@@ -36,9 +36,9 @@ importers:
       '@dashkite/genie':
         specifier: ^0.5.11
         version: 0.5.11
-      '@dashkite/genie-modules':
-        specifier: link:../genie-modules
-        version: link:../genie-modules
+      '@dashkite/genie-module':
+        specifier: ^0.5.0
+        version: 0.5.0
       '@dashkite/genie-presets':
         specifier: ^0.6.2
         version: 0.6.4(encoding@0.1.13)
@@ -611,6 +611,9 @@ packages:
 
   '@dashkite/atlas@0.6.1':
     resolution: {integrity: sha512-5l/fLMHd5QsBiNxAaqw4ibS+Grdma0GlesaRtiUQwywtr3XMVeGHcNfEczLjgnesCDh02GuyzmlMaApoJecp6A==}
+
+  '@dashkite/genie-module@0.5.0':
+    resolution: {integrity: sha512-8EQardWTVidCRgyzfEm+bt7ZZ8qUOj12Yu1atbF1okBl2oCwA0kPlFvy7DKOLEY8pC81Di3ff8NSMzpL8DSWHw==}
 
   '@dashkite/genie-presets@0.6.4':
     resolution: {integrity: sha512-D97FVPYc0ersBOAWLOaY0bS9O/dvoDr10SB2mq63qM08bjopQJsPH+rZ/ienLCWpONFpa83B3274Xjz9wXSw5A==}
@@ -3510,6 +3513,8 @@ snapshots:
       semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
+
+  '@dashkite/genie-module@0.5.0': {}
 
   '@dashkite/genie-presets@0.6.4(encoding@0.1.13)':
     dependencies:
