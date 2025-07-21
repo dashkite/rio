@@ -29,7 +29,8 @@
   ],
   "scripts": {
     "test": "genie test",
-    "build": "genie build"
+    "build": "genie build",
+    "release": "genie release"
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
@@ -45,6 +46,7 @@
     "@dashkite/genie": "^0.5.11",
     "@dashkite/genie-modules": "link:../genie-modules",
     "@dashkite/genie-presets": "^0.6.2",
+    "@dashkite/genie-release": "^0.2.14",
     "@dashkite/mimic": "^0.2.4",
     "coffeescript": "^2.7.0"
   }
