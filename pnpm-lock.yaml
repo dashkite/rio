@@ -46,8 +46,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       '@dashkite/genie-release':
-        specifier: ^0.2.14
-        version: 0.2.14
+        specifier: ^0.3.0
+        version: 0.3.0
       '@dashkite/mimic':
         specifier: ^0.2.4
         version: 0.2.4
@@ -622,8 +622,8 @@ packages:
   '@dashkite/genie-module@0.5.0':
     resolution: {integrity: sha512-8EQardWTVidCRgyzfEm+bt7ZZ8qUOj12Yu1atbF1okBl2oCwA0kPlFvy7DKOLEY8pC81Di3ff8NSMzpL8DSWHw==}
 
-  '@dashkite/genie-release@0.2.14':
-    resolution: {integrity: sha512-nCl/031ZlxwIXC6ThX7xv1HBKo4GVxesKU2d3PcWDrXe7heXGC7bjmxmS3ZVqhH9zXV7T+bDOsDWOOUMH2wciA==}
+  '@dashkite/genie-release@0.3.0':
+    resolution: {integrity: sha512-8qY2sQvlHNvv0eFK9SlA92ltyO3dsq8+1zso+G8reVsgNNDUCbSCSu5jT0FY+sqU6pY9r+U2pznY5yIALcjdlg==}
 
   '@dashkite/genie@0.20.0':
     resolution: {integrity: sha512-gt/qqGMzi5v1RlPT0e85P2PY/RUQKIYGTRuZE+82CctIV8Z4q8NIEsujANIUyNKSu/CqkUA7k89iO7aEihZp7Q==}
@@ -659,6 +659,12 @@ packages:
 
   '@dashkite/zephyr@0.12.1':
     resolution: {integrity: sha512-84wSTbmFpI+tydtzTkMT6FS5ybnNaL4V40fA2c235/UPx/Whg3NRr6BaVLW53+v+bHL6fDbttCTZNNLEtzTxPw==}
+
+  '@deno/shim-deno-test@0.5.0':
+    resolution: {integrity: sha512-4nMhecpGlPi0cSzT67L+Tm+GOJqvuk8gqHBziqcUQOarnuIax1z96/gJHCSIz2Z0zhxE6Rzwb3IZXPtFh51j+w==}
+
+  '@deno/shim-deno@0.19.2':
+    resolution: {integrity: sha512-q3VTHl44ad8T2Tw2SpeAvghdGOjlnLPDNO2cpOxwMrBE/PVas6geWpbpIgrM+czOCH0yejp0yi8OaTuB+NU40Q==}
 
   '@eslint-community/eslint-utils@4.7.0':
     resolution: {integrity: sha512-dyybb3AcajC7uha6CvhdVRJqaKyn7w2YKqKyAN37NKYgZT36w+iRb0Dymmc5qEJ549c/S31cMMSFd75bteCpCw==}
@@ -715,6 +721,61 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@oven/bun-darwin-aarch64@1.2.19':
+    resolution: {integrity: sha512-pJBuez9gwR03Wjtk4hSSBA6QgNdhvPLbrxU4DDzVY8Ee+Q67xNkU0CMK6rFdQF8Qetj2R+Vf8AJDlwAc1QdG1w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@oven/bun-darwin-x64-baseline@1.2.19':
+    resolution: {integrity: sha512-fOqbLeP3MoSbeosykTp1+BYSKDJxdjWKyxbPqHTJK2Mnt78+LPTE2yQbCzUL5LBLSRVkIxbTyIcEZxVg3eJmYg==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oven/bun-darwin-x64@1.2.19':
+    resolution: {integrity: sha512-dsgmgDOG++JsQ3wXEyTiUzhT/4wqcnAxfCQOPho6LgosVUPs6etn01uA1yCySjSk8DrugQIivXB2TaqoOrhKJg==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oven/bun-linux-aarch64-musl@1.2.19':
+    resolution: {integrity: sha512-awB1ZEh7AbxXGemT/d33F6F4bwClWSFjhcatrweG5o5gh16c4pBKTldg/TUY9EEFrQJVyYQklgl/D919GDLTFA==}
+    cpu: [aarch64]
+    os: [linux]
+
+  '@oven/bun-linux-aarch64@1.2.19':
+    resolution: {integrity: sha512-G4WYbvpfrR5dLBZQoNmYzt8DBguMpPeCz6feU3Qv9E6NmA3xiqyItyDAVgDJrllPk6hvbMi9dYNxXn0NVTjMfw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oven/bun-linux-x64-baseline@1.2.19':
+    resolution: {integrity: sha512-gMp1J9fZ1eOrCM0jQblCWRMiU9t3a+wyyHtb0DdHVZpgSdGJ5UpWATfTYFUbmckgVfCJ6Qo8YSMcmtxRtPYgww==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-linux-x64-musl-baseline@1.2.19':
+    resolution: {integrity: sha512-9NkUMndXwSyDiDOwCtYoxdXIqg+f30dVm0FwZOUJp8SSuhx8Vaadc5gzzC+A8cGie/IwVchWzJw+mWLStAM8HQ==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-linux-x64-musl@1.2.19':
+    resolution: {integrity: sha512-nUBP55pR8hpAZ9omKxkX1SmyEPcTL/ZMgnirC3BdFAec99uqijq8XEWWfSDAmpI8D428vjIhbafArmbutRR1VQ==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-linux-x64@1.2.19':
+    resolution: {integrity: sha512-vGhkEtcaPQjizoVAo+1hsVTixarOWxVgwbYZHgoi/pGGIdWWBGNlWnIUQirOv8JVtCMnzkYqrPMHR3EqSvQoFg==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oven/bun-windows-x64-baseline@1.2.19':
+    resolution: {integrity: sha512-OiD1xoVQuj8JHbrDqCQE3sU5r8VIaB9cCDym7BTnnMQLYzZxYEWWvBub8fc/yK7ctuoAS6V+p74Qda6RhDRHpg==}
+    cpu: [x64]
+    os: [win32]
+
+  '@oven/bun-windows-x64@1.2.19':
+    resolution: {integrity: sha512-5OIPUl8fKT/tpxX6pOJUfoAR32k9YdmXbte0zwahIVhyjCyFh0HKQHbfSeJZYV2AzVWbnELszDLRRLnzVbzYSQ==}
+    cpu: [x64]
+    os: [win32]
 
   '@swc/core-darwin-arm64@1.13.1':
     resolution: {integrity: sha512-zO6SW/jSMTUORPm6dUZFPUwf+EFWZsaXWMGXadRG6akCofYpoQb8pcY2QZkVr43z8TMka6BtXpyoD/DJ0iOPHQ==}
@@ -881,6 +942,12 @@ packages:
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
+  bun@1.2.19:
+    resolution: {integrity: sha512-P70KUfH9cvgcl8Hjvamr98NinEatV23yX6qaY7z1+3rBPdds0oVX0u6FfrYnWc8F3ayFQ4do6/6xBLWY4itJkQ==}
+    cpu: [arm64, x64, aarch64]
+    os: [darwin, linux, win32]
+    hasBin: true
+
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
@@ -927,6 +994,9 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
+
+  dax-sh@0.43.2:
+    resolution: {integrity: sha512-uULa1sSIHgXKGCqJ/pA0zsnzbHlVnuq7g8O2fkHokWFNwEGIhh5lAJlxZa1POG5En5ba7AU4KcBAvGQWMMf8rg==}
 
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
@@ -1177,6 +1247,10 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  isexe@3.1.1:
+    resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
+    engines: {node: '>=16'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -1505,6 +1579,9 @@ packages:
   unbzip2-stream@1.3.3:
     resolution: {integrity: sha512-fUlAF7U9Ah1Q6EieQ4x4zLNejrRvDWUYmxXUpN3uziFYCHapjWFaCAnreY9bGgxzaMCFAPPpYNng57CypwJVhg==}
 
+  undici-types@5.28.4:
+    resolution: {integrity: sha512-3OeMF5Lyowe8VW0skf5qaIE7Or3yS9LS7fvMUI0gg4YxpIBVg0L8BxCmROw2CcYhSkpR68Epz7CGc8MPj94Uww==}
+
   undici-types@7.8.0:
     resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
 
@@ -1545,6 +1622,11 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
+  which@4.0.0:
+    resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
+    engines: {node: ^16.13.0 || >=18.0.0}
+    hasBin: true
+
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
@@ -1573,11 +1655,6 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  zx@8.7.1:
-    resolution: {integrity: sha512-28u1w2LlIfvyvJvYe6pmCipesk8oL5AFMVp+P/U445LcaPgzrU5lNDtAPd6nJvWmoCNyXZz37R/xKOGokccjsw==}
-    engines: {node: '>= 12.17.0'}
-    hasBin: true
 
 snapshots:
 
@@ -2333,10 +2410,11 @@ snapshots:
 
   '@dashkite/genie-module@0.5.0': {}
 
-  '@dashkite/genie-release@0.2.14':
+  '@dashkite/genie-release@0.3.0':
     dependencies:
       '@dashkite/zephyr': 0.12.1
-      zx: 8.7.1
+      bun: 1.2.19
+      dax-sh: 0.43.2
 
   '@dashkite/genie@0.20.0':
     dependencies:
@@ -2405,6 +2483,13 @@ snapshots:
       '@dashkite/joy': 0.7.0
       js-yaml: 4.1.0
 
+  '@deno/shim-deno-test@0.5.0': {}
+
+  '@deno/shim-deno@0.19.2':
+    dependencies:
+      '@deno/shim-deno-test': 0.5.0
+      which: 4.0.0
+
   '@eslint-community/eslint-utils@4.7.0(eslint@8.57.1)':
     dependencies:
       eslint: 8.57.1
@@ -2465,6 +2550,39 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
+
+  '@oven/bun-darwin-aarch64@1.2.19':
+    optional: true
+
+  '@oven/bun-darwin-x64-baseline@1.2.19':
+    optional: true
+
+  '@oven/bun-darwin-x64@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-aarch64-musl@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-aarch64@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-x64-baseline@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-x64-musl-baseline@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-x64-musl@1.2.19':
+    optional: true
+
+  '@oven/bun-linux-x64@1.2.19':
+    optional: true
+
+  '@oven/bun-windows-x64-baseline@1.2.19':
+    optional: true
+
+  '@oven/bun-windows-x64@1.2.19':
+    optional: true
 
   '@swc/core-darwin-arm64@1.13.1':
     optional: true
@@ -2623,6 +2741,20 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
+  bun@1.2.19:
+    optionalDependencies:
+      '@oven/bun-darwin-aarch64': 1.2.19
+      '@oven/bun-darwin-x64': 1.2.19
+      '@oven/bun-darwin-x64-baseline': 1.2.19
+      '@oven/bun-linux-aarch64': 1.2.19
+      '@oven/bun-linux-aarch64-musl': 1.2.19
+      '@oven/bun-linux-x64': 1.2.19
+      '@oven/bun-linux-x64-baseline': 1.2.19
+      '@oven/bun-linux-x64-musl': 1.2.19
+      '@oven/bun-linux-x64-musl-baseline': 1.2.19
+      '@oven/bun-windows-x64': 1.2.19
+      '@oven/bun-windows-x64-baseline': 1.2.19
+
   callsites@3.1.0: {}
 
   caniuse-lite@1.0.30001727: {}
@@ -2669,6 +2801,11 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  dax-sh@0.43.2:
+    dependencies:
+      '@deno/shim-deno': 0.19.2
+      undici-types: 5.28.4
 
   dayjs@1.11.13: {}
 
@@ -2934,6 +3071,8 @@ snapshots:
   is-stream@2.0.1: {}
 
   isexe@2.0.0: {}
+
+  isexe@3.1.1: {}
 
   js-tokens@4.0.0: {}
 
@@ -3236,6 +3375,8 @@ snapshots:
       buffer: 5.7.1
       through: 2.3.8
 
+  undici-types@5.28.4: {}
+
   undici-types@7.8.0:
     optional: true
 
@@ -3268,6 +3409,10 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
+  which@4.0.0:
+    dependencies:
+      isexe: 3.1.1
+
   word-wrap@1.2.5: {}
 
   wrappy@1.0.2: {}
@@ -3282,5 +3427,3 @@ snapshots:
       fd-slicer: 1.1.0
 
   yocto-queue@0.1.0: {}
-
-  zx@8.7.1: {}
