@@ -1,40 +1,5 @@
-presets:
-  verify: null
-  update: null
-  release: null
-  esm: null
-  coffeescript:
-    targets:
-      browser:
-        - preset: browser
-          glob:
-            - src/**/*.coffee
-        - preset: browser
-          glob:
-            - test/client/**/*.coffee
-          options:
-            mode: debug
-        - preset: node
-          glob:
-            - test/**/*.coffee
-            - '!test/client/**/*.coffee'
-  pug:
-    targets:
-      test:
-        - preset: render
-          glob: test/client/index.pug
-          document: true
-          options:
-            import-map:
-              '@dashkite/amen': latest
-              '@dashkite/assert': latest
-  browser:
-    fallback: ./build/browser/test/client/index.html
-    logging: false
-    esm:
-      directories:
-        - .
-        - ..
-  keywords: null
+# TODO update genie configuration
 
-modules: {}
+coffee:
+  targets:
+    - browser
