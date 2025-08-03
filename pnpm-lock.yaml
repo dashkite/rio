@@ -46,8 +46,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3(@aws-sdk/credential-provider-node@3.529.0)
       '@dashkite/genie-release':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.4.2
+        version: 0.4.2
       '@dashkite/mimic':
         specifier: ^0.2.4
         version: 0.2.4
@@ -909,8 +909,8 @@ packages:
   '@dashkite/genie-publish@0.5.0':
     resolution: {integrity: sha512-GZx1azILb9ihyYyYugsEea0V5vKdgKDhFhXKFQQG1JcpN8FC5n4x+41Ik0k3BRMXGvX8RMmYRd4R8rgpQT/bbA==}
 
-  '@dashkite/genie-release@0.4.1':
-    resolution: {integrity: sha512-VbcmOa7MpQr9Vw7DDLLHU1dtAR6W31oQLeSh+MwYZ4JvMcCSv4oXWDE30kEmLNH84FhPQQNWK8nyBxXkJq8PJg==}
+  '@dashkite/genie-release@0.4.2':
+    resolution: {integrity: sha512-h25ymrsMLDfwIQszfA6DzmXwWnW1YpZ5gHypk7lSRdDHXRcmBWwBV8KJoqhh4ti6mCZqggV2TkRCEGYGge+myQ==}
 
   '@dashkite/genie@0.20.4':
     resolution: {integrity: sha512-P/OY+ZcyuJmUDcDDfTNAw6bO72CqMYhSvhAX2O80Z+W3XmWB8S/SZ0XpjO5SgV+2edukkCw/yqq61610taDOrA==}
@@ -4399,7 +4399,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@dashkite/genie-release@0.4.1':
+  '@dashkite/genie-release@0.4.2':
     dependencies:
       '@dashkite/zephyr': 0.12.1
       dax-sh: 0.43.2
