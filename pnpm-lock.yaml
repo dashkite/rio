@@ -34,14 +34,14 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4
       '@dashkite/genie':
-        specifier: ^0.20.7
-        version: 0.20.7
+        specifier: ^0.20.8
+        version: 0.20.8
       '@dashkite/genie-clean':
-        specifier: ^0.13.3
-        version: 0.13.3
+        specifier: ^0.13.4
+        version: 0.13.4
       '@dashkite/genie-coffee':
-        specifier: ^0.13.3
-        version: 0.13.3
+        specifier: ^0.13.5
+        version: 0.13.5
       '@dashkite/genie-module':
         specifier: ^0.5.4
         version: 0.5.4(@aws-sdk/credential-provider-node@3.529.0)
@@ -891,11 +891,11 @@ packages:
   '@dashkite/drn@0.4.0':
     resolution: {integrity: sha512-Y8/3n9hLi4ChPMnWXI8OFYhNmFJ7k77C8jaTnqXMNMlXZNa+25RU0vjc//jmEUGSP44amoLUf7EwF1M+kSkuyw==}
 
-  '@dashkite/genie-clean@0.13.3':
-    resolution: {integrity: sha512-976xZrJv6d74gWJ6kr20/foOXag8gUMXepqciUbrD44gaQ0xCNv1hijTsMfZ8nJi3dSEB7u5fnOfLsyHlDQypQ==}
+  '@dashkite/genie-clean@0.13.4':
+    resolution: {integrity: sha512-y3B+naYJrMfRR22EYAJtoXJuwBEO+Z3KtMQCmyqTIO41niy3JXi0RWyh2jkvQFrBkStJUc/Flv3pIT9D0AdDrg==}
 
-  '@dashkite/genie-coffee@0.13.3':
-    resolution: {integrity: sha512-XA7/5XdPghEKHtdRKOk97YFjwsKcFRQoiJwne/+VVLAYhVgYTAUFePJ53/nPHzQ6jO7zUeyaa7f/yKnq6DqMrA==}
+  '@dashkite/genie-coffee@0.13.5':
+    resolution: {integrity: sha512-b0nEzueweLKbuHkfkJy4lI05tcclvohq3xqQIE3A+yq/fNtb7Z/YO75aK8ptfQj+njLAcjMAJfGebYJKHtGmYw==}
 
   '@dashkite/genie-drn@0.12.3':
     resolution: {integrity: sha512-BxFdE3ZAO6ITn4KWJOUXd6eaqZrs1JEPsY9OWN1PY/nZnGLMvv4O6t0Cus9bqUoPkgNICQFnbQCmIp5+gc85Rg==}
@@ -909,8 +909,8 @@ packages:
   '@dashkite/genie-release@0.4.3':
     resolution: {integrity: sha512-9qqf7L80jmrRDPw0vhb475ed3hMDPWU782pH0bos4DdjyyObVHZePf26tgaeO9YSaFu4UC/RURxKKh+XmlqOIw==}
 
-  '@dashkite/genie@0.20.7':
-    resolution: {integrity: sha512-jbLlY1/1A0UWx1r0z5RJEJIkIkcOvd3CAh1AmKFeZC2ydS0L3p2r388K6X1PrRlJkOa+pJkiupD426HaJXFShg==}
+  '@dashkite/genie@0.20.8':
+    resolution: {integrity: sha512-zpKtzW1hIjAOQvCr+92FlKhbHZTqLYyiumLAl8R+tX4BkmBcarhEccaGBsq0it023afAYzChLrg6r4Cduunanw==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -4263,13 +4263,13 @@ snapshots:
       execa: 5.1.1
       js-yaml: 4.1.0
 
-  '@dashkite/genie-clean@0.13.3':
+  '@dashkite/genie-clean@0.13.4':
     dependencies:
       '@dashkite/masonry': 0.21.0
     transitivePeerDependencies:
       - supports-color
 
-  '@dashkite/genie-coffee@0.13.3':
+  '@dashkite/genie-coffee@0.13.5':
     dependencies:
       '@dashkite/masonry': 0.21.0
       '@dashkite/masonry-coffee': 0.10.0
@@ -4321,7 +4321,7 @@ snapshots:
       '@dashkite/zephyr': 0.12.1
       dax-sh: 0.43.2
 
-  '@dashkite/genie@0.20.7':
+  '@dashkite/genie@0.20.8':
     dependencies:
       '@dashkite/joy': 0.7.0
       '@dashkite/kaiko': 0.3.3
