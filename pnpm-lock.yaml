@@ -43,8 +43,8 @@ importers:
         specifier: ^0.13.6
         version: 0.13.6
       '@dashkite/genie-module':
-        specifier: ^0.5.13
-        version: 0.5.13(@aws-sdk/credential-provider-node@3.529.0)
+        specifier: ^0.5.15
+        version: 0.5.15(@aws-sdk/credential-provider-node@3.529.0)
       '@dashkite/genie-release':
         specifier: ^0.4.3
         version: 0.4.3
@@ -894,8 +894,8 @@ packages:
   '@dashkite/genie-drn@0.12.10':
     resolution: {integrity: sha512-ofxxMCVDzl5LOW3LMTBe+5xE2lagwD5aoqsFyJlPdeptEy0e3bHWXxR8x2sS4zoJkEcpeESjNaol/nBW4tlRRw==}
 
-  '@dashkite/genie-module@0.5.13':
-    resolution: {integrity: sha512-wGA/Cs1bHjjIKdC9BKiJdzmNf1I47AxuwGudl9XLaf2h7FCFRxydMqNy7CdC6tRyUG0oca9Xd+TVxXuDl/eRKQ==}
+  '@dashkite/genie-module@0.5.15':
+    resolution: {integrity: sha512-/PbhSPxm7wCy7oRN7Yk8MQnVmSvCHjOBacUtGhXx714kj2D8jRVFXUWcNhJhuZZWr12uAqJgSTwovCcdNMBCWw==}
 
   '@dashkite/genie-publish@0.9.9':
     resolution: {integrity: sha512-OK7AJpcTp7B7+juC37rJJEP+cz9Hel3KdFufic8kK5EcB+ggnCx9ivMv5++iDeR/ND03ym0txaL+/ukuE0ms2g==}
@@ -4249,7 +4249,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@dashkite/genie-module@0.5.13(@aws-sdk/credential-provider-node@3.529.0)':
+  '@dashkite/genie-module@0.5.15(@aws-sdk/credential-provider-node@3.529.0)':
     dependencies:
       '@dashkite/drn-sky': 0.8.8(@aws-sdk/credential-provider-node@3.529.0)
       '@dashkite/genie-drn': 0.12.10
