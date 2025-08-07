@@ -1,6 +1,6 @@
 {
   "name": "@dashkite/rio",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "A lightweight library for building Web Components",
   "keywords": [
     "coffeescript",
