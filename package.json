@@ -46,7 +46,7 @@
     "@dashkite/genie": "^0.20.13",
     "@dashkite/genie-clean": "^0.13.11",
     "@dashkite/genie-coffee": "^0.13.13",
-    "@dashkite/genie-module": "^0.5.38",
+    "@dashkite/genie-module": "^0.5.40",
     "@dashkite/genie-release": "^0.5.0",
     "@dashkite/mimic": "^0.2.4",
     "coffeescript": "^2.7.0"
