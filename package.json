@@ -43,11 +43,11 @@
     "@dashkite/amen": "^0.2.2",
     "@dashkite/amen-console": "^0.0.2",
     "@dashkite/assert": "^0.1.4",
-    "@dashkite/genie": "^0.20.22",
-    "@dashkite/genie-clean": "^0.13.21",
-    "@dashkite/genie-coffee": "^0.13.23",
-    "@dashkite/genie-module": "^0.5.51",
-    "@dashkite/genie-release": "^0.5.11",
+    "@dashkite/genie": "^0.20.23",
+    "@dashkite/genie-clean": "^0.13.22",
+    "@dashkite/genie-coffee": "^0.13.24",
+    "@dashkite/genie-module": "^0.5.52",
+    "@dashkite/genie-release": "^0.5.12",
     "@dashkite/mimic": "^0.2.4",
     "coffeescript": "^2.7.0"
   }
